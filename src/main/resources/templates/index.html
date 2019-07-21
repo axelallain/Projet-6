@@ -1,11 +1,99 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
-	<title>Page d'accueil</title>
+	<link rel="icon" type="image/png" href="img/favicon.png" />
+	<title>Les amis de l'escalade</title>
+	<link href="css/index.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+
+	<div id="header">
+		<nav class="navbar navbar-light bg-light fixed-top">
+			<div class="navbarcontent">
+  				<a class="navbar-brand" href="#"><img src="img/logo.png" alt="Logo des amis de l'escalade"></a>
+  				<form class="form-inline text-center">
+    				<input class="form-control mr-sm-1" type="search" placeholder="Recherche" aria-label="Search">
+  				</form>
+  			</div>
+		</nav>
+	</div>
+
+	<div id="container">
+		<div class="jumbotron col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-6 float-md-center">
+  <h1 class="display-4">Bienvenue !</h1>
+  <p class="lead">Rejoins la communauté des Amis de l'escalade pour nous partager tes meilleurs spots, échanger avec des passionnés et louer ce qu'ils proposent pour des sessions inoubliables !</p>
+  <hr class="my-4">
+  <p>Inscription rapide et gratuite.</p>
+  <a class="btn btn-success btn-lg" href="#" role="button">S'inscrire</a>
+  <a class="btn btn-outline-success btn-lg" href="#" role="button">Se connecter</a>
+</div>
+
+		<div class="sidebar">
+			<button type="button" class="btn btn-dark">Accueil</button>
+			<button type="button" class="btn btn-dark">Panel</button>
+			<button type="button" class="btn btn-dark">Spots</button>
+			<button type="button" class="btn btn-dark">Carte</button>
+		</div>
+	</div>
+
+	<div id="content">
+		<div class="card-deck">
+  <div class="card">
+    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
+    <div class="card-body">
+      <h5 class="card-title">Nom du spot</h5>
+      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
+      <p class="card-text"><small class="text-muted">Proposé par Utilisateur le 01/01/2019</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
+    <div class="card-body">
+      <h5 class="card-title">Nom du spot</h5>
+      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
+      <p class="card-text"><small class="text-muted">Mis à jour il y a 3 min</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
+    <div class="card-body">
+      <h5 class="card-title">Nom du spot</h5>
+      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
+      <p class="card-text"><small class="text-muted">Mis à jour il y a 3 min</small></p>
+    </div>
+  </div>
+</div>
+<div class="card-deck">
+  <div class="card">
+    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
+    <div class="card-body">
+      <h5 class="card-title">Nom du spot</h5>
+      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
+      <p class="card-text"><small class="text-muted">Proposé par Utilisateur le 01/01/2019</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
+    <div class="card-body">
+      <h5 class="card-title">Nom du spot</h5>
+      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
+      <p class="card-text"><small class="text-muted">Mis à jour il y a 3 min</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
+    <div class="card-body">
+      <h5 class="card-title">Nom du spot</h5>
+      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
+      <p class="card-text"><small class="text-muted">Mis à jour il y a 3 min</small></p>
+    </div>
+  </div>
+</div>
+	</div>
+	
 	<table>
 		<tr th:each="utilisateur : ${utilisateurs}">
         	<td th:text="${utilisateur.id}"></td>
@@ -13,5 +101,15 @@
         	<td th:text="${utilisateur.password}"></td>
     	</tr>
     </table>
+
+	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">
+    	<div class="container text-center">
+      		<small>Copyright &copy; Les amis de l'escalade</small>
+    	</div>
+  	</footer>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
