@@ -1,11 +1,10 @@
 package fr.axelallain.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import java.util.List;
 
 import fr.axelallain.entity.Utilisateur;
 
-@EnableJpaRepositories
-public interface UtilisateurDAO extends JpaRepository<Utilisateur, Long>{
+public interface UtilisateurDAO {
 
+	List<Utilisateur> findAllUtilisateurs();
 }
