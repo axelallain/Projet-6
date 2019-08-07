@@ -7,4 +7,6 @@ import fr.axelallain.entity.Utilisateur;
 public interface UtilisateurService {
 
 	List<Utilisateur> findAllUtilisateurs();
+	
+	public void inscription(Utilisateur utilisateur);
 }

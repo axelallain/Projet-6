@@ -13,7 +13,7 @@
 	<div id="header">
 		<nav class="navbar navbar-light bg-light fixed-top">
 			<div class="navbarcontent">
-  				<a class="navbar-brand" href="#"><img src="img/logo.png" alt="Logo des amis de l'escalade"></a>
+  				<a class="navbar-brand" href="/"><img src="img/logo.png" alt="Logo des amis de l'escalade"></a>
   				<form class="form-inline text-center">
     				<input class="form-control mr-sm-1" type="search" placeholder="Recherche" aria-label="Search">
   				</form>
@@ -27,13 +27,13 @@
   <p class="lead">Rejoins la communauté des Amis de l'escalade pour nous partager tes meilleurs spots, échanger avec des passionnés et louer ce qu'ils proposent pour des sessions inoubliables !</p>
   <hr class="my-4">
   <p>Inscription rapide et gratuite.</p>
-  <a class="btn btn-success btn-lg" href="#" role="button">S'inscrire</a>
+  <a class="btn btn-success btn-lg" href="inscription" role="button">S'inscrire</a>
   <a class="btn btn-outline-success btn-lg" href="#" role="button">Se connecter</a>
 </div>
 
 		<div class="sidebar">
-			<button type="button" class="btn btn-dark">Accueil</button>
-			<button type="button" class="btn btn-dark">Panel</button>
+			<a href="/" class="btn btn-dark">Accueil</a>
+			<a href="panel" class="btn btn-dark">Panel</a>
 			<button type="button" class="btn btn-dark">Spots</button>
 			<button type="button" class="btn btn-dark">Carte</button>
 		</div>
@@ -41,57 +41,15 @@
 
 	<div id="content">
 		<div class="card-deck">
-  <div class="card">
-    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
-    <div class="card-body">
-      <h5 class="card-title">Nom du spot</h5>
-      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
-      <p class="card-text"><small class="text-muted">Proposé par Utilisateur le 01/01/2019</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
-    <div class="card-body">
-      <h5 class="card-title">Nom du spot</h5>
-      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
-      <p class="card-text"><small class="text-muted">Mis à jour il y a 3 min</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
-    <div class="card-body">
-      <h5 class="card-title">Nom du spot</h5>
-      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
-      <p class="card-text"><small class="text-muted">Mis à jour il y a 3 min</small></p>
-    </div>
-  </div>
-</div>
-<div class="card-deck">
-  <div class="card">
-    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
-    <div class="card-body">
-      <h5 class="card-title">Nom du spot</h5>
-      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
-      <p class="card-text"><small class="text-muted">Proposé par Utilisateur le 01/01/2019</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
-    <div class="card-body">
-      <h5 class="card-title">Nom du spot</h5>
-      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
-      <p class="card-text"><small class="text-muted">Mis à jour il y a 3 min</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <img src="img/spot.jpg" class="card-img-top" alt="Image du spot">
-    <div class="card-body">
-      <h5 class="card-title">Nom du spot</h5>
-      <p class="card-text">Tous les générateurs de Lorem Ipsum sur Internet tendent à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum.</p>
-      <p class="card-text"><small class="text-muted">Mis à jour il y a 3 min</small></p>
-    </div>
-  </div>
-</div>
+		  <div class="card" th:each="topo : ${topos}">
+		    <img src="img/spot.jpg" class="card-img-top" alt="Image du topo">
+		    <div class="card-body">
+		      <h5 class="card-title" th:text="${topo.nom}"></h5>
+		      <p class="card-text" th:text="${topo.description}"></p>
+		      <p class="card-text"><small class="text-muted" th:text="'Proposé par ' + ${topo.utilisateur.username} + ' le ' + ${#dates.format(topo.dateParution, 'dd MMM yyyy')}"></small></p>
+		    </div>
+		  </div>
+		</div>
 	</div>
 	
 	<table>

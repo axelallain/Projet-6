@@ -22,4 +22,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		Query query = em.createQuery("SELECT e FROM Utilisateur e");
 		return (List<Utilisateur>) query.getResultList();
 	}
+
+	@Override
+	public void inscription(Utilisateur utilisateur) {
+		em.persist(utilisateur);
+	}
 }

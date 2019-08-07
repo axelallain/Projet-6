@@ -1,14 +1,19 @@
 package fr.axelallain.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "utilisateur")
@@ -34,7 +39,8 @@ public class Utilisateur implements Serializable {
 	@Column(name = "nom", nullable = false)
 	private String nom;
 	
-	@Column(name = "dateNaissance", nullable = false)
+	@Column(name = "dateNaissance")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateNaissance;
 	
 	@Column(name = "numeroTelephone", unique = true, nullable = false)
@@ -42,6 +48,9 @@ public class Utilisateur implements Serializable {
 	
 	@Column(name = "codePostal", nullable = false)
 	private String codePostal;
+	
+	@OneToMany(mappedBy="utilisateur")
+    private Collection<Topo> topos;
 	
 	public Utilisateur() {
 		
