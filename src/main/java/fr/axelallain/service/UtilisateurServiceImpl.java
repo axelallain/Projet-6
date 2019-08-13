@@ -25,4 +25,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	public void inscription(Utilisateur utilisateur) {
 		utilisateurDao.inscription(utilisateur);
 	}
+
+	@Override
+	public Utilisateur findByUsername(String username) {
+		return utilisateurDao.findByUsername(username);
+	}
+	
 }

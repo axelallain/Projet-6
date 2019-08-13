@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="icon" type="image/png" href="img/favicon.png" />
 	<title>Panel</title>
-	<link href="css/addtopo.css" rel="stylesheet" type="text/css">
+	<link href="css/panel.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -22,17 +22,46 @@
 	</div>
 
 	<div id="container">
-		<a class="btn btn-success btn-lg" href="addtopo" role="button">Ajouter un topo</a>
 	
-		<table>
-			<tr th:each="topo : ${topos}">
-        		<td th:text="${topo.id}"></td>
-        		<td th:text="${topo.nom}"></td>
-        		<td th:text="${topo.description}"></td>
-        		<td th:text="${topo.dateParution}"></td>
-        		<td th:text="${topo.utilisateur.username}"></td>
-    		</tr>
-    	</table>
+		<div class="sidebar">
+			<a href="/" class="btn btn-dark">Accueil</a>
+			<button type="button" class="btn btn-dark">Topos</button>
+			<div sec:authorize="isAuthenticated()">
+				<a href="panel" class="btn btn-dark">Panel</a>
+				<a href="/logout" class="btn btn-dark">Déconnexion</a>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col text-right">
+  				<a class="btn btn-success btn-sm" href="addtopo" role="button">Ajouter un topo</a>
+  			</div>
+  		</div>
+	
+		<table class="table">
+  			<thead class="thead-dark">
+    			<tr>
+      				<th scope="col">#</th>
+      				<th scope="col">Nom</th>
+     				<th scope="col">Description</th>
+      				<th scope="col">Lieu</th>
+      				<th scope="col">Date</th>
+      				<th scope="col">Disponible</th>
+      				<th scope="col">Utilisateur</th>
+    			</tr>
+  			</thead>
+  			<tbody>
+    			<tr th:each="topo : ${topos}">
+      				<th scope="row" th:text="${topo.id}"></th>
+      				<td th:text="${topo.nom}"></td>
+      				<td th:text="${topo.description}"></td>
+      				<td th:text="${topo.lieu}"></td>
+      				<td th:text="${#dates.format(topo.dateParution, 'dd MMM yyyy')}"></td>
+      				<td th:text="${topo.disponible}"></td>
+      				<td th:text="${topo.utilisateur.username}"></td>
+    			</tr>
+  			</tbody>
+		</table>
 	</div>
 
 	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">

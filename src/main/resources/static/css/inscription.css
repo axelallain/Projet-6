@@ -7,7 +7,7 @@ html, body {
 
 #container {
   height: 94%;
-  padding-top: 12%;
+  padding-top: 6%;
   width: 40%;
   margin: 0 auto;
 }
@@ -27,7 +27,7 @@ html, body {
 
 .form-control {
   border: none !important;
-  background-color: grey !important;
+  background-color: lightgrey !important;
   box-shadow: inset 0 1px 2px rgba(0,0,0,.39), 0 -1px 1px #FFF, 0 1px 0 #FFF;
 }
 
@@ -67,5 +67,5 @@ html, body {
 }
 
 input::-webkit-input-placeholder {
-color: #F8F9FA !important;
+color: #808080 !important;
 }

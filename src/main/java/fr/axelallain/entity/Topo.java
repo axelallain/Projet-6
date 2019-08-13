@@ -2,7 +2,6 @@ package fr.axelallain.entity;
 
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +35,7 @@ public class Topo {
 	private String photoUrl;
 	
 	@Column(name = "disponible")
-	private Boolean disponible;
+	private Boolean disponible = true;
 	
 	@ManyToOne
 	@JoinColumn(name = "utilisateur_id")

@@ -23,24 +23,35 @@ public class UtilisateurController {
 	public String homePage(Model model) {
 		model.addAttribute("utilisateurs", utilisateurService.findAllUtilisateurs());
 		model.addAttribute("topos", topoService.findAllTopos());
+	    
 		return "index";
 	}
 	
 	@GetMapping("/inscription")
 	public String inscriptionForm(Model model) {
 		model.addAttribute("utilisateur", new Utilisateur());
+		
 		return "inscription";
 	}
 	
 	@PostMapping("/inscription")
 	public String inscriptionSubmit(Utilisateur utilisateur, Model model) {
 		utilisateurService.inscription(utilisateur);
+		
 		return "redirect:/";
 	}
 	
 	@GetMapping("/panel")
 	public String panel(Model model) {
 		model.addAttribute("topos", topoService.findAllTopos());
+		
 		return "panel";
 	}
+	
+	@GetMapping("/login")
+	public String loginForm() {
+		
+		return "login";
+	}
+	
 }

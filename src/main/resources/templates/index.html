@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="UTF-8" />
 	<link rel="icon" type="image/png" href="img/favicon.png" />
@@ -11,7 +11,7 @@
 <body>
 
 	<div id="header">
-		<nav class="navbar navbar-light bg-light fixed-top">
+		<nav class="navbar navbar-light bg-light">
 			<div class="navbarcontent">
   				<a class="navbar-brand" href="/"><img src="img/logo.png" alt="Logo des amis de l'escalade"></a>
   				<form class="form-inline text-center">
@@ -22,43 +22,49 @@
 	</div>
 
 	<div id="container">
-		<div class="jumbotron col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-6 float-md-center">
-  <h1 class="display-4">Bienvenue !</h1>
-  <p class="lead">Rejoins la communauté des Amis de l'escalade pour nous partager tes meilleurs spots, échanger avec des passionnés et louer ce qu'ils proposent pour des sessions inoubliables !</p>
-  <hr class="my-4">
-  <p>Inscription rapide et gratuite.</p>
-  <a class="btn btn-success btn-lg" href="inscription" role="button">S'inscrire</a>
-  <a class="btn btn-outline-success btn-lg" href="#" role="button">Se connecter</a>
-</div>
+		<div sec:authorize="!isAuthenticated()">
+			<div class="jumbotron col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-6 float-md-center">
+  				<h1 class="display-4">Bienvenue !</h1>
+  				<p class="lead">Rejoins la communauté des Amis de l'escalade pour nous partager tes meilleurs spots, échanger avec des passionnés et louer ce qu'ils proposent pour des sessions inoubliables !</p>
+  				<hr class="my-4">
+  				<p>Inscription rapide et gratuite.</p>
+  				<a class="btn btn-success btn-lg" href="inscription" role="button">S'inscrire</a>
+  				<a class="btn btn-outline-success btn-lg" href="login" role="button">Se connecter</a>
+			</div>
+		</div>
+		
+		<div sec:authorize="isAuthenticated()">
+			<div class="jumbotron col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-6 float-md-center">
+  				<h1 class="display-4">Bonjour, <span sec:authentication="name"></span> !</h1>
+			</div>
+		</div>
 
 		<div class="sidebar">
 			<a href="/" class="btn btn-dark">Accueil</a>
-			<a href="panel" class="btn btn-dark">Panel</a>
-			<button type="button" class="btn btn-dark">Spots</button>
-			<button type="button" class="btn btn-dark">Carte</button>
-		</div>
-	</div>
-
-	<div id="content">
-		<div class="card-deck">
-		  <div class="card" th:each="topo : ${topos}">
-		    <img src="img/spot.jpg" class="card-img-top" alt="Image du topo">
-		    <div class="card-body">
-		      <h5 class="card-title" th:text="${topo.nom}"></h5>
-		      <p class="card-text" th:text="${topo.description}"></p>
-		      <p class="card-text"><small class="text-muted" th:text="'Proposé par ' + ${topo.utilisateur.username} + ' le ' + ${#dates.format(topo.dateParution, 'dd MMM yyyy')}"></small></p>
-		    </div>
-		  </div>
+			<a href="#content" class="btn btn-dark">Topos</a>
+			<div sec:authorize="isAuthenticated()">
+				<a href="panel" class="btn btn-dark">Panel</a>
+				<a href="/logout" class="btn btn-dark">Déconnexion</a>
+			</div>
 		</div>
 	</div>
 	
-	<table>
-		<tr th:each="utilisateur : ${utilisateurs}">
-        	<td th:text="${utilisateur.id}"></td>
-        	<td th:text="${utilisateur.username}"></td>
-        	<td th:text="${utilisateur.password}"></td>
-    	</tr>
-    </table>
+	<div id="content">
+		<div class="row">
+	        <div class="col-sm-6 col-lg-4 py-2" th:each="topo : ${topos}">
+	            <div class="card h-100">
+	                <img class="card-img-top img-fluid" src="img/spot.jpg" alt="Image du topo">
+	                <div class="card-body">
+	                    <h4 class="card-title" th:text="${topo.nom}"></h4>
+	                    <p class="card-text" th:text="${topo.description}"></p>
+	                    <p class="card-text"><small class="text-muted" th:text="'Proposé par ' + ${topo.utilisateur.username} + ' le ' + ${#dates.format(topo.dateParution, 'dd MMM yyyy')}"></small></p>
+	                </div>
+	            </div>
+	        </div>    
+	    </div>
+    </div>
+    
+    Connecté en tant que : <span sec:authentication="name"></span>
 
 	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">
     	<div class="container text-center">

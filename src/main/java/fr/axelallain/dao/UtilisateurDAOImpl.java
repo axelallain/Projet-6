@@ -27,4 +27,13 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	public void inscription(Utilisateur utilisateur) {
 		em.persist(utilisateur);
 	}
+
+	@Override
+	public Utilisateur findByUsername(String username) {
+		Utilisateur utilisateur = em.createQuery(
+				  "SELECT u from Utilisateur u WHERE u.username = :username", Utilisateur.class).
+				  setParameter("username", username).getSingleResult();
+		return utilisateur;
+	}
+	
 }
