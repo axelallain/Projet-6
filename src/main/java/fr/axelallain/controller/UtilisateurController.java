@@ -1,6 +1,7 @@
 package fr.axelallain.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,9 @@ public class UtilisateurController {
 	@Autowired
 	private TopoService topoService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@GetMapping("/")
 	public String homePage(Model model) {
 		model.addAttribute("utilisateurs", utilisateurService.findAllUtilisateurs());
@@ -36,6 +40,7 @@ public class UtilisateurController {
 	
 	@PostMapping("/inscription")
 	public String inscriptionSubmit(Utilisateur utilisateur, Model model) {
+		utilisateur.setPassword(passwordEncoder.encode(utilisateur.getPassword()));
 		utilisateurService.inscription(utilisateur);
 		
 		return "redirect:/";

@@ -23,7 +23,9 @@ public class TopoDAOImpl implements TopoDAO {
 		return (List<Topo>) query.getResultList();
 	}
 	
+	@Override
 	public void addTopo(Topo topo) {
 		em.persist(topo);
 	}
+	
 }

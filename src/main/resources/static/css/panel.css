@@ -8,12 +8,24 @@ html, body {
 #container {
   height: 94%;
   padding-top: 12%;
-  width: 60%;
+  width: 67%;
   margin: 0 auto;
 }
 
 .text-right {
 	margin-bottom: 2%;
+}
+
+.table > tbody > tr > td {
+     vertical-align: middle;
+}
+
+table th {
+  vertical-align: middle !important;
+}
+
+.btn-primary {
+	margin-right: 5% !important;
 }
 
 .navbar {

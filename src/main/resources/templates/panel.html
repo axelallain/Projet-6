@@ -11,7 +11,7 @@
 <body>
 
 	<div id="header">
-		<nav class="navbar navbar-light bg-light fixed-top">
+		<nav class="navbar navbar-light bg-light">
 			<div class="navbarcontent">
   				<a class="navbar-brand" href="/"><img src="img/logo.png" alt="Logo des amis de l'escalade"></a>
   				<form class="form-inline text-center">
@@ -48,6 +48,7 @@
       				<th scope="col">Date</th>
       				<th scope="col">Disponible</th>
       				<th scope="col">Utilisateur</th>
+      				<th scope="col"></th>
     			</tr>
   			</thead>
   			<tbody>
@@ -59,6 +60,10 @@
       				<td th:text="${#dates.format(topo.dateParution, 'dd MMM yyyy')}"></td>
       				<td th:text="${topo.disponible}"></td>
       				<td th:text="${topo.utilisateur.username}"></td>
+      				<td>
+      					<a class="btn btn-primary btn-sm" href="#" role="button">Modifier</a>
+      					<a class="btn btn-danger btn-sm" href="#" role="button">Supprimer</a>
+      				</td>
     			</tr>
   			</tbody>
 		</table>
