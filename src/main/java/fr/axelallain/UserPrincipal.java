@@ -11,6 +11,8 @@ import fr.axelallain.entity.Utilisateur;
 
 public class UserPrincipal implements UserDetails {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Utilisateur utilisateur;
 	
 	public UserPrincipal(Utilisateur utilisateur) {

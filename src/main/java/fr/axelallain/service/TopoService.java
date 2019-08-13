@@ -10,4 +10,6 @@ public interface TopoService {
 	
 	public void addTopo(Topo topo);
 	
+	public void deleteTopo(Long id);
+	
 }

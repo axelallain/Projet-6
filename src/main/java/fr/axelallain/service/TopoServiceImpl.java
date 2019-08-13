@@ -27,4 +27,8 @@ public class TopoServiceImpl implements TopoService {
 		topoDao.addTopo(topo);
 	}
 	
+	@Override
+	public void deleteTopo(Long id) {
+		topoDao.deleteTopo(id);
+	}
 }

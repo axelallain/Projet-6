@@ -28,4 +28,8 @@ public class TopoDAOImpl implements TopoDAO {
 		em.persist(topo);
 	}
 	
+	@Override
+	public void deleteTopo(Long id) {
+		em.createQuery("delete from Topo t where t.id=:id").setParameter("id", id).executeUpdate();
+	}
 }

@@ -9,5 +9,7 @@ public interface TopoDAO {
 	public List<Topo> findAllTopos();
 	
 	public void addTopo(Topo topo);
+	
+	public void deleteTopo(Long id);
 
 }
