@@ -32,4 +32,12 @@ public class TopoDAOImpl implements TopoDAO {
 	public void deleteTopo(Long id) {
 		em.createQuery("delete from Topo t where t.id=:id").setParameter("id", id).executeUpdate();
 	}
+
+	@Override
+	public Topo findTopoById(Long id) {
+		Topo topo = em.find(Topo.class, id);
+		
+		return topo;
+	}
+	
 }

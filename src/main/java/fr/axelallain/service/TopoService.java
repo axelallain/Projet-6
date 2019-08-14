@@ -12,4 +12,6 @@ public interface TopoService {
 	
 	public void deleteTopo(Long id);
 	
+	public Topo findTopoById(Long id);
+	
 }
