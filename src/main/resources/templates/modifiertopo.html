@@ -32,26 +32,31 @@
 			</div>
 		</div>
 		
-		<form action="#" th:object="${topo}" method="post">
-					
+		<form action="#" th:action="@{/addtopo}" th:object="${topo}" method="post">
+			<input type="hidden" th:field="*{id}" />
   			<div class="form-group">
     			<label for="nom">Nom du topo</label>
-    			<input type="text" class="form-control" id="nom" th:value="${topo.nom}">
+    			<input type="text" class="form-control" id="nom" name="nom" th:value="${topo.nom}">
   			</div>
   			
   			<div class="form-group">
     			<label for="description">Description du topo</label>
-    			<textarea class="form-control" id="description" rows="3" th:text="${topo.description}"></textarea>
+    			<textarea class="form-control" id="description" rows="3" name="description" th:text="${topo.description}"></textarea>
   			</div>
   			
   			<div class="form-group">
     			<label for="lieu">Lieu du topo</label>
-    			<input type="text" class="form-control" id="lieu" th:value="${topo.lieu}">
+    			<input type="text" class="form-control" id="lieu" name="lieu" th:value="${topo.lieu}">
   			</div>
   			
   			<div class="form-group">
-    			<label for="utilisateur_id">Id de l'utilisateur lié au topo (PROVISOIRE)</label>
-    			<input type="text" class="form-control" id="utilisateur_id" th:value="${topo.utilisateur.id}">
+    			<label for="utilisateur.id">Id de l'utilisateur lié au topo (PROVISOIRE)</label>
+    			<input type="text" class="form-control" id="utilisateur.id" name="utilisateur.id" th:value="${topo.utilisateur.id}">
+  			</div>
+  			
+  			<div class="form-group">
+    			<label for="disponible">Disponible</label>
+    			<input type="checkbox" class="form-control" id="disponible" th:field="*{disponible}">
   			</div>
 
   			<input type="submit" name="Valider" value="Modifier">

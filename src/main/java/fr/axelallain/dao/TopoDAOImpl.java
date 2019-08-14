@@ -25,7 +25,7 @@ public class TopoDAOImpl implements TopoDAO {
 	
 	@Override
 	public void addTopo(Topo topo) {
-		em.persist(topo);
+		em.merge(topo);
 	}
 	
 	@Override

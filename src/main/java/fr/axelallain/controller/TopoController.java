@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import fr.axelallain.entity.Topo;
-import fr.axelallain.entity.Utilisateur;
 import fr.axelallain.service.TopoService;
 
 @Controller
