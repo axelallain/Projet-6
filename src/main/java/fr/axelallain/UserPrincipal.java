@@ -25,6 +25,10 @@ public class UserPrincipal implements UserDetails {
 		
 		return Collections.singleton(new SimpleGrantedAuthority("USER"));
 	}
+	
+	public Long getId() {
+		return utilisateur.getId();
+	}
 
 	@Override
 	public String getPassword() {

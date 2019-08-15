@@ -1,6 +1,7 @@
 package fr.axelallain.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import fr.axelallain.UserPrincipal;
 import fr.axelallain.entity.Topo;
 import fr.axelallain.service.TopoService;
 
@@ -21,12 +23,19 @@ public class TopoController {
 	@GetMapping("/addtopo")
 	public String addTopoForm(Model model) {
 		model.addAttribute("topo", new Topo());
+		
+		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long cuserid = cuser.getId();
+        
+        model.addAttribute("cuserid", cuserid);
+	    
 		return "addTopo";
 	}
 	
 	@PostMapping("/addtopo")
 	public String addTopoSubmit(Topo topo, Model model) {
 		topoService.addTopo(topo);
+		
 		return "redirect:/panel";
 	}
 	
