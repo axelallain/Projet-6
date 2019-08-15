@@ -1,12 +1,15 @@
 package fr.axelallain.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import fr.axelallain.UserPrincipal;
 import fr.axelallain.entity.Utilisateur;
 import fr.axelallain.service.TopoService;
 import fr.axelallain.service.UtilisateurService;
@@ -47,10 +50,24 @@ public class UtilisateurController {
 	}
 	
 	@GetMapping("/panel")
-	public String panel(Model model) {
-		model.addAttribute("topos", topoService.findAllTopos());
+	public String panelUtilisateur(Model model) {
+		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long cuserid = cuser.getId();
+        
+        model.addAttribute("cuserid", cuserid);
 		
 		return "panel";
+	}
+	
+	@GetMapping("/panel/toposutilisateur/{cuserid}")
+	public String toposUtilisateur(@PathVariable Long cuserid, Model model) {
+		
+		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        cuserid = cuser.getId();
+        
+        model.addAttribute("topos", topoService.findAllToposByUtilisateurId(cuserid));
+		
+		return "toposutilisateur";
 	}
 	
 	@GetMapping("/login")

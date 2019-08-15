@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="icon" type="image/png" href="img/favicon.png" />
+	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
 	<title>Modifier un topo</title>
 	<link th:href="@{/css/modifiertopo.css}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -13,7 +13,7 @@
 	<div id="header">
 		<nav class="navbar navbar-light bg-light">
 			<div class="navbarcontent">
-  				<a class="navbar-brand" href="/"><img src="img/logo.png" alt="Logo des amis de l'escalade"></a>
+  				<a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="Logo des amis de l'escalade"></a>
   				<form class="form-inline text-center">
     				<input class="form-control mr-sm-1" type="search" placeholder="Recherche" aria-label="Search">
   				</form>
@@ -32,7 +32,8 @@
 			</div>
 		</div>
 		
-		<form action="#" th:action="@{/addtopo}" th:object="${topo}" method="post">
+		<form action="#" th:action="@{/panel/toposutilisateur/addtopo}" th:object="${topo}" method="post">
+			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${cuserid}" />
 			<input type="hidden" th:field="*{id}" />
   			<div class="form-group">
     			<label for="nom">Nom du topo</label>
@@ -47,11 +48,6 @@
   			<div class="form-group">
     			<label for="lieu">Lieu du topo</label>
     			<input type="text" class="form-control" id="lieu" name="lieu" th:value="${topo.lieu}">
-  			</div>
-  			
-  			<div class="form-group">
-    			<label for="utilisateur.id">Id de l'utilisateur lié au topo (PROVISOIRE)</label>
-    			<input type="text" class="form-control" id="utilisateur.id" name="utilisateur.id" th:value="${topo.utilisateur.id}">
   			</div>
   			
   			<div class="form-group">

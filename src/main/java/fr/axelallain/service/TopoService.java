@@ -14,4 +14,5 @@ public interface TopoService {
 	
 	public Topo findTopoById(Long id);
 	
+	public List<Topo> findAllToposByUtilisateurId(Long id);
 }

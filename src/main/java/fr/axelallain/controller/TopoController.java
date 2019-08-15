@@ -20,7 +20,7 @@ public class TopoController {
 	@Autowired
 	private TopoService topoService;
 	
-	@GetMapping("/addtopo")
+	@GetMapping("/panel/toposutilisateur/addtopo")
 	public String addTopoForm(Model model) {
 		model.addAttribute("topo", new Topo());
 		
@@ -32,22 +32,31 @@ public class TopoController {
 		return "addTopo";
 	}
 	
-	@PostMapping("/addtopo")
+	@PostMapping("/panel/toposutilisateur/addtopo")
 	public String addTopoSubmit(Topo topo, Model model) {
 		topoService.addTopo(topo);
 		
-		return "redirect:/panel";
+		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		return "redirect:/panel/toposutilisateur/" + cuser.getId();
 	}
 	
-	@DeleteMapping("/panel/delete/{id}")
+	@DeleteMapping("/panel/toposutilisateur/delete/{id}")
 	public String deleteTopo(@PathVariable Long id) {
 		topoService.deleteTopo(id);
 		
-		return "redirect:/panel";
+		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		return "redirect:/panel/toposutilisateur/" + cuser.getId();
 	}
 	
-	@GetMapping("/panel/modifier/{id}")
-	public ModelAndView modifierTopoForm(@PathVariable Long id) {
+	@GetMapping("/panel/toposutilisateur/modifier/{id}")
+	public ModelAndView modifierTopoForm(@PathVariable Long id, Model model) {
+		
+		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long cuserid = cuser.getId();
+        
+        model.addAttribute("cuserid", cuserid);
 		
 	    Topo topo = topoService.findTopoById(id);
 

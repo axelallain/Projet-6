@@ -39,5 +39,12 @@ public class TopoDAOImpl implements TopoDAO {
 		
 		return topo;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Topo> findAllToposByUtilisateurId(Long id) {
+		Query query = em.createQuery("SELECT e FROM Topo e WHERE e.utilisateur.id=:id").setParameter("id", id);
+		return (List<Topo>) query.getResultList();
+	}
 	
 }

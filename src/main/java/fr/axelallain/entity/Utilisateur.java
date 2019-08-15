@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,11 +49,15 @@ public class Utilisateur implements Serializable {
 	@Column(name = "codePostal", nullable = false)
 	private String codePostal;
 	
-	@OneToMany(mappedBy="utilisateur")
+	@OneToMany(mappedBy="utilisateur", fetch = FetchType.EAGER)
     private Collection<Topo> topos;
 	
 	public Utilisateur() {
 		
+	}
+	
+	public Collection<Topo> getTopos() {
+		return topos;
 	}
 
 	public Long getId() {
