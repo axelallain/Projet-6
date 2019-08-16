@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
+	<title data-th-text="${topo.nom}"></title>
+	<link th:href="@{/css/fichetopo.css}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+	<div id="header">
+		<nav class="navbar navbar-light bg-light">
+			<div class="navbarcontent">
+  				<a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="Logo des amis de l'escalade"></a>
+  				<form class="form-inline text-center">
+    				<input class="form-control mr-sm-1" type="search" placeholder="Recherche" aria-label="Search">
+  				</form>
+  			</div>
+		</nav>
+	</div>
+	
+	<div class="sidebar">
+		<a href="/" class="btn btn-dark">Accueil</a>
+		<button type="button" class="btn btn-dark">Topos</button>
+		<div sec:authorize="isAuthenticated()">
+			<a href="panel" class="btn btn-dark">Panel</a>
+			<a href="/logout" class="btn btn-dark">Déconnexion</a>
+		</div>
+	</div>
+	
+	<div id="content">
+		<div class="row">
+			<h3 class="nombrespots">Ce topo contient X sites d'escalade</h3>
+			<a href="#" class="btn btn-success ml-auto">Demander une réservation</a>
+		</div>
+	
+		<div class="row">
+	        <div class="col-sm-6 col-lg-4 py-2" th:each="spot : ${spots}">
+	            <div class="card h-100">
+	                <img class="card-img-top img-fluid" th:src="@{/img/spot.jpg}" alt="Image du topo">
+	                <div class="card-body">
+	                    <h4 class="card-title" th:text="${spot.nom}"></h4>
+	                    <p class="card-text" th:text="${spot.description}"></p>
+	                </div>
+	            </div>
+	        </div>    
+	    </div>
+    </div>
+
+	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">
+    	<div class="container text-center">
+      		<small>Copyright &copy; Les amis de l'escalade</small>
+    	</div>
+  	</footer>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

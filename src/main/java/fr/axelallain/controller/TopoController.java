@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import fr.axelallain.UserPrincipal;
 import fr.axelallain.entity.Topo;
+import fr.axelallain.service.SpotService;
 import fr.axelallain.service.TopoService;
 
 @Controller
@@ -19,6 +20,9 @@ public class TopoController {
 
 	@Autowired
 	private TopoService topoService;
+	
+	@Autowired
+	private SpotService spotService;
 	
 	@GetMapping("/panel/toposutilisateur/addtopo")
 	public String addTopoForm(Model model) {
@@ -66,6 +70,16 @@ public class TopoController {
 	    modelAndView.addObject("topo", topo);
 
 	    return modelAndView;
+	}
+	
+	@GetMapping("/fichetopo/{topoid}")
+	public String ficheTopo(@PathVariable Long topoid, Model model) {
+		model.addAttribute("topos", topoService.findAllTopos());
+		model.addAttribute("topoid", topoid);
+		model.addAttribute("topo", topoService.findTopoById(topoid));
+		model.addAttribute("spots", spotService.findAllSpotsByTopoId(topoid));
+		
+		return "fichetopo";
 	}
 	
 }
