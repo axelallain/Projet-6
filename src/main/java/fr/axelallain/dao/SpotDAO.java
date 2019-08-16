@@ -8,4 +8,6 @@ public interface SpotDAO {
 	
 	public List<Spot> findAllSpotsByTopoId(Long id);
 	
+	public Long countAllSpotsByTopoId(Long id);
+	
 }

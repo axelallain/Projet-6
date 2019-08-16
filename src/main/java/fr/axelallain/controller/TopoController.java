@@ -78,6 +78,7 @@ public class TopoController {
 		model.addAttribute("topoid", topoid);
 		model.addAttribute("topo", topoService.findTopoById(topoid));
 		model.addAttribute("spots", spotService.findAllSpotsByTopoId(topoid));
+		model.addAttribute("countspots", spotService.countAllSpotsByTopoId(topoid));
 		
 		return "fichetopo";
 	}
