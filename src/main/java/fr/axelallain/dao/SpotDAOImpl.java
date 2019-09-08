@@ -27,4 +27,11 @@ public class SpotDAOImpl implements SpotDAO {
 		long count = (long)em.createQuery("SELECT COUNT(e) FROM Spot e").getSingleResult();
 		return count;
 	}
+	
+	@Override
+	public Spot findSpotById(Long id) {
+		Spot spot = em.find(Spot.class, id);
+		
+		return spot;
+	}
 }

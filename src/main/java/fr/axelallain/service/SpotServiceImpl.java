@@ -25,4 +25,8 @@ public class SpotServiceImpl implements SpotService {
 	public Long countAllSpotsByTopoId(Long id) {
 		return spotDao.countAllSpotsByTopoId(id);
 	}
+	
+	public Spot findSpotById(Long id) {
+		return spotDao.findSpotById(id);
+	}
 }

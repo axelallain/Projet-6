@@ -62,10 +62,9 @@
       				<td th:text="${topo.utilisateur.username}"></td>
       				<td>
       					
-      					<a class="btn btn-success btn-sm" th:href="@{'/panel/toposutilisateur/modifier/{id}'(id=${topo.id})}" role="button">Modifier</a>
-      					
       					<form action="#" th:action="@{'/panel/toposutilisateur/delete/{id}'(id=${topo.id})}" th:method="delete" >
 						  <input type="hidden" name="_method" value="delete" />
+						  <a class="btn btn-success btn-sm" th:href="@{'/panel/toposutilisateur/modifier/{id}'(id=${topo.id})}" role="button">Modifier</a>
 						  <button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
 						</form>
 						

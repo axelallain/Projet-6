@@ -32,6 +32,15 @@ public class Spot {
 	@Column(name = "imageUrl")
 	private String imageUrl;
 	
+	@Column(name = "difficulte")
+	private String difficulte;
+	
+	@Column(name = "nbvoies")
+	private Long nbvoies;
+	
+	@Column(name = "nblongueurs")
+	private Long nblongueurs;
+	
 	@ManyToOne
 	@JoinColumn(name = "topo_id")
 	private Topo topo;
@@ -94,6 +103,30 @@ public class Spot {
 
 	public void setTopo(Topo topo) {
 		this.topo = topo;
+	}
+
+	public String getDifficulte() {
+		return difficulte;
+	}
+
+	public void setDifficulte(String difficulte) {
+		this.difficulte = difficulte;
+	}
+
+	public Long getNbvoies() {
+		return nbvoies;
+	}
+
+	public void setNbvoies(Long nbvoies) {
+		this.nbvoies = nbvoies;
+	}
+
+	public Long getNblongueurs() {
+		return nblongueurs;
+	}
+
+	public void setNblongueurs(Long nblongueurs) {
+		this.nblongueurs = nblongueurs;
 	}
 	
 }

@@ -10,4 +10,6 @@ public interface SpotDAO {
 	
 	public Long countAllSpotsByTopoId(Long id);
 	
+	public Spot findSpotById(Long id);
+	
 }
