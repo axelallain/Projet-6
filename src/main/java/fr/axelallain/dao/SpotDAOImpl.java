@@ -24,7 +24,7 @@ public class SpotDAOImpl implements SpotDAO {
 	}
 
 	public Long countAllSpotsByTopoId(Long id) {
-		long count = (long)em.createQuery("SELECT COUNT(e) FROM Spot e").getSingleResult();
+		long count = (long)em.createQuery("SELECT COUNT(e) FROM Spot e WHERE e.topo.id=:id").setParameter("id", id).getSingleResult();
 		return count;
 	}
 	
