@@ -32,8 +32,11 @@ public class Spot {
 	@Column(name = "imageUrl")
 	private String imageUrl;
 	
-	@Column(name = "difficulte")
-	private String difficulte;
+	@Column(name = "cotationmin")
+	private String cotationmin;
+	
+	@Column(name = "cotationmax")
+	private String cotationmax;
 	
 	@Column(name = "nbvoies")
 	private Long nbvoies;
@@ -44,6 +47,10 @@ public class Spot {
 	@ManyToOne
 	@JoinColumn(name = "topo_id")
 	private Topo topo;
+	
+	@ManyToOne
+	@JoinColumn(name = "utilisateur_id")
+	private Utilisateur utilisateur;
 	
 	public Spot() {
 		
@@ -104,13 +111,29 @@ public class Spot {
 	public void setTopo(Topo topo) {
 		this.topo = topo;
 	}
-
-	public String getDifficulte() {
-		return difficulte;
+	
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+	
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
-	public void setDifficulte(String difficulte) {
-		this.difficulte = difficulte;
+	public String getCotationmin() {
+		return cotationmin;
+	}
+
+	public void setCotationmin(String cotationmin) {
+		this.cotationmin = cotationmin;
+	}
+
+	public String getCotationmax() {
+		return cotationmax;
+	}
+
+	public void setCotationmax(String cotationmax) {
+		this.cotationmax = cotationmax;
 	}
 
 	public Long getNbvoies() {

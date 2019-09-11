@@ -12,4 +12,12 @@ public interface SpotDAO {
 	
 	public Spot findSpotById(Long id);
 	
+	public List<Spot> findAllSpotsByUtilisateurId(Long id);
+	
+	public void addSpot(Spot spot);
+	
+	public void deleteSpot(Long id);
+	
+	public List<Spot> findAllSpots();
+	
 }

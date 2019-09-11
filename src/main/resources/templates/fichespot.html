@@ -23,7 +23,8 @@
 	
 	<div class="sidebar">
 		<a href="/" class="btn btn-dark">Accueil</a>
-		<button type="button" class="btn btn-dark">Topos</button>
+		<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
+		<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
 		<div sec:authorize="isAuthenticated()">
 			<a href="panel" class="btn btn-dark">Panel</a>
 			<a href="/logout" class="btn btn-dark">Déconnexion</a>
@@ -49,12 +50,11 @@
                         <div class="row">
                             <div class="col-lg-5">
                                 <dl class="dl-horizontal">
-									<dt>Topo lié :</dt> <dd><span class="label label-primary" th:text="${spot.topo.nom}"></span></dd>
+                                	<dt th:if="${spot.officiel}">SPOT OFFICIEL</dt>
+									<dt>Topo lié :</dt> <dd><span class="label label-primary" th:text="${spot.nom}"></span></dd>
                                     <dt>Lieu :</dt> <dd th:text="${spot.lieu}"></dd>
-                                    <dt>Officiel :</dt> <dd th:text="${spot.officiel}"></dd>
-                                    <dt>Difficulté :</dt> <dd th:text="${spot.difficulte}"></dd>
-                                	<dt>Voies :</dt> <dd th:text="${spot.nbvoies}"></dd>
-                                	<dt>Longueurs :</dt> <dd th:text="${spot.nblongueurs}"></dd>
+                                    <dt>Nombre de voies :</dt> <dd th:text="${spot.nbvoies}"></dd>
+                                    <dt>Cotations :</dt> <dd th:text="'De ' + ${spot.cotationmin} + ' à ' + ${spot.cotationmax}"></dd>
                                 </dl>
                             </div>
                             <div class="col-lg-7" id="cluster_info">

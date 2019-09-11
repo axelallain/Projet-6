@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
-	<title th:text="${topo.nom}"></title>
+	<title>Topos</title>
 	<link th:href="@{/css/fichetopo.css}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,20 +31,16 @@
 		</div>
 	</div>
 	
-	<div id="content">
+	<div id="content">	
 		<div class="row">
-			<h3 class="nombrespots">Ce topo contient <span th:text="${countspots}"></span> sites d'escalade</h3>
-			<a href="#" class="btn btn-success ml-auto">Demander une réservation</a>
-		</div>
-	
-		<div class="row">
-	        <div class="col-sm-6 col-lg-4 py-2" th:each="spot : ${spots}">
+	        <div class="col-sm-6 col-lg-4 py-2" th:each="topo : ${topos}">
 	            <div class="card h-100">
 	                <img class="card-img-top img-fluid" th:src="@{/img/spot.jpg}" alt="Image du topo">
 	                <div class="card-body">
-	                    <h4 class="card-title" th:text="${spot.nom}"></h4>
-	                    <p class="card-text" th:text="${spot.description}"></p>
-	                    <a th:href="@{'/fichespot/{spotid}'(spotid=${spot.id})}" class="btn btn-success btn-sm">Voir plus</a>
+	                    <h4 class="card-title" th:text="${topo.nom}"></h4>
+	                    <p class="card-text" th:text="${topo.description}"></p>
+	                    <p class="card-text"><small class="text-muted" th:text="'Proposé par ' + ${topo.utilisateur.username} + ' le ' + ${#dates.format(topo.dateParution, 'dd MMM yyyy')}"></small></p>
+	                    <a th:href="@{'/fichetopo/{topoid}'(topoid=${topo.id})}" class="btn btn-success btn-sm">Voir plus</a>
 	                </div>
 	            </div>
 	        </div>    

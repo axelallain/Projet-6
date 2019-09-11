@@ -3,8 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
-	<title>Modifier un topo</title>
-	<link th:href="@{/css/modifiertopo.css}" rel="stylesheet" type="text/css">
+	<title>Ajouter un spot</title>
+	<link th:href="@{/css/addtopo.css}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -33,33 +33,41 @@
 			</div>
 		</div>
 		
-		<form action="#" th:action="@{/panel/toposutilisateur/addtopo}" th:object="${topo}" method="post">
+		<form action="#" th:action="@{/panel/spotsutilisateur/addspot}" th:object="${spot}" method="post">
 			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${cuserid}" />
-			<input type="hidden" th:field="*{id}" />
   			<div class="form-group">
-    			<label for="nom">Nom du topo</label>
-    			<input type="text" class="form-control" id="nom" name="nom" th:value="${topo.nom}">
+    			<label for="nom">Nom du spot</label>
+    			<input type="text" class="form-control" id="nom" th:field="*{nom}">
   			</div>
   			
   			<div class="form-group">
-    			<label for="description">Description du topo</label>
-    			<textarea class="form-control" id="description" rows="3" name="description" th:text="${topo.description}"></textarea>
+    			<label for="description">Description du spot</label>
+    			<textarea class="form-control" id="description" rows="3" th:field="*{description}"></textarea>
   			</div>
   			
   			<div class="form-group">
-    			<label for="lieu">Lieu du topo</label>
-    			<input type="text" class="form-control" id="lieu" name="lieu" th:value="${topo.lieu}">
+    			<label for="lieu">Lieu du spot</label>
+    			<input type="text" class="form-control" id="lieu" th:field="*{lieu}">
   			</div>
   			
   			<div class="form-group">
-    			<label for="disponible">Disponible</label>
-    			<input type="checkbox" class="form-control" id="disponible" th:field="*{disponible}">
+    			<label for="nbvoies">Nombre de voies</label>
+    			<input type="text" class="form-control" id="nbvoies" th:field="*{nbvoies}">
   			</div>
-
-  			<input type="submit" name="Valider" value="Modifier">
+  			
+  			<div class="form-group">
+    			<label for="cotationmin">Cotation min</label>
+    			<input type="text" class="form-control" id="cotationmin" th:field="*{cotationmin}">
+    			<label for="cotationmax">Cotation max</label>
+    			<input type="text" class="form-control" id="cotationmax" th:field="*{cotationmax}">
+  			</div>
+  			
+  			<input type="submit" name="Valider" value="Valider">
   			<input type="reset" value="Réinitialiser">
 		</form>
 	</div>
+	
+	<h2 th:text="${cuserid}"></h2>
 
 	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">
     	<div class="container text-center">

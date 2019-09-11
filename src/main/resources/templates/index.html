@@ -41,7 +41,8 @@
 
 		<div class="sidebar">
 			<a href="/" class="btn btn-dark">Accueil</a>
-			<a href="#content" class="btn btn-dark">Topos</a>
+			<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
+			<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
 			<div sec:authorize="isAuthenticated()">
 				<a href="panel" class="btn btn-dark">Panel</a>
 				<a href="/logout" class="btn btn-dark">Déconnexion</a>
@@ -50,22 +51,8 @@
 	</div>
 	
 	<div id="content">
-		<div class="row">
-	        <div class="col-sm-6 col-lg-4 py-2" th:each="topo : ${topos}">
-	            <div class="card h-100">
-	                <img class="card-img-top img-fluid" src="img/spot.jpg" alt="Image du topo">
-	                <div class="card-body">
-	                    <h4 class="card-title" th:text="${topo.nom}"></h4>
-	                    <p class="card-text" th:text="${topo.description}"></p>
-	                    <p class="card-text"><small class="text-muted" th:text="'Proposé par ' + ${topo.utilisateur.username} + ' le ' + ${#dates.format(topo.dateParution, 'dd MMM yyyy')}"></small></p>
-	                    <a th:href="@{'/fichetopo/{topoid}'(topoid=${topo.id})}" class="btn btn-success btn-sm">Voir plus</a>
-	                </div>
-	            </div>
-	        </div>    
-	    </div>
+		
     </div>
-    
-    Connecté en tant que : <span sec:authentication="name"></span>
 
 	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">
     	<div class="container text-center">

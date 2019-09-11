@@ -25,7 +25,8 @@
 	
 		<div class="sidebar">
 			<a href="/" class="btn btn-dark">Accueil</a>
-			<button type="button" class="btn btn-dark">Topos</button>
+			<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
+			<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
 			<div sec:authorize="isAuthenticated()">
 				<a href="panel" class="btn btn-dark">Panel</a>
 				<a href="/logout" class="btn btn-dark">Déconnexion</a>
@@ -33,6 +34,7 @@
 		</div>
 		
 		<a th:href="@{'/panel/toposutilisateur/{cuserid}'(cuserid=${cuserid})}" class="btn btn-success">Mes topos</a>
+		<a th:href="@{'/panel/spotsutilisateur/{cuserid}'(cuserid=${cuserid})}" class="btn btn-success">Mes spots</a>
 	</div>
 
 	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">

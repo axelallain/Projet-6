@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import fr.axelallain.entity.Spot;
+import fr.axelallain.entity.Topo;
 
 @Repository
 public class SpotDAOImpl implements SpotDAO {
@@ -33,5 +34,29 @@ public class SpotDAOImpl implements SpotDAO {
 		Spot spot = em.find(Spot.class, id);
 		
 		return spot;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Spot> findAllSpotsByUtilisateurId(Long id) {
+		Query query = em.createQuery("SELECT e FROM Spot e WHERE e.utilisateur.id=:id").setParameter("id", id);
+		return (List<Spot>) query.getResultList();
+	}
+
+	@Override
+	public void addSpot(Spot spot) {
+		em.merge(spot);
+	}
+
+	@Override
+	public void deleteSpot(Long id) {
+		em.createQuery("delete from Spot t where t.id=:id").setParameter("id", id).executeUpdate();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Spot> findAllSpots() {
+		Query query = em.createQuery("SELECT e FROM Spot e");
+		return (List<Spot>) query.getResultList();
 	}
 }

@@ -83,4 +83,11 @@ public class TopoController {
 		return "fichetopo";
 	}
 	
+	@GetMapping("/topos")
+	public String allTopos(Model model) {
+		model.addAttribute("topos", topoService.findAllTopos());
+		
+		return "topos";
+	}
+	
 }

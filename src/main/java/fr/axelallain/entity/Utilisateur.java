@@ -52,12 +52,19 @@ public class Utilisateur implements Serializable {
 	@OneToMany(mappedBy="utilisateur", fetch = FetchType.EAGER)
     private Collection<Topo> topos;
 	
+	@OneToMany(mappedBy="utilisateur", fetch = FetchType.EAGER)
+	private Collection<Spot> spots;
+	
 	public Utilisateur() {
 		
 	}
 	
 	public Collection<Topo> getTopos() {
 		return topos;
+	}
+	
+	public Collection<Spot> getSpots() {
+		return spots;
 	}
 
 	public Long getId() {
@@ -131,5 +138,7 @@ public class Utilisateur implements Serializable {
 	public void setCodePostal(String codePostal) {
 		this.codePostal = codePostal;
 	}
+	
+	
 	
 }

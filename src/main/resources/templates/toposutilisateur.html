@@ -25,7 +25,8 @@
 	
 		<div class="sidebar">
 			<a href="/" class="btn btn-dark">Accueil</a>
-			<button type="button" class="btn btn-dark">Topos</button>
+			<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
+			<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
 			<div sec:authorize="isAuthenticated()">
 				<a href="panel" class="btn btn-dark">Panel</a>
 				<a href="/logout" class="btn btn-dark">Déconnexion</a>

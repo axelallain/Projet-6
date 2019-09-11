@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import fr.axelallain.UserPrincipal;
 import fr.axelallain.entity.Utilisateur;
+import fr.axelallain.service.SpotService;
 import fr.axelallain.service.TopoService;
 import fr.axelallain.service.UtilisateurService;
 
@@ -22,6 +23,9 @@ public class UtilisateurController {
 	
 	@Autowired
 	private TopoService topoService;
+	
+	@Autowired
+	private SpotService spotService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -68,6 +72,17 @@ public class UtilisateurController {
         model.addAttribute("topos", topoService.findAllToposByUtilisateurId(cuserid));
 		
 		return "toposutilisateur";
+	}
+	
+	@GetMapping("/panel/spotsutilisateur/{cuserid}")
+	public String spotsUtilisateur(@PathVariable Long cuserid, Model model) {
+		
+		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        cuserid = cuser.getId();
+        
+        model.addAttribute("spots", spotService.findAllSpotsByUtilisateurId(cuserid));
+		
+		return "spotsutilisateur";
 	}
 	
 	@GetMapping("/login")

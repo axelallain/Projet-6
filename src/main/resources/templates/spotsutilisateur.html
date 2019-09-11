@@ -3,8 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
-	<title>Modifier un topo</title>
-	<link th:href="@{/css/modifiertopo.css}" rel="stylesheet" type="text/css">
+	<title>Mes spots</title>
+	<link th:href="@{/css/toposutilisateur.css}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -33,32 +33,48 @@
 			</div>
 		</div>
 		
-		<form action="#" th:action="@{/panel/toposutilisateur/addtopo}" th:object="${topo}" method="post">
-			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${cuserid}" />
-			<input type="hidden" th:field="*{id}" />
-  			<div class="form-group">
-    			<label for="nom">Nom du topo</label>
-    			<input type="text" class="form-control" id="nom" name="nom" th:value="${topo.nom}">
+		<div class="row">
+			<div class="col text-right">
+  				<a class="btn btn-success btn-sm" href="/panel/spotsutilisateur/addspot" role="button">Ajouter un spot</a>
   			</div>
-  			
-  			<div class="form-group">
-    			<label for="description">Description du topo</label>
-    			<textarea class="form-control" id="description" rows="3" name="description" th:text="${topo.description}"></textarea>
-  			</div>
-  			
-  			<div class="form-group">
-    			<label for="lieu">Lieu du topo</label>
-    			<input type="text" class="form-control" id="lieu" name="lieu" th:value="${topo.lieu}">
-  			</div>
-  			
-  			<div class="form-group">
-    			<label for="disponible">Disponible</label>
-    			<input type="checkbox" class="form-control" id="disponible" th:field="*{disponible}">
-  			</div>
-
-  			<input type="submit" name="Valider" value="Modifier">
-  			<input type="reset" value="Réinitialiser">
-		</form>
+  		</div>
+	
+		<table class="table">
+  			<thead class="thead-dark">
+    			<tr>
+      				<th scope="col">#</th>
+      				<th scope="col">Nom</th>
+     				<th scope="col">Description</th>
+      				<th scope="col">Lieu</th>
+      				<th scope="col">Officiel</th>
+      				<th scope="col">Cotation min</th>
+      				<th scope="col">Cotation max</th>
+      				<th scope="col">Nombre de voies</th>
+      				<th scope="col"></th>
+    			</tr>
+  			</thead>
+  			<tbody>
+    			<tr th:each="spot : ${spots}">
+      				<th scope="row" th:text="${spot.id}"></th>
+      				<td th:text="${spot.nom}"></td>
+      				<td th:text="${spot.description}"></td>
+      				<td th:text="${spot.lieu}"></td>
+      				<td th:text="${spot.officiel}"></td>
+      				<td th:text="${spot.cotationmin}"></td>
+      				<td th:text="${spot.cotationmax}"></td>
+      				<td th:text="${spot.nbvoies}"></td>
+      				<td>
+      					
+      					<form action="#" th:action="@{'/panel/spotsutilisateur/delete/{id}'(id=${spot.id})}" th:method="delete" >
+						  <input type="hidden" name="_method" value="delete" />
+						  <a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/modifier/{id}'(id=${spot.id})}" role="button">Modifier</a>
+						  <button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
+						</form>
+						
+      				</td>
+    			</tr>
+  			</tbody>
+		</table>
 	</div>
 
 	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">
