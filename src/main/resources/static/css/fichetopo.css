@@ -12,6 +12,50 @@ html, body {
   margin-bottom: 3%;
 }
 
+.ribbon-wrapper {
+    width: 85px;
+    height: 88px;
+    overflow: hidden;
+    position: absolute;
+    top: -3px;
+    right: -3px
+}
+
+.ribbon {
+    font-size: 11px;
+    color: #FFF;
+    text-transform: uppercase;
+    font-family: 'Montserrat Bold', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .4);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: relative;
+    padding: 7px 0;
+    right: -11px;
+    top: 10px;
+    width: 100px;
+    height: 28px;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+    box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+    background-color: #dedede;
+    background-image: -webkit-linear-gradient(top, #ffffff 45%, #dedede 100%);
+    background-image: -o-linear-gradient(top, #ffffff 45%, #dedede 100%);
+    background-image: linear-gradient(to bottom, #ffffff 45%, #dedede 100%);
+    background-repeat: repeat-x;
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffdedede', GradientType=0)
+}
+
+.ribbon.blue {
+    background-color: #007BFF;
+    background-image: -webkit-linear-gradient(top, #007BFF 45%, #007BFF 100%);
+    background-repeat: repeat-x;
+    
+}
+
 .navbar {
   padding-top: 0.9em !important;
   padding-bottom: 0.9em !important;

@@ -29,10 +29,11 @@ public class TopoController {
 		model.addAttribute("topo", new Topo());
 		
 		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long cuserid = cuser.getId();
-        
+        Long cuserid = cuser.getId();       
         model.addAttribute("cuserid", cuserid);
-	    
+        
+        model.addAttribute("spots", spotService.findAllSpots());
+        
 		return "addTopo";
 	}
 	

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
-	<title>Topos</title>
+	<title>Spots</title>
 	<link th:href="@{/css/fichetopo.css}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,6 +35,9 @@
 		<div class="row">
 	        <div class="col-sm-6 col-lg-4 py-2" th:each="spot : ${spots}">
 	            <div class="card h-100">
+	            	<div class="ribbon-wrapper">
+		                <div th:if="${spot.officiel}" class="ribbon blue">Officiel</div>
+		            </div>
 	                <img class="card-img-top img-fluid" th:src="@{/img/spot.jpg}" alt="Image du topo">
 	                <div class="card-body">
 	                    <h4 class="card-title" th:text="${spot.nom}"></h4>
