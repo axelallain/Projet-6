@@ -55,6 +55,7 @@
                                     <dt>Nombre de voies :</dt> <dd th:text="${spot.nbvoies}"></dd>
                                     <dt>Cotations :</dt> <dd th:text="'De ' + ${spot.cotationmin} + ' à ' + ${spot.cotationmax}"></dd>
                                 </dl>
+                                <button th:if="${cuserstaff}" th:ref="{@/fichespot/officiel/{id}}" type="button">Rendre officiel</button>
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 	<img th:src="@{/img/spot.jpg}" alt="Spot image" width="100%">

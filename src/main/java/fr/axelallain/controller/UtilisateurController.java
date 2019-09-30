@@ -57,7 +57,9 @@ public class UtilisateurController {
 	public String panelUtilisateur(Model model) {
 		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long cuserid = cuser.getId();
+        Boolean cuserstaff = cuser.getStaff();
         
+        model.addAttribute("cuserstaff", cuserstaff);
         model.addAttribute("cuserid", cuserid);
 		
 		return "panel";

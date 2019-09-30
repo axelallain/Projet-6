@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="icon" type="image/png" href="img/favicon.png" />
-	<title>Panel</title>
-	<link href="css/panel.css" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
+	<title>Modifier un staff topo</title>
+	<link th:href="@{/css/modifiertopo.css}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -13,7 +13,7 @@
 	<div id="header">
 		<nav class="navbar navbar-light bg-light">
 			<div class="navbarcontent">
-  				<a class="navbar-brand" href="/"><img src="img/logo.png" alt="Logo des amis de l'escalade"></a>
+  				<a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="Logo des amis de l'escalade"></a>
   				<form class="form-inline text-center">
     				<input class="form-control mr-sm-1" type="search" placeholder="Recherche" aria-label="Search">
   				</form>
@@ -33,10 +33,32 @@
 			</div>
 		</div>
 		
-		<a th:href="@{'/panel/toposutilisateur/{cuserid}'(cuserid=${cuserid})}" class="btn btn-success">Mes topos</a>
-		<a th:href="@{'/panel/spotsutilisateur/{cuserid}'(cuserid=${cuserid})}" class="btn btn-success">Mes spots</a>
-		<a th:if="${cuserstaff}" th:href="@{/panel/stafftopos}" class="btn btn-danger">Staff topos</a>
-		<a th:if="${cuserstaff}" th:href="@{/panel/staffspots}" class="btn btn-danger">Staff spots</a>
+		<form action="#" th:action="@{/panel/stafftopos/addtopo}" th:object="${topo}" method="post">
+			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${topo.utilisateur.id}" />
+			<input type="hidden" th:field="*{id}" />
+  			<div class="form-group">
+    			<label for="nom">Nom du topo</label>
+    			<input type="text" class="form-control" id="nom" name="nom" th:value="${topo.nom}">
+  			</div>
+  			
+  			<div class="form-group">
+    			<label for="description">Description du topo</label>
+    			<textarea class="form-control" id="description" rows="3" name="description" th:text="${topo.description}"></textarea>
+  			</div>
+  			
+  			<div class="form-group">
+    			<label for="lieu">Lieu du topo</label>
+    			<input type="text" class="form-control" id="lieu" name="lieu" th:value="${topo.lieu}">
+  			</div>
+  			
+  			<div class="form-group">
+    			<label for="disponible">Disponible</label>
+    			<input type="checkbox" class="form-control" id="disponible" th:field="*{disponible}">
+  			</div>
+
+  			<input type="submit" name="Valider" value="Modifier">
+  			<input type="reset" value="Réinitialiser">
+		</form>
 	</div>
 
 	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">

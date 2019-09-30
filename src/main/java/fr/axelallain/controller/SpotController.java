@@ -35,7 +35,7 @@ public class SpotController {
         
         model.addAttribute("cuserid", cuserid);
 	    
-		return "addSpot";
+		return "addspot";
 	}
 	
 	@PostMapping("/panel/spotsutilisateur/addspot")
@@ -84,6 +84,9 @@ public class SpotController {
 		Long cuserid = cuser.getId();
 		model.addAttribute("cuserid", cuserid);
 		
+		Boolean cuserstaff = cuser.getStaff();
+		model.addAttribute("cuserstaff", cuserstaff);
+		
 		model.addAttribute("commentaires", commentaireService.findAllCommentairesBySpotId(spotid));
 		
 		return "fichespot";
@@ -94,6 +97,32 @@ public class SpotController {
 		model.addAttribute("spots", spotService.findAllSpots());
 		
 		return "spots";
+	}
+	
+	@GetMapping("/panel/staffspots")
+	public String staffSpots(Model model) {
+		model.addAttribute("spots", spotService.findAllSpots());
+		
+		return "staffspots";
+	}
+	
+	@GetMapping("/panel/staffspots/modifier/{id}")
+	public ModelAndView modifierStaffSpotForm(@PathVariable Long id, Model model) {
+		Spot spot = spotService.findSpotById(id);
+
+	    ModelAndView modelAndView = new ModelAndView();
+
+	    modelAndView.setViewName("modifierstaffspot");
+	    modelAndView.addObject("spot", spot);
+	    
+	    return modelAndView;
+	}
+	
+	@PostMapping("/panel/staffspots/addspot")
+	public String addStaffSpotSubmit(Spot spot, Model model) {
+		spotService.addSpot(spot);
+		
+		return "redirect:/panel/staffspots/";
 	}
 
 }

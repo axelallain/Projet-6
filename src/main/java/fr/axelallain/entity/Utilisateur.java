@@ -48,6 +48,9 @@ public class Utilisateur implements Serializable {
 	
 	@Column(name = "codePostal", nullable = false)
 	private String codePostal;
+
+	@Column(name = "staff", nullable = false)
+	private Boolean staff = false;
 	
 	@OneToMany(mappedBy="utilisateur", fetch = FetchType.EAGER)
     private Collection<Topo> topos;
@@ -138,7 +141,13 @@ public class Utilisateur implements Serializable {
 	public void setCodePostal(String codePostal) {
 		this.codePostal = codePostal;
 	}
-	
-	
+
+	public Boolean getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Boolean staff) {
+		this.staff = staff;
+	}
 	
 }

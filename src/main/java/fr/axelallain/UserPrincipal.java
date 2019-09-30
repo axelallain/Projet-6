@@ -41,6 +41,10 @@ public class UserPrincipal implements UserDetails {
 		// TODO Auto-generated method stub
 		return utilisateur.getUsername();
 	}
+	
+	public Boolean getStaff() {
+		return utilisateur.getStaff();
+	}
 
 	@Override
 	public boolean isAccountNonExpired() {

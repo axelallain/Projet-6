@@ -91,4 +91,30 @@ public class TopoController {
 		return "topos";
 	}
 	
+	@GetMapping("/panel/stafftopos")
+	public String staffTopos(Model model) {
+		model.addAttribute("topos", topoService.findAllTopos());
+		
+		return "stafftopos";
+	}
+	
+	@GetMapping("/panel/stafftopos/modifier/{id}")
+	public ModelAndView modifierStaffTopoForm(@PathVariable Long id, Model model) {
+		Topo topo = topoService.findTopoById(id);
+
+	    ModelAndView modelAndView = new ModelAndView();
+
+	    modelAndView.setViewName("modifierstafftopo");
+	    modelAndView.addObject("topo", topo);
+	    
+	    return modelAndView;
+	}
+	
+	@PostMapping("/panel/stafftopos/addtopo")
+	public String addStaffTopoSubmit(Topo topo, Model model) {
+		topoService.addTopo(topo);
+		
+		return "redirect:/panel/stafftopos/";
+	}
+	
 }
