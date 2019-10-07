@@ -26,7 +26,7 @@
 		<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
 		<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
 		<div sec:authorize="isAuthenticated()">
-			<a href="panel" class="btn btn-dark">Panel</a>
+			<a th:href="@{/panel}" class="btn btn-dark">Panel</a>
 			<a href="/logout" class="btn btn-dark">Déconnexion</a>
 		</div>
 	</div>
@@ -55,7 +55,23 @@
                                     <dt>Nombre de voies :</dt> <dd th:text="${spot.nbvoies}"></dd>
                                     <dt>Cotations :</dt> <dd th:text="'De ' + ${spot.cotationmin} + ' à ' + ${spot.cotationmax}"></dd>
                                 </dl>
-                                <button th:if="${cuserstaff}" th:ref="{@/fichespot/officiel/{id}}" type="button">Rendre officiel</button>
+                                
+                                <form th:if="${cuserstaff}" th:action="@{'/fichespot/{id}/officiel'(id=${spot.id})}" th:object="${spot}" method="post">
+                                	<input type="hidden" th:field="*{id}" />
+                                	<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${spot.utilisateur.id}" />
+                                	<input type="hidden" id="nom" name="nom" th:value="${spot.nom}" />
+                                	<input type="hidden" id="description" name="description" th:value="${spot.description}" />
+                                	<input type="hidden" id="lieu" name="lieu" th:value="${spot.lieu}" />
+                                	<input type="hidden" id="nbvoies" name="nbvoies" th:value="${spot.nbvoies}" />
+                                	<input type="hidden" id="cotationmin" name="cotationmin" th:value="${spot.cotationmin}" />
+                                	<input type="hidden" id="cotationmax" name="cotationmax" th:value="${spot.cotationmax}" />
+                                	
+                                	<label for="officiel">Statut officiel</label>
+                                	<input type="checkbox" class="form-control" id="officiel" th:field="*{officiel}">
+                                	
+                                	<input type="submit" value="Changer le statut officiel">
+                                </form>
+                                
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 	<img th:src="@{/img/spot.jpg}" alt="Spot image" width="100%">
@@ -96,7 +112,7 @@
                                             	<form th:action="@{'/spot/{spotid}/commentaire'(spotid=${spot.id})}" th:object="${commentaire}" method="post">	
                                             		<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${cuserid}" />
                                             		<input type="hidden" id="spot.id" name="spot.id" th:value="${spot.id}" />
-                                                	<textarea rows="3" class="form-control" id="message" name="message" th:field="*{message}"></textarea>
+                                                	<textarea rows="3" maxlength="60" class="form-control" id="message" name="message" th:field="*{message}"></textarea>
                                                 	<input type="submit" class="btn btn-success btn-fill btn-sm pull-right" value="Envoyer le commentaire">
                                                 </form>
                                             </div>
@@ -118,6 +134,12 @@
                                         <div class="pull-left">
                                         </div>
                                         <div class="media-body ">
+                                        
+                                        	<form th:if="${cuserstaff}" action="#" th:action="@{'/fichespot/delete/{id}'(id=${commentaire.id})}" th:method="delete" >
+											  <input type="hidden" name="_method" value="delete" />
+											  <button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
+											</form>
+											
                                             <strong th:text="${commentaire.utilisateur.username}"></strong> a laissé un commentaire. <br>
                                             <small class="text-muted" th:text="${#dates.format(commentaire.dateParution, 'dd MMM yyyy à HH:mm')}"></small>
                                             <div class="well" th:text="${commentaire.message}"></div>

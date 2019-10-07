@@ -34,8 +34,8 @@
 			</div>
 		</div>
 		
-		<form action="#" th:action="@{/panel/toposutilisateur/addtopo}" th:object="${topo}" method="post">
-			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${cuserid}" />
+		<form action="#" th:action="@{/panel/toposutilisateur/addtopo}" th:object="${topodto}" method="post">
+			<input type="hidden" id="utilisateurId" name="utilisateurId" th:value="${cuserid}" />
   			<div class="form-group">
     			<label for="nom">Nom du topo</label>
     			<input type="text" class="form-control" id="nom" th:field="*{nom}">
@@ -52,8 +52,8 @@
   			</div>
   			
   			<div class="form-group">
-  				<label for="spot.id">Spots du topo</label>
-                <select multiple size="5" id="spot.id" class="form-control selectpicker" name="spot.id" title="Aucun spot sélectionné">
+  				<label for="spots.id">Spots du topo</label>
+                <select multiple size="5" id="spotsId" class="form-control selectpicker" name="spotsId" title="Aucun spot sélectionné">
 					<option th:each="spot : ${spots}" th:value="${spot.id}" th:text="${spot.nom}"></option>
 				</select>
   			</div>

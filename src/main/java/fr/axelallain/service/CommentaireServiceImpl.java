@@ -26,4 +26,19 @@ public class CommentaireServiceImpl implements CommentaireService {
 		commentaireDao.ajouter(commentaire);
 	}
 
+	@Override
+	public List<Commentaire> findAllCommentaires() {
+		return commentaireDao.findAllCommentaires();
+	}
+
+	@Override
+	public void deleteCommentaire(Long id) {
+		commentaireDao.deleteCommentaire(id);
+	}
+
+	@Override
+	public Commentaire findById(Long id) {
+		return commentaireDao.findById(id);
+	}
+
 }

@@ -27,4 +27,21 @@ public class CommentaireDAOImpl implements CommentaireDAO {
 		em.merge(commentaire);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Commentaire> findAllCommentaires() {
+		Query query = em.createQuery("SELECT e FROM Commentaire e");
+		return (List<Commentaire>) query.getResultList();
+	}
+
+	@Override
+	public void deleteCommentaire(Long id) {
+		em.createQuery("DELETE from Commentaire e WHERE e.id=:id").setParameter("id", id).executeUpdate();
+	}
+
+	@Override
+	public Commentaire findById(Long id) {
+		return em.find(Commentaire.class, id);
+	}
+
 }

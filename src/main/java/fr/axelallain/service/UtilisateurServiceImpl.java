@@ -30,5 +30,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	public Utilisateur findByUsername(String username) {
 		return utilisateurDao.findByUsername(username);
 	}
+
+	@Override
+	public Utilisateur findById(Long id) {
+		return utilisateurDao.findById(id);
+	}
 	
 }

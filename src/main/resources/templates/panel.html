@@ -37,6 +37,7 @@
 		<a th:href="@{'/panel/spotsutilisateur/{cuserid}'(cuserid=${cuserid})}" class="btn btn-success">Mes spots</a>
 		<a th:if="${cuserstaff}" th:href="@{/panel/stafftopos}" class="btn btn-danger">Staff topos</a>
 		<a th:if="${cuserstaff}" th:href="@{/panel/staffspots}" class="btn btn-danger">Staff spots</a>
+		<a th:if="${cuserstaff}" th:href="@{/panel/staffcommentaires}" class="btn btn-danger">Staff commentaires</a>
 	</div>
 
 	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">

@@ -26,7 +26,7 @@
 		<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
 		<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
 		<div sec:authorize="isAuthenticated()">
-			<a href="panel" class="btn btn-dark">Panel</a>
+			<a th:href="@{/panel}" class="btn btn-dark">Panel</a>
 			<a href="/logout" class="btn btn-dark">Déconnexion</a>
 		</div>
 	</div>

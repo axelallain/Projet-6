@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import fr.axelallain.UserPrincipal;
+import fr.axelallain.dto.TopoDto;
 import fr.axelallain.entity.Topo;
+import fr.axelallain.entity.Utilisateur;
 import fr.axelallain.service.SpotService;
 import fr.axelallain.service.TopoService;
+import fr.axelallain.service.UtilisateurService;
 
 @Controller
 public class TopoController {
@@ -24,9 +27,12 @@ public class TopoController {
 	@Autowired
 	private SpotService spotService;
 	
+	@Autowired
+	private UtilisateurService utilisateurService;
+	
 	@GetMapping("/panel/toposutilisateur/addtopo")
 	public String addTopoForm(Model model) {
-		model.addAttribute("topo", new Topo());
+		model.addAttribute("topodto", new TopoDto());
 		
 		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long cuserid = cuser.getId();       
@@ -34,11 +40,19 @@ public class TopoController {
         
         model.addAttribute("spots", spotService.findAllSpots());
         
-		return "addTopo";
+		return "addtopo";
 	}
 	
 	@PostMapping("/panel/toposutilisateur/addtopo")
-	public String addTopoSubmit(Topo topo, Model model) {
+	public String addTopoSubmit(TopoDto topodto, Model model) {
+		Topo topo = new Topo();
+		topo.setNom(topodto.nom);
+		topo.setDescription(topodto.description);
+		topo.setLieu(topodto.lieu);
+		
+		Utilisateur utilisateur = utilisateurService.findById(topodto.utilisateurId);
+		topo.setUtilisateur(utilisateur);
+		
 		topoService.addTopo(topo);
 		
 		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

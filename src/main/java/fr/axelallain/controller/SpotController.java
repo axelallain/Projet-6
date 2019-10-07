@@ -124,5 +124,13 @@ public class SpotController {
 		
 		return "redirect:/panel/staffspots/";
 	}
+	
+	@PostMapping("/fichespot/{id}/officiel")
+	public String spotOfficiel(@PathVariable Long id, Model model, Spot spot) {
+		spotService.addSpot(spot);		
+		
+		return "redirect:/fichespot/" + id;
+		
+	}
 
 }

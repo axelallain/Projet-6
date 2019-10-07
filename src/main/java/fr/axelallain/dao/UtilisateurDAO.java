@@ -11,4 +11,6 @@ public interface UtilisateurDAO {
 	public void inscription(Utilisateur utilisateur);
 	
 	Utilisateur findByUsername(String username);
+	
+	Utilisateur findById(Long id);
 }

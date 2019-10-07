@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
-	<title>Mes spots</title>
+	<title>Staff commentaires</title>
 	<link th:href="@{/css/toposutilisateur.css}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,42 +32,30 @@
 				<a href="/logout" class="btn btn-dark">Déconnexion</a>
 			</div>
 		</div>
-		
-		<div class="row">
-			<div class="col text-right">
-  				<a class="btn btn-success btn-sm" href="/panel/spotsutilisateur/addspot" role="button">Ajouter un spot</a>
-  			</div>
-  		</div>
 	
 		<table class="table">
   			<thead class="thead-dark">
     			<tr>
       				<th scope="col">#</th>
-      				<th scope="col">Nom</th>
-     				<th scope="col">Description</th>
-      				<th scope="col">Lieu</th>
-      				<th scope="col">Officiel</th>
-      				<th scope="col">Cotation min</th>
-      				<th scope="col">Cotation max</th>
-      				<th scope="col">Nombre de voies</th>
+      				<th scope="col">Message</th>
+     				<th scope="col">Date de parution</th>
+      				<th scope="col">Auteur</th>
+      				<th scope="col">Spot concerné</th>
       				<th scope="col"></th>
     			</tr>
   			</thead>
   			<tbody>
-    			<tr th:each="spot : ${spots}">
-      				<th scope="row" th:text="${spot.id}"></th>
-      				<td th:text="${spot.nom}"></td>
-      				<td th:text="${spot.description}"></td>
-      				<td th:text="${spot.lieu}"></td>
-      				<td th:text="${spot.officiel}"></td>
-      				<td th:text="${spot.cotationmin}"></td>
-      				<td th:text="${spot.cotationmax}"></td>
-      				<td th:text="${spot.nbvoies}"></td>
+    			<tr th:each="commentaire : ${commentaires}">
+      				<th scope="row" th:text="${commentaire.id}"></th>
+      				<td th:text="${commentaire.message}"></td>
+      				<td th:text="${#dates.format(commentaire.dateParution, 'dd MMM yyyy')}"></td>
+      				<td th:text="${commentaire.utilisateur.username}"></td>
+      				<td th:text="${commentaire.spot.id}"></td>
       				<td>
       					
-      					<form action="#" th:action="@{'/panel/spotsutilisateur/delete/{id}'(id=${spot.id})}" th:method="delete" >
+      					<form action="#" th:action="@{'/panel/staffcommentaires/delete/{id}'(id=${commentaire.id})}" th:method="delete" >
 						  <input type="hidden" name="_method" value="delete" />
-						  <a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/modifier/{id}'(id=${spot.id})}" role="button">Modifier</a>
+						  <a class="btn btn-success btn-sm" th:href="@{'/panel/staffcommentaires/modifier/{id}'(id=${commentaire.id})}" role="button">Modifier</a>
 						  <button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
 						</form>
 						

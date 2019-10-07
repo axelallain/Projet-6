@@ -35,5 +35,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 				  setParameter("username", username).getSingleResult();
 		return utilisateur;
 	}
+
+	@Override
+	public Utilisateur findById(Long id) {
+		return em.find(Utilisateur.class, id);
+	}
 	
 }

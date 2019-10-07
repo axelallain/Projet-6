@@ -55,6 +55,9 @@ public class Spot {
 	@JoinColumn(name = "utilisateur_id")
 	private Utilisateur utilisateur;
 	
+	@ManyToMany
+	private Collection<Topo> topos;
+	
 	public Spot() {
 		
 	}

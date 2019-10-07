@@ -43,6 +43,9 @@ public class Topo {
 	@JoinColumn(name = "utilisateur_id")
 	private Utilisateur utilisateur;
 	
+	@ManyToMany(mappedBy="topos")
+	private Collection<Spot> spots;
+	
 	public Utilisateur getUtilisateur() {
 		return this.utilisateur;
 	}
@@ -101,6 +104,14 @@ public class Topo {
 
 	public void setDisponible(Boolean disponible) {
 		this.disponible = disponible;
+	}
+
+	public Collection<Spot> getSpots() {
+		return spots;
+	}
+
+	public void setSpots(Collection<Spot> spots) {
+		this.spots = spots;
 	}
 	
 }
