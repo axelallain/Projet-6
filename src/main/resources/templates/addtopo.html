@@ -29,13 +29,13 @@
 			<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
 			<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
 			<div sec:authorize="isAuthenticated()">
-				<a href="panel" class="btn btn-dark">Panel</a>
+				<a th:href="@{/panel}" class="btn btn-dark">Panel</a>
 				<a href="/logout" class="btn btn-dark">Déconnexion</a>
 			</div>
 		</div>
 		
-		<form action="#" th:action="@{/panel/toposutilisateur/addtopo}" th:object="${topodto}" method="post">
-			<input type="hidden" id="utilisateurId" name="utilisateurId" th:value="${cuserid}" />
+		<form action="#" th:action="@{/panel/toposutilisateur/addtopo}" th:object="${topo}" method="post">
+			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${cuserid}" />
   			<div class="form-group">
     			<label for="nom">Nom du topo</label>
     			<input type="text" class="form-control" id="nom" th:field="*{nom}">
@@ -52,8 +52,8 @@
   			</div>
   			
   			<div class="form-group">
-  				<label for="spots.id">Spots du topo</label>
-                <select multiple size="5" id="spotsId" class="form-control selectpicker" name="spotsId" title="Aucun spot sélectionné">
+  				<label for="spots">Spots du topo</label>
+                <select multiple th:field="*{spots}" id="spots" class="form-control selectpicker" title="Aucun spot sélectionné">
 					<option th:each="spot : ${spots}" th:value="${spot.id}" th:text="${spot.nom}"></option>
 				</select>
   			</div>

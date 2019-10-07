@@ -32,7 +32,7 @@ public class TopoController {
 	
 	@GetMapping("/panel/toposutilisateur/addtopo")
 	public String addTopoForm(Model model) {
-		model.addAttribute("topodto", new TopoDto());
+		model.addAttribute("topo", new Topo());
 		
 		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long cuserid = cuser.getId();       
@@ -44,14 +44,7 @@ public class TopoController {
 	}
 	
 	@PostMapping("/panel/toposutilisateur/addtopo")
-	public String addTopoSubmit(TopoDto topodto, Model model) {
-		Topo topo = new Topo();
-		topo.setNom(topodto.nom);
-		topo.setDescription(topodto.description);
-		topo.setLieu(topodto.lieu);
-		
-		Utilisateur utilisateur = utilisateurService.findById(topodto.utilisateurId);
-		topo.setUtilisateur(utilisateur);
+	public String addTopoSubmit(Topo topo, Model model) {
 		
 		topoService.addTopo(topo);
 		
