@@ -20,4 +20,6 @@ public interface SpotDAO {
 	
 	public List<Spot> findAllSpots();
 	
+	List<Spot> findByNameLike(String name);
+	
 }

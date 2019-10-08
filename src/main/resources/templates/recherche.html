@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="UTF-8" />
 	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
-	<title>Modifier un staff commentaire</title>
-	<link th:href="@{/css/addtopo.css}" rel="stylesheet" type="text/css">
+	<title>Recherche</title>
+	<link th:href="@{/css/fichetopo.css}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -21,36 +21,35 @@
   			</div>
 		</nav>
 	</div>
-
-	<div id="container">
 	
-		<div class="sidebar">
-			<a href="/" class="btn btn-dark">Accueil</a>
-			<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
-			<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
-			<div sec:authorize="isAuthenticated()">
-				<a th:href="@{/panel}" class="btn btn-dark">Panel</a>
-				<a href="/logout" class="btn btn-dark">Déconnexion</a>
-			</div>
+	<div class="sidebar">
+		<a href="/" class="btn btn-dark">Accueil</a>
+		<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
+		<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
+		<div sec:authorize="isAuthenticated()">
+			<a th:href="@{/panel}" class="btn btn-dark">Panel</a>
+			<a href="/logout" class="btn btn-dark">Déconnexion</a>
 		</div>
-		
-		<form action="#" th:action="@{/panel/staffcommentaire/addcommentaire}" th:object="${commentaire}" method="post">
-			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${commentaire.utilisateur.id}" />
-			<input type="hidden" id="spot.id" name="spot.id" th:value="${commentaire.spot.id}" />
-			<input type="hidden" id="dateParution" name="dateParution" th:value="${commentaire.dateParution}" />
-			<input type="hidden" th:field="*{id}" />
-			
-  			<div class="form-group">
-    			<label for="message">Message</label>
-    			<input type="text" class="form-control" id="message" name="message" th:value="${commentaire.message}">
-  			</div>
-  			
-  			<input type="submit" name="Valider" value="Valider">
-  			<input type="reset" value="Réinitialiser">
-		</form>
 	</div>
 	
-	<h2 th:text="${cuserid}"></h2>
+	<div id="content">	
+		<div class="row">
+	        <div class="col-sm-6 col-lg-4 py-2" th:each="spot : ${spots}">
+	            <div class="card h-100">
+	            	<div class="ribbon-wrapper">
+		                <div th:if="${spot.officiel}" class="ribbon blue">Officiel</div>
+		            </div>
+	                <img class="card-img-top img-fluid" th:src="@{/img/spot.jpg}" alt="Image du topo">
+	                <div class="card-body">
+	                    <h4 class="card-title" th:text="${spot.nom}"></h4>
+	                    <p class="card-text" th:text="${spot.description}"></p>
+	                    <p class="card-text"><small class="text-muted" th:text="'Ajouté par ' + ${spot.utilisateur.username}"></small></p>
+	                    <a th:href="@{'/fichespot/{spotid}'(spotid=${spot.id})}" class="btn btn-success btn-sm">Voir plus</a>
+	                </div>
+	            </div>
+	        </div>    
+	    </div>
+    </div>
 
 	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">
     	<div class="container text-center">

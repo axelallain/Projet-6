@@ -19,5 +19,7 @@ public interface SpotService {
 	public void deleteSpot(Long id);
 	
 	public List<Spot> findAllSpots();
+	
+	List<Spot> findByNameLike(String name);
 
 }

@@ -15,8 +15,9 @@
 		<nav class="navbar navbar-light bg-light">
 			<div class="navbarcontent">
   				<a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="Logo des amis de l'escalade"></a>
-  				<form class="form-inline text-center">
-    				<input class="form-control mr-sm-1" type="search" placeholder="Recherche" aria-label="Search">
+  				<form th:action="@{/recherche}" class="form-inline text-center">
+    				<input class="form-control mr-sm-1" type="text" name="name" placeholder="Recherche" aria-label="Search">
+    				<input type="submit" value="Rechercher" class="btn btn-primary"/>
   				</form>
   			</div>
 		</nav>
@@ -49,13 +50,6 @@
   			<div class="form-group">
     			<label for="lieu">Lieu du topo</label>
     			<input type="text" class="form-control" id="lieu" th:field="*{lieu}">
-  			</div>
-  			
-  			<div class="form-group">
-  				<label for="spots">Spots du topo</label>
-                <select multiple th:field="*{spots}" id="spots" class="form-control selectpicker" title="Aucun spot sélectionné">
-					<option th:each="spot : ${spots}" th:value="${spot.id}" th:text="${spot.nom}"></option>
-				</select>
   			</div>
   			  			
   			<input type="submit" name="Valider" value="Valider">

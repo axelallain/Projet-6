@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +38,6 @@ public class TopoController {
 		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long cuserid = cuser.getId();       
         model.addAttribute("cuserid", cuserid);
-        
-        model.addAttribute("spots", spotService.findAllSpots());
         
 		return "addtopo";
 	}
@@ -76,6 +75,7 @@ public class TopoController {
 
 	    modelAndView.setViewName("modifiertopo");
 	    modelAndView.addObject("topo", topo);
+	    modelAndView.addObject("spots", spotService.findAllSpots());
 
 	    return modelAndView;
 	}

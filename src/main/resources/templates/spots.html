@@ -14,8 +14,9 @@
 		<nav class="navbar navbar-light bg-light">
 			<div class="navbarcontent">
   				<a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="Logo des amis de l'escalade"></a>
-  				<form class="form-inline text-center">
-    				<input class="form-control mr-sm-1" type="search" placeholder="Recherche" aria-label="Search">
+  				<form th:action="@{/recherche}" class="form-inline text-center">
+    				<input class="form-control mr-sm-1" type="text" name="name" placeholder="Recherche" aria-label="Search">
+    				<input type="submit" value="Rechercher" class="btn btn-primary"/>
   				</form>
   			</div>
 		</nav>
@@ -26,7 +27,7 @@
 		<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
 		<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
 		<div sec:authorize="isAuthenticated()">
-			<a href="panel" class="btn btn-dark">Panel</a>
+			<a th:href="@{/panel}" class="btn btn-dark">Panel</a>
 			<a href="/logout" class="btn btn-dark">Déconnexion</a>
 		</div>
 	</div>

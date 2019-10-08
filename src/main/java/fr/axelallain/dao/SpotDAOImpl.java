@@ -59,4 +59,13 @@ public class SpotDAOImpl implements SpotDAO {
 		Query query = em.createQuery("SELECT e FROM Spot e");
 		return (List<Spot>) query.getResultList();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Spot> findByNameLike(String name) {
+		Query query = em.createQuery("select e from Spot e where e.nom LIKE CONCAT('%',:name,'%')", Spot.class);
+		query.setParameter("name", name);
+		return (List<Spot>) query.getResultList();
+	}
+	
 }

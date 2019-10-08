@@ -6,6 +6,7 @@
 	<title>Modifier un topo</title>
 	<link th:href="@{/css/modifiertopo.css}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -14,8 +15,9 @@
 		<nav class="navbar navbar-light bg-light">
 			<div class="navbarcontent">
   				<a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="Logo des amis de l'escalade"></a>
-  				<form class="form-inline text-center">
-    				<input class="form-control mr-sm-1" type="search" placeholder="Recherche" aria-label="Search">
+  				<form th:action="@{/recherche}" class="form-inline text-center">
+    				<input class="form-control mr-sm-1" type="text" name="name" placeholder="Recherche" aria-label="Search">
+    				<input type="submit" value="Rechercher" class="btn btn-primary"/>
   				</form>
   			</div>
 		</nav>
@@ -55,6 +57,13 @@
     			<label for="disponible">Disponible</label>
     			<input type="checkbox" class="form-control" id="disponible" th:field="*{disponible}">
   			</div>
+  			
+  			<div class="form-group">
+  				<label for="spots.id">Spots du topo</label>
+                <select multiple size="5" th:field="*{spots}" id="spots.id" class="form-control selectpicker" title="Aucun spot sélectionné">
+					<option th:each="spot : ${spots}" th:value="${spot.id}" th:text="${spot.nom}"></option>
+				</select>
+  			</div>
 
   			<input type="submit" name="Valider" value="Modifier">
   			<input type="reset" value="Réinitialiser">
@@ -70,5 +79,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-*.min.js"></script>
 </body>
 </html>

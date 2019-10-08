@@ -51,4 +51,10 @@ public class SpotServiceImpl implements SpotService {
 	public List<Spot> findAllSpots() {
 		return spotDao.findAllSpots();
 	}
+
+	@Override
+	public List<Spot> findByNameLike(String name) {
+		return spotDao.findByNameLike(name);
+	}
+	
 }
