@@ -55,11 +55,11 @@ public class CommentaireController {
         Long cuserid = cuser.getId();       
         model.addAttribute("cuserid", cuserid);
 		
-		return "modifierstaffcommentaires";
+		return "modifierstaffcommentaire";
 	}
 	
 	@PostMapping("/panel/staffcommentaire/addcommentaire")
-	public String commenterStaffPanel(@PathVariable Long id, Commentaire commentaire) {
+	public String commenterStaffPanel(Commentaire commentaire) {
 		commentaireService.ajouter(commentaire);
 		
 		return "redirect:/panel/staffcommentaires/";

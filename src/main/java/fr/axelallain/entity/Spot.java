@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -57,6 +58,9 @@ public class Spot {
 	
 	@ManyToMany
 	private Collection<Topo> topos;
+	
+	@OneToMany(mappedBy="spot")
+	private Collection<Voie> voies;
 	
 	public Spot() {
 		
