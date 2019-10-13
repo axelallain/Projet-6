@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
-	<title>Mes spots</title>
+	<title th:text="${spot.nom}"></title>
 	<link th:href="@{/css/toposutilisateur.css}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +36,7 @@
 		
 		<div class="row">
 			<div class="col text-right">
-  				<a class="btn btn-success btn-sm" href="/panel/spotsutilisateur/addspot" role="button">Ajouter un spot</a>
+  				<a class="btn btn-success btn-sm" href="/panel/spotsutilisateur/addspot" role="button">Ajouter une voie</a>
   			</div>
   		</div>
 	
@@ -45,28 +45,22 @@
     			<tr>
       				<th scope="col">#</th>
       				<th scope="col">Nom</th>
-     				<th scope="col">Description</th>
-      				<th scope="col">Lieu</th>
-      				<th scope="col">Officiel</th>
-      				<th scope="col">Cotation min</th>
+     				<th scope="col">Cotation min</th>
       				<th scope="col">Cotation max</th>
-      				<th scope="col">Nombre de voies</th>
+      				<th scope="col">Spot concerné</th>
       				<th scope="col"></th>
     			</tr>
   			</thead>
   			<tbody>
-    			<tr th:each="spot : ${spots}">
-      				<th scope="row" th:text="${spot.id}"></th>
-      				<td th:text="${spot.nom}"></td>
-      				<td th:text="${spot.description}"></td>
-      				<td th:text="${spot.lieu}"></td>
-      				<td th:text="${spot.officiel}"></td>
-      				<td th:text="${spot.cotationmin}"></td>
-      				<td th:text="${spot.cotationmax}"></td>
-      				<td th:text="${spot.nbvoies}"></td>
+    			<tr th:each="voie : ${voies}">
+      				<th scope="row" th:text="${voie.id}"></th>
+      				<td th:text="${voie.nom}"></td>
+      				<td th:text="${voie.cotationmin}"></td>
+      				<td th:text="${voie.cotationmax}"></td>
+      				<td th:text="${voie.spot.nom}"></td>
       				<td>
       					
-      					<form action="#" th:action="@{'/panel/spotsutilisateur/delete/{id}'(id=${spot.id})}" th:method="delete" >
+      					<form action="#" th:action="@{'/panel/spotsutilisateur/details/delete/{id}'(id=${voie.id},spotid=${spot.id})}" th:method="delete" >
 						  <input type="hidden" name="_method" value="delete" />
 						  <a class="btn btn-primary btn-sm" th:href="@{'/panel/spotsutilisateur/details/{id}'(id=${spot.id})}" role="button">Détails</a>
 						  <a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/modifier/{id}'(id=${spot.id})}" role="button">Modifier</a>

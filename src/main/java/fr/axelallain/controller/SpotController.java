@@ -16,6 +16,7 @@ import fr.axelallain.entity.Spot;
 import fr.axelallain.entity.Topo;
 import fr.axelallain.service.CommentaireService;
 import fr.axelallain.service.SpotService;
+import fr.axelallain.service.VoieService;
 
 @Controller
 public class SpotController {
@@ -25,6 +26,9 @@ public class SpotController {
 	
 	@Autowired
 	private CommentaireService commentaireService;
+	
+	@Autowired
+	private VoieService voieService;
 	
 	@GetMapping("/panel/spotsutilisateur/addspot")
 	public String addSpotForm(Model model) {
@@ -131,6 +135,14 @@ public class SpotController {
 		
 		return "redirect:/fichespot/" + id;
 		
+	}
+	
+	@GetMapping("/panel/spotsutilisateur/details/{id}")
+	public String spotDetails(@PathVariable Long id, Model model) {
+		model.addAttribute("spot", spotService.findSpotById(id));
+		model.addAttribute("voies", voieService.findBySpotId(id));
+		
+		return "spotdetails";
 	}
 
 }

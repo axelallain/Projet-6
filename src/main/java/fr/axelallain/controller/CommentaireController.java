@@ -41,10 +41,10 @@ public class CommentaireController {
 	}
 	
 	@DeleteMapping("/fichespot/delete/{id}")
-	public String deleteCommentaireSpot(@PathVariable Long id) {
+	public String deleteCommentaireSpot(@PathVariable Long id, Long spotid) {
 		commentaireService.deleteCommentaire(id);
 		
-		return "redirect:/panel/staffcommentaires/";
+		return "redirect:/fichespot/" + spotid;
 	}
 	
 	@GetMapping("/panel/staffcommentaires/modifier/{id}")
