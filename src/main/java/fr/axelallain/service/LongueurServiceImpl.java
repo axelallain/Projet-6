@@ -1,5 +1,7 @@
 package fr.axelallain.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,11 @@ public class LongueurServiceImpl implements LongueurService {
 	@Override
 	public void addLongueur(Longueur longueur) {
 		longueurDao.addLongueur(longueur);
+	}
+
+	@Override
+	public List<Longueur> findByVoieSpotId(Long id) {
+		return longueurDao.findByVoieSpotId(id);
 	}
 
 }

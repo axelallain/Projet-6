@@ -15,6 +15,7 @@ import fr.axelallain.entity.Commentaire;
 import fr.axelallain.entity.Spot;
 import fr.axelallain.entity.Topo;
 import fr.axelallain.service.CommentaireService;
+import fr.axelallain.service.LongueurService;
 import fr.axelallain.service.SpotService;
 import fr.axelallain.service.VoieService;
 
@@ -29,6 +30,9 @@ public class SpotController {
 	
 	@Autowired
 	private VoieService voieService;
+	
+	@Autowired
+	private LongueurService longueurService;
 	
 	@GetMapping("/panel/spotsutilisateur/addspot")
 	public String addSpotForm(Model model) {
@@ -141,7 +145,7 @@ public class SpotController {
 	public String spotDetails(@PathVariable Long id, Model model) {
 		model.addAttribute("spot", spotService.findSpotById(id));
 		model.addAttribute("voies", voieService.findBySpotId(id));
-		model.addAttribute("longueurs");
+		model.addAttribute("longueurs", longueurService.findByVoieSpotId(id));
 		
 		return "spotdetails";
 	}
