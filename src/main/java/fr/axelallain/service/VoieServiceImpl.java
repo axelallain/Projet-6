@@ -27,4 +27,14 @@ public class VoieServiceImpl implements VoieService {
 		voieDao.deleteVoie(id);
 	}
 
+	@Override
+	public void addVoie(Voie voie) {
+		voieDao.addVoie(voie);
+	}
+
+	@Override
+	public Voie findById(Long id) {
+		return voieDao.findById(id);
+	}
+
 }

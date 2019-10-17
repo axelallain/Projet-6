@@ -9,5 +9,9 @@ public interface VoieService {
 	List<Voie> findBySpotId(Long id);
 	
 	void deleteVoie(Long id);
+	
+	void addVoie(Voie voie);
+	
+	Voie findById(Long id);
 
 }

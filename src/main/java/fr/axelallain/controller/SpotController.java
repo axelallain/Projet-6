@@ -141,6 +141,7 @@ public class SpotController {
 	public String spotDetails(@PathVariable Long id, Model model) {
 		model.addAttribute("spot", spotService.findSpotById(id));
 		model.addAttribute("voies", voieService.findBySpotId(id));
+		model.addAttribute("longueurs");
 		
 		return "spotdetails";
 	}

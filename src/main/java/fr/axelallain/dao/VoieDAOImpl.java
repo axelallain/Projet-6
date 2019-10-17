@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import fr.axelallain.entity.Spot;
 import fr.axelallain.entity.Voie;
 
 @Repository
@@ -26,6 +27,17 @@ public class VoieDAOImpl implements VoieDAO {
 	@Override
 	public void deleteVoie(Long id) {
 		em.createQuery("DELETE from Voie e WHERE e.id=:id").setParameter("id", id).executeUpdate();
+	}
+
+	@Override
+	public void addVoie(Voie voie) {
+		em.merge(voie);
+	}
+
+	@Override
+	public Voie findById(Long id) {
+		Voie voie = em.find(Voie.class, id);
+		return voie;
 	}
 
 }
