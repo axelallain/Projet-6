@@ -39,6 +39,8 @@ public class TopoController {
         Long cuserid = cuser.getId();       
         model.addAttribute("cuserid", cuserid);
         
+        model.addAttribute("spots", spotService.findAllSpotsByUtilisateurId(cuserid));
+        
 		return "addtopo";
 	}
 	
@@ -75,7 +77,6 @@ public class TopoController {
 
 	    modelAndView.setViewName("modifiertopo");
 	    modelAndView.addObject("topo", topo);
-	    modelAndView.addObject("spots", spotService.findAllSpots());
 
 	    return modelAndView;
 	}

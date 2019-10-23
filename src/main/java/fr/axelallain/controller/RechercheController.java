@@ -17,6 +17,7 @@ public class RechercheController {
 	@GetMapping("/recherche")
 	public String recherche(Model model, @RequestParam(defaultValue="") String name) {
 		model.addAttribute("spots", spotService.findByNameLike("%"+name+"%"));
+		model.addAttribute("recherche", name);
 		
 		return "recherche";
 	}

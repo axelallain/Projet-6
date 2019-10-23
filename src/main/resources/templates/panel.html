@@ -34,6 +34,8 @@
 			</div>
 		</div>
 		
+		<h1>Mon panel</h1>
+		
 		<a th:href="@{'/panel/toposutilisateur/{cuserid}'(cuserid=${cuserid})}" class="btn btn-success">Mes topos</a>
 		<a th:href="@{'/panel/spotsutilisateur/{cuserid}'(cuserid=${cuserid})}" class="btn btn-success">Mes spots</a>
 		<a th:if="${cuserstaff}" th:href="@{/panel/stafftopos}" class="btn btn-danger">Staff topos</a>

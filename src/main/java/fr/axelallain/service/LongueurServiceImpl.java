@@ -27,4 +27,19 @@ public class LongueurServiceImpl implements LongueurService {
 		return longueurDao.findByVoieSpotId(id);
 	}
 
+	@Override
+	public void deleteLongueur(Long id) {
+		longueurDao.deleteLongueur(id);
+	}
+
+	@Override
+	public Longueur findById(Long id) {
+		return longueurDao.findById(id);
+	}
+
+	@Override
+	public void modifierLongueur(Longueur longueur) {
+		longueurDao.modifierLongueur(longueur);
+	}
+
 }

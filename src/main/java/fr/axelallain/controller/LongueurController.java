@@ -3,6 +3,7 @@ package fr.axelallain.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,27 @@ public class LongueurController {
 		longueurService.addLongueur(longueur);
 		
 		return "redirect:/panel/spotsutilisateur/details/" + spotid;
+	}
+	
+	@DeleteMapping("/panel/spotsutilisateur/details/{spotid}/deletelongueur/{longueurid}")
+	public String deleteLongueur(@PathVariable Long longueurid, Long spotid) {
+		longueurService.deleteLongueur(longueurid);
+		
+		return "redirect:/panel/spotsutilisateur/details/" + spotid;
+	}
+	
+	@GetMapping("/panel/spotsutilisateur/details/{spotid}/modifierlongueur/{longueurid}")
+	public String modifierLongueurForm(@PathVariable Long spotid, Long longueurid, Model model) {
+		model.addAttribute("longueur", longueurService.findById(longueurid));
+		
+		return "modifierlongueur";
+	}
+	
+	@PostMapping("/panel/spotsutilisateur/details/{spotid}/modifierlongueur/{longueurid}")
+	public String modifierLongueurSubmit(@PathVariable Long spotid, Long longueurid, Longueur longueur) {
+		longueurService.modifierLongueur(longueur);
+		
+		return "redirect/panel/spotsutilisateur/details/" + spotid;
 	}
 
 }

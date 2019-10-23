@@ -1,6 +1,8 @@
 package fr.axelallain.entity;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,15 +51,8 @@ public class Spot {
 	private Long nblongueurs;
 	
 	@ManyToOne
-	@JoinColumn(name = "topo_id")
-	private Topo topo;
-	
-	@ManyToOne
 	@JoinColumn(name = "utilisateur_id")
 	private Utilisateur utilisateur;
-	
-	@ManyToMany
-	private Collection<Topo> topos;
 	
 	@OneToMany(mappedBy="spot")
 	private Collection<Voie> voies;
@@ -113,14 +108,6 @@ public class Spot {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-
-	public Topo getTopo() {
-		return topo;
-	}
-
-	public void setTopo(Topo topo) {
-		this.topo = topo;
-	}
 	
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
@@ -160,6 +147,14 @@ public class Spot {
 
 	public void setNblongueurs(Long nblongueurs) {
 		this.nblongueurs = nblongueurs;
+	}
+
+	public Collection<Voie> getVoies() {
+		return voies;
+	}
+
+	public void setVoies(Collection<Voie> voies) {
+		this.voies = voies;
 	}
 	
 }

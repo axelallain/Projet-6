@@ -35,6 +35,8 @@
 			</div>
 		</div>
 		
+		<h1>Ajouter un topo</h1>
+		
 		<form action="#" th:action="@{/panel/toposutilisateur/addtopo}" th:object="${topo}" method="post">
 			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${cuserid}" />
   			<div class="form-group">
@@ -50,6 +52,13 @@
   			<div class="form-group">
     			<label for="lieu">Lieu du topo</label>
     			<input type="text" class="form-control" id="lieu" th:field="*{lieu}">
+  			</div>
+  			
+  			<div class="form-group">
+  				<label for="spot.id">Spots du topo</label>
+                <select multiple size="5" name="spot.id" id="spot.id" class="form-control selectpicker" title="Aucun spot sélectionné">
+					<option th:each="spot : ${spots}" th:value="${spot.id}" th:text="${spot.nom}"></option>
+				</select>
   			</div>
   			  			
   			<input type="submit" name="Valider" value="Valider">

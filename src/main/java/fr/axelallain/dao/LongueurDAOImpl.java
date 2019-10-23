@@ -29,4 +29,20 @@ public class LongueurDAOImpl implements LongueurDAO {
 		return (List<Longueur>) query.getResultList();
 	}
 
+	@Override
+	public void deleteLongueur(Long id) {
+		em.createQuery("delete from Longueur e where e.id=:id").setParameter("id", id).executeUpdate();
+	}
+
+	@Override
+	public Longueur findById(Long id) {
+		Longueur longueur = em.find(Longueur.class, id);
+		return longueur;
+	}
+
+	@Override
+	public void modifierLongueur(Longueur longueur) {
+		em.merge(longueur);
+	}
+
 }

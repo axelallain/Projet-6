@@ -34,6 +34,8 @@
 			</div>
 		</div>
 		
+		<h1 th:text="${'Détails du spot ' + spot.nom}"></h1>
+		
 		<div class="row">
 			<div class="col text-right">
   				<a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/addvoie'(spotid=${spot.id})}" role="button">Ajouter une voie</a>
@@ -60,10 +62,9 @@
       				<td th:text="${voie.spot.nom}"></td>
       				<td>
       					
-      					<form action="#" th:action="@{'/panel/spotsutilisateur/details/delete/{id}'(id=${voie.id},spotid=${spot.id})}" th:method="delete" >
+      					<form action="#" th:action="@{'/panel/spotsutilisateur/details/{spotid}/deletevoie/{id}'(id=${voie.id},spotid=${spot.id})}" th:method="delete" >
 						  <input type="hidden" name="_method" value="delete" />
-						  <a class="btn btn-primary btn-sm" th:href="@{'/panel/spotsutilisateur/details/{id}'(id=${spot.id})}" role="button">Détails</a>
-						  <a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/modifier/{id}'(id=${spot.id})}" role="button">Modifier</a>
+						  <a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/modifiervoie/{voieid}'(spotid=${spot.id},voieid=${voie.id})}" role="button">Modifier</a>
 						  <button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
 						</form>
 						
@@ -97,9 +98,10 @@
       				<td th:text="${longueur.cotationmax}"></td>
       				<td th:text="${longueur.voie.id}"></td>
       				<td>
-      					
-      				<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Annuler</button>
-						
+      			    	<form action="#" th:action="@{'/panel/spotsutilisateur/details/{spotid}/deletelongueur/{longueurid}'(longueurid=${longueur.id},spotid=${spot.id})}" th:method="delete" >
+      			    		<a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/modifierlongueur/{longueurid}'(spotid=${spot.id},longueurid=${longueur.id})}" role="button">Modifier</a>    			    						
+      						<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
+						</form>
       				</td>
     			</tr>
   			</tbody>

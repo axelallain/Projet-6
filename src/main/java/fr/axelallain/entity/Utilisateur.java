@@ -55,7 +55,7 @@ public class Utilisateur implements Serializable {
 	@OneToMany(mappedBy="utilisateur", fetch = FetchType.EAGER)
     private Collection<Topo> topos;
 	
-	@OneToMany(mappedBy="utilisateur", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="utilisateur")
 	private Collection<Spot> spots;
 	
 	public Utilisateur() {

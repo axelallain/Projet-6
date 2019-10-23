@@ -34,6 +34,8 @@
 			</div>
 		</div>
 		
+		<h1>Ajouter un spot</h1>
+		
 		<form action="#" th:action="@{/panel/spotsutilisateur/addspot}" th:object="${spot}" method="post">
 			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${cuserid}" />
   			<div class="form-group">

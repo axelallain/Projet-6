@@ -34,6 +34,8 @@
 			</div>
 		</div>
 		
+		<h1 th:text="${'(STAFF) Modifier le commentaire ' + commentaire.nom}"></h1>
+		
 		<form action="#" th:action="@{/panel/staffcommentaire/addcommentaire}" th:object="${commentaire}" method="post">
 			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${commentaire.utilisateur.id}" />
 			<input type="hidden" id="spot.id" name="spot.id" th:value="${commentaire.spot.id}" />

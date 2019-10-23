@@ -34,6 +34,8 @@
 			</div>
 		</div>
 		
+		<h1 th:text="${'Ajouter une voie dans le spot ' + spot.nom}"></h1>
+		
 		<form action="#" th:action="@{'/panel/spotsutilisateur/details/{spotid}/addvoie'(spotid=${spot.id})}" th:object="${voie}" method="post">
 			<input type="hidden" id="spot.id" name="spot.id" th:value="${spot.id}" />
   			<div class="form-group">
