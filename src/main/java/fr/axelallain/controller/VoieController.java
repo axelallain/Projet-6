@@ -24,9 +24,9 @@ public class VoieController {
 	@Autowired
 	private SpotService spotService;
 	
-	@DeleteMapping("/panel/spotsutilisateur/details/{spotid}/deletevoie/{voieid}")
-	public String deleteVoie(@PathVariable Long voieid, Long spotid) {
-		voieService.deleteVoie(voieid);
+	@GetMapping("/panel/spotsutilisateur/details/{spotid}/deletevoie/{id}")
+	public String deleteVoie(@PathVariable Long id, @PathVariable Long spotid) {
+		voieService.deleteVoie(id);
 		
 		return "redirect:/panel/spotsutilisateur/details/" + spotid;
 	}
@@ -49,9 +49,9 @@ public class VoieController {
 		return "redirect:/panel/spotsutilisateur/details/" + spotid;
 	}
 	
-	@GetMapping("/panel/spotsutilisateur/details/{spotid}/modifiervoie/{voieid}")
-	public String modifierVoieForm(@PathVariable Long spotid, Long voieid, Model model) {
-		model.addAttribute("voie", voieService.findById(voieid));
+	@GetMapping("/panel/spotsutilisateur/details/{spotid}/modifiervoie/{id}")
+	public String modifierVoieForm(@PathVariable Long spotid, @PathVariable Long id, Model model) {
+		model.addAttribute("voie", voieService.findById(id));
 		
 		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long cuserid = cuser.getId();

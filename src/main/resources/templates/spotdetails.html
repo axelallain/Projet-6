@@ -61,12 +61,8 @@
       				<td th:text="${voie.cotationmax}"></td>
       				<td th:text="${voie.spot.nom}"></td>
       				<td>
-      					
-      					<form action="#" th:action="@{'/panel/spotsutilisateur/details/{spotid}/deletevoie/{id}'(id=${voie.id},spotid=${spot.id})}" th:method="delete" >
-						  <input type="hidden" name="_method" value="delete" />
-						  <a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/modifiervoie/{voieid}'(spotid=${spot.id},voieid=${voie.id})}" role="button">Modifier</a>
-						  <button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
-						</form>
+      					  <a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/modifiervoie/{voieid}'(spotid=${spot.id},voieid=${voie.id})}" role="button">Modifier</a>
+			              <a class="btn btn-danger btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/deletevoie/{id}'(id=${voie.id},spotid=${spot.id})}" role="button">Supprimer</a>
 						
       				</td>
     			</tr>
