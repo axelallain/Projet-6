@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.axelallain.service.SpotService;
@@ -19,7 +20,19 @@ public class RechercheController {
 		model.addAttribute("spots", spotService.findByNameLike("%"+name+"%"));
 		model.addAttribute("recherche", name);
 		
-		return "recherche";
+		return "resultatrecherche";
+	}
+	
+	@GetMapping("/rechercheavancee")
+	public String rechercheAvancee() {
+		
+		return "rechercheavancee";
+	}
+	
+	@PostMapping("/rechercheavancee")
+	public String rechercheAvanceeSubmit() {
+		
+		return "resultatrecherche";
 	}
 
 }

@@ -31,7 +31,7 @@ public class LongueurDAOImpl implements LongueurDAO {
 
 	@Override
 	public void deleteLongueur(Long id) {
-		em.createQuery("delete from Longueur e where e.id=:id").setParameter("id", id).executeUpdate();
+		em.createQuery("DELETE from Longueur e WHERE e.id=:id").setParameter("id", id).executeUpdate();
 	}
 
 	@Override

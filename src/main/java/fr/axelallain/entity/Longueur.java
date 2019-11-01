@@ -20,11 +20,8 @@ public class Longueur {
 	@Column(name = "nom", nullable = false)
 	private String nom;
 	
-	@Column(name = "cotationmin")
-	private String cotationmin;
-	
-	@Column(name = "cotationmax")
-	private String cotationmax;
+	@Column(name = "cotation")
+	private String cotation;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Voie voie;
@@ -45,20 +42,12 @@ public class Longueur {
 		this.nom = nom;
 	}
 
-	public String getCotationmin() {
-		return cotationmin;
+	public String getCotation() {
+		return cotation;
 	}
 
-	public void setCotationmin(String cotationmin) {
-		this.cotationmin = cotationmin;
-	}
-
-	public String getCotationmax() {
-		return cotationmax;
-	}
-
-	public void setCotationmax(String cotationmax) {
-		this.cotationmax = cotationmax;
+	public void setCotation(String cotation) {
+		this.cotation = cotation;
 	}
 
 	public Voie getVoie() {

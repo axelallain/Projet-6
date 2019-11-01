@@ -38,25 +38,27 @@ public class LongueurController {
 		return "redirect:/panel/spotsutilisateur/details/" + spotid;
 	}
 	
-	@DeleteMapping("/panel/spotsutilisateur/details/{spotid}/deletelongueur/{longueurid}")
-	public String deleteLongueur(@PathVariable Long longueurid, Long spotid) {
-		longueurService.deleteLongueur(longueurid);
+	@GetMapping("/panel/spotsutilisateur/details/{spotid}/deletelongueur/{id}")
+	public String deleteLongueur(@PathVariable Long id, @PathVariable Long spotid) {
+		longueurService.deleteLongueur(id);
 		
 		return "redirect:/panel/spotsutilisateur/details/" + spotid;
 	}
 	
-	@GetMapping("/panel/spotsutilisateur/details/{spotid}/modifierlongueur/{longueurid}")
-	public String modifierLongueurForm(@PathVariable Long spotid, Long longueurid, Model model) {
-		model.addAttribute("longueur", longueurService.findById(longueurid));
+	@GetMapping("/panel/spotsutilisateur/details/{spotid}/modifierlongueur/{id}")
+	public String modifierLongueurForm(@PathVariable Long spotid, @PathVariable Long id, Model model) {
+		model.addAttribute("longueur", longueurService.findById(id));
+		model.addAttribute("voies", voieService.findBySpotId(spotid));
 		
 		return "modifierlongueur";
 	}
 	
-	@PostMapping("/panel/spotsutilisateur/details/{spotid}/modifierlongueur/{longueurid}")
-	public String modifierLongueurSubmit(@PathVariable Long spotid, Long longueurid, Longueur longueur) {
+	@PostMapping("/panel/spotsutilisateur/details/{spotid}/modifierlongueur/{id}")
+	public String modifierLongueurSubmit(@PathVariable Long spotid, @PathVariable Long id, Longueur longueur) {
+		longueur.setVoie(voieService.findById(longueur.getVoie().getId()));
 		longueurService.modifierLongueur(longueur);
 		
-		return "redirect/panel/spotsutilisateur/details/" + spotid;
+		return "redirect:/panel/spotsutilisateur/details/" + spotid;
 	}
 
 }

@@ -146,6 +146,7 @@ public class SpotController {
 		model.addAttribute("spot", spotService.findSpotById(id));
 		model.addAttribute("voies", voieService.findBySpotId(id));
 		model.addAttribute("longueurs", longueurService.findByVoieSpotId(id));
+		model.addAttribute("voie", voieService.findById(id));
 		
 		return "spotdetails";
 	}

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class Voie {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "nom", nullable = false)
@@ -82,5 +82,7 @@ public class Voie {
 	public void setLongueurs(Collection<Longueur> longueurs) {
 		this.longueurs = longueurs;
 	}
+	
+	
 
 }

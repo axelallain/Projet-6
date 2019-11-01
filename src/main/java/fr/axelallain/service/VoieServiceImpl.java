@@ -37,4 +37,9 @@ public class VoieServiceImpl implements VoieService {
 		return voieDao.findById(id);
 	}
 
+	@Override
+	public void modifierVoie(Voie voie) {
+		voieDao.modifierVoie(voie);
+	}
+
 }

@@ -48,7 +48,7 @@
       				<th scope="col">#</th>
       				<th scope="col">Nom</th>
      				<th scope="col">Cotation min</th>
-      				<th scope="col">Cotation max</th>
+     				<th scope="col">Cotation max</th>
       				<th scope="col">Spot concerné</th>
       				<th scope="col"></th>
     			</tr>
@@ -61,8 +61,28 @@
       				<td th:text="${voie.cotationmax}"></td>
       				<td th:text="${voie.spot.nom}"></td>
       				<td>
-      					  <a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/modifiervoie/{voieid}'(spotid=${spot.id},voieid=${voie.id})}" role="button">Modifier</a>
-			              <a class="btn btn-danger btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/deletevoie/{id}'(id=${voie.id},spotid=${spot.id})}" role="button">Supprimer</a>
+      					  <a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/modifiervoie/{id}'(spotid=${spot.id},id=${voie.id})}" role="button">Modifier</a>
+			              <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal" th:attr="data-target='#exampleModal'+${voie.id }" role="button">Supprimer</a>
+			              
+			              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" th:id="exampleModal+${voie.id }">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">Supprimer la voie</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						        Les longueurs liées à cette voie seront également supprimées.
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+						        <a class="btn btn-primary" th:href="@{/panel/spotsutilisateur/details/{spotid}/deletevoie/{id}(id=${voie.id},spotid=${spot.id})}">Confirmer</a>
+						      </div>
+						    </div>
+						  </div>
+						</div>
 						
       				</td>
     			</tr>
@@ -80,8 +100,7 @@
     			<tr>
       				<th scope="col">#</th>
       				<th scope="col">Nom</th>
-     				<th scope="col">Cotation min</th>
-      				<th scope="col">Cotation max</th>
+     				<th scope="col">Cotation</th>
       				<th scope="col">Id de la voie liée</th>
       				<th scope="col"></th>
     			</tr>
@@ -90,14 +109,13 @@
     			<tr th:each="longueur : ${longueurs}">
       				<th scope="row" th:text="${longueur.id}"></th>
       				<td th:text="${longueur.nom}"></td>
-      				<td th:text="${longueur.cotationmin}"></td>
-      				<td th:text="${longueur.cotationmax}"></td>
+      				<td th:text="${longueur.cotation}"></td>
       				<td th:text="${longueur.voie.id}"></td>
       				<td>
-      			    	<form action="#" th:action="@{'/panel/spotsutilisateur/details/{spotid}/deletelongueur/{longueurid}'(longueurid=${longueur.id},spotid=${spot.id})}" th:method="delete" >
-      			    		<a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/modifierlongueur/{longueurid}'(spotid=${spot.id},longueurid=${longueur.id})}" role="button">Modifier</a>    			    						
-      						<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
-						</form>
+      				
+      					<a class="btn btn-success btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/modifierlongueur/{id}'(spotid=${spot.id},id=${longueur.id})}" role="button">Modifier</a>
+      				    <a class="btn btn-danger btn-sm" th:href="@{'/panel/spotsutilisateur/details/{spotid}/deletelongueur/{id}'(id=${longueur.id},spotid=${spot.id})}" role="button">Supprimer</a>
+      				    
       				</td>
     			</tr>
   			</tbody>

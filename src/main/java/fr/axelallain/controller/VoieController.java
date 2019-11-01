@@ -57,8 +57,17 @@ public class VoieController {
         Long cuserid = cuser.getId();
         
 		model.addAttribute("spots", spotService.findAllSpotsByUtilisateurId(cuserid));
+		model.addAttribute("spot", spotService.findSpotById(spotid));
 		
 		return "modifiervoie";
+	}
+	
+	@PostMapping("/panel/spotsutilisateur/details/{spotid}/modifiervoie/{id}")
+	public String modifierVoieSubmit(@PathVariable Long spotid, @PathVariable Long id, Voie voie) {
+		
+		voieService.modifierVoie(voie);
+		
+		return "redirect:/panel/spotsutilisateur/details/" + spotid; 
 	}
 
 }

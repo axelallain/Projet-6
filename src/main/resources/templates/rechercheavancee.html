@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8" />
 	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
-	<title>Recherche</title>
-	<link th:href="@{/css/fichetopo.css}" rel="stylesheet" type="text/css">
+	<title>Recherche avancée</title>
+	<link th:href="@{/css/rechercheavancee.css}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -32,25 +32,49 @@
 		</div>
 	</div>
 	
-	<h1 th:text="${'Résultat de la recherche pour : ' + recherche}"></h1>
-	
 	<div id="content">	
-		<div class="row">
-	        <div class="col-sm-6 col-lg-4 py-2" th:each="spot : ${spots}">
-	            <div class="card h-100">
-	            	<div class="ribbon-wrapper">
-		                <div th:if="${spot.officiel}" class="ribbon blue">Officiel</div>
+		<div class="container">
+			<div class="row">
+			    <div class="col-12"><h2>Recherche avancée</h2></div>
+			    <div class="col-12">
+		    	    <div id="custom-search-input">
+		                <div class="input-group">
+		                    <input type="text" class="search-query form-control" placeholder="Recherche" />
+		                    <span class="input-group-btn">
+		                        <button type="button">
+		                            Rechercher
+		                        </button>
+		                    </span>
+		                </div>
 		            </div>
-	                <img class="card-img-top img-fluid" th:src="@{/img/spot.jpg}" alt="Image du topo">
-	                <div class="card-body">
-	                    <h4 class="card-title" th:text="${spot.nom}"></h4>
-	                    <p class="card-text" th:text="${spot.description}"></p>
-	                    <p class="card-text"><small class="text-muted" th:text="'Ajouté par ' + ${spot.utilisateur.username}"></small></p>
-	                    <a th:href="@{'/fichespot/{spotid}'(spotid=${spot.id})}" class="btn btn-success btn-sm">Voir plus</a>
-	                </div>
-	            </div>
-	        </div>    
-	    </div>
+		        </div>
+			</div>
+			
+			<div class="custom-control custom-radio custom-control-inline">
+			  <input type="radio" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample">
+			  <label class="custom-control-label" for="defaultInline1">Nom</label>
+			</div>
+			
+			<div class="custom-control custom-radio custom-control-inline">
+			  <input type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample">
+			  <label class="custom-control-label" for="defaultInline2">Lieu</label>
+			</div>
+			
+			<div class="custom-control custom-radio custom-control-inline">
+			  <input type="radio" class="custom-control-input" id="defaultInline3" name="inlineDefaultRadiosExample">
+			  <label class="custom-control-label" for="defaultInline3">Officiel</label>
+			</div>
+			
+			<div class="custom-control custom-radio custom-control-inline">
+			  <input type="radio" class="custom-control-input" id="defaultInline4" name="inlineDefaultRadiosExample">
+			  <label class="custom-control-label" for="defaultInline4">Cotation</label>
+			</div>
+			
+			<div class="custom-control custom-radio custom-control-inline">
+			  <input type="radio" class="custom-control-input" id="defaultInline5" name="inlineDefaultRadiosExample">
+			  <label class="custom-control-label" for="defaultInline5">Description</label>
+			</div>
+		</div>
     </div>
 
 	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">
@@ -62,5 +86,6 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/d7b009b0e8.js" crossorigin="anonymous"></script>
 </body>
 </html>

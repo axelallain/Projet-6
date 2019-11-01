@@ -26,18 +26,24 @@ public class VoieDAOImpl implements VoieDAO {
 
 	@Override
 	public void deleteVoie(Long id) {
+		em.createQuery("DELETE from Longueur l WHERE l.voie.id=:id").setParameter("id", id).executeUpdate();
 		em.createQuery("DELETE from Voie e WHERE e.id=:id").setParameter("id", id).executeUpdate();
 	}
 
 	@Override
 	public void addVoie(Voie voie) {
-		em.merge(voie);
+		em.persist(voie);
 	}
 
 	@Override
 	public Voie findById(Long id) {
 		Voie voie = em.find(Voie.class, id);
 		return voie;
+	}
+
+	@Override
+	public void modifierVoie(Voie voie) {
+		em.merge(voie);
 	}
 
 }
