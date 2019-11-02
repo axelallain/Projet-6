@@ -64,7 +64,7 @@ public class VoieController {
 	
 	@PostMapping("/panel/spotsutilisateur/details/{spotid}/modifiervoie/{id}")
 	public String modifierVoieSubmit(@PathVariable Long spotid, @PathVariable Long id, Voie voie) {
-		
+		voie.setSpot(spotService.findSpotById(voie.getSpot().getId()));
 		voieService.modifierVoie(voie);
 		
 		return "redirect:/panel/spotsutilisateur/details/" + spotid; 

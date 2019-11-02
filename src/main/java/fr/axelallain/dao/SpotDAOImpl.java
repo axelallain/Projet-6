@@ -24,11 +24,19 @@ public class SpotDAOImpl implements SpotDAO {
 		return (List<Spot>) query.getResultList();
 	}
 
-	public Long countAllSpotsByTopoId(Long id) {
-		long count = (long)em.createQuery("SELECT COUNT(e) FROM Spot e WHERE e.topo.id=:id").setParameter("id", id).getSingleResult();
+	@Override
+	public Long countAllSpotsByToposId(Long id) {
+		long count = (long)em.createQuery("SELECT COUNT(s) FROM Spot s JOIN s.topos t WHERE t.id=:id").setParameter("id", id).getSingleResult();
 		return count;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Spot> findAllSpotsByToposId(Long id) {
+		Query query = em.createQuery("SELECT s FROM Spot s JOIN s.topos t WHERE t.id=:id").setParameter("id", id);
+		return (List<Spot>) query.getResultList();
+	}
+
 	@Override
 	public Spot findSpotById(Long id) {
 		Spot spot = em.find(Spot.class, id);

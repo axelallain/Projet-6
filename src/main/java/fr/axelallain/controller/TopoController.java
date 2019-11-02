@@ -1,20 +1,23 @@
 package fr.axelallain.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import fr.axelallain.UserPrincipal;
 import fr.axelallain.dto.TopoDto;
+import fr.axelallain.entity.Spot;
 import fr.axelallain.entity.Topo;
-import fr.axelallain.entity.Utilisateur;
 import fr.axelallain.service.SpotService;
 import fr.axelallain.service.TopoService;
 import fr.axelallain.service.UtilisateurService;
@@ -33,7 +36,7 @@ public class TopoController {
 	
 	@GetMapping("/panel/toposutilisateur/addtopo")
 	public String addTopoForm(Model model) {
-		model.addAttribute("topo", new Topo());
+		model.addAttribute("topodto", new TopoDto());
 		
 		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long cuserid = cuser.getId();       
@@ -45,7 +48,12 @@ public class TopoController {
 	}
 	
 	@PostMapping("/panel/toposutilisateur/addtopo")
-	public String addTopoSubmit(Topo topo, Model model) {
+	public String addTopoSubmit(@ModelAttribute TopoDto topodto, Topo topo, Model model) {
+		
+		topo.setUtilisateur(utilisateurService.findById(topodto.getUtilisateurId()));
+		topo.setNom(topodto.getNom());
+		topo.setDescription(topodto.getDescription());
+		topo.setLieu(topodto.getLieu());
 		
 		topoService.addTopo(topo);
 		
@@ -86,8 +94,8 @@ public class TopoController {
 		model.addAttribute("topos", topoService.findAllTopos());
 		model.addAttribute("topoid", topoid);
 		model.addAttribute("topo", topoService.findTopoById(topoid));
-		model.addAttribute("spots", spotService.findAllSpotsByTopoId(topoid));
-		model.addAttribute("countspots", spotService.countAllSpotsByTopoId(topoid));
+		model.addAttribute("spots", spotService.findAllSpotsByToposId(topoid));
+		model.addAttribute("countspots", spotService.countAllSpotsByToposId(topoid));
 		
 		return "fichetopo";
 	}

@@ -8,7 +8,7 @@ public interface SpotDAO {
 	
 	public List<Spot> findAllSpotsByTopoId(Long id);
 	
-	public Long countAllSpotsByTopoId(Long id);
+	public Long countAllSpotsByToposId(Long id);
 	
 	public Spot findSpotById(Long id);
 	
@@ -21,5 +21,7 @@ public interface SpotDAO {
 	public List<Spot> findAllSpots();
 	
 	List<Spot> findByNameLike(String name);
+	
+	List<Spot> findAllSpotsByToposId(Long id);
 	
 }

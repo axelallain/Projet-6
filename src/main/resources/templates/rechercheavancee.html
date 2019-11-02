@@ -37,16 +37,18 @@
 			<div class="row">
 			    <div class="col-12"><h2>Recherche avancée</h2></div>
 			    <div class="col-12">
+			    <form th:action="@{/recherche}">
 		    	    <div id="custom-search-input">
 		                <div class="input-group">
-		                    <input type="text" class="search-query form-control" placeholder="Recherche" />
+		                    <input class="search-query form-control" type="text" name="name" placeholder="Recherche" />
 		                    <span class="input-group-btn">
-		                        <button type="button">
-		                            Rechercher
+		                        <button type="submit">
+		                            <i class="fa fa-search" aria-hidden="true"></i>
 		                        </button>
 		                    </span>
 		                </div>
 		            </div>
+		        </form>
 		        </div>
 			</div>
 			

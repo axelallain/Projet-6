@@ -2,8 +2,6 @@ package fr.axelallain.entity;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -46,6 +43,9 @@ public class Topo {
 	@ManyToOne
 	@JoinColumn(name = "utilisateur_id")
 	private Utilisateur utilisateur;
+	
+	@ManyToMany(mappedBy = "topos", fetch = FetchType.EAGER)
+    private Collection<Spot> spots;
 	
 	public Utilisateur getUtilisateur() {
 		return this.utilisateur;
@@ -113,6 +113,14 @@ public class Topo {
 
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
+	}
+
+	public Collection<Spot> getSpots() {
+		return spots;
+	}
+
+	public void setSpots(Collection<Spot> spots) {
+		this.spots = spots;
 	}
 	
 }

@@ -12,7 +12,7 @@ public class TopoDto {
 	
 	public String lieu;
 	
-	List<Integer> spotsId;
+	List<Long> spotsId;
 
 	public Long getUtilisateurId() {
 		return utilisateurId;
@@ -46,11 +46,11 @@ public class TopoDto {
 		this.lieu = lieu;
 	}
 
-	public List<Integer> getSpotsId() {
+	public List<Long> getSpotsId() {
 		return spotsId;
 	}
 
-	public void setSpotsId(List<Integer> spotsId) {
+	public void setSpotsId(List<Long> spotsId) {
 		this.spotsId = spotsId;
 	}
 

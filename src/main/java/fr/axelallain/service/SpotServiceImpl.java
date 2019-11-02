@@ -23,10 +23,15 @@ public class SpotServiceImpl implements SpotService {
 	}
 	
 	@Override
-	public Long countAllSpotsByTopoId(Long id) {
-		return spotDao.countAllSpotsByTopoId(id);
+	public Long countAllSpotsByToposId(Long id) {
+		return spotDao.countAllSpotsByToposId(id);
 	}
 	
+	@Override
+	public List<Spot> findAllSpotsByToposId(Long id) {
+		return spotDao.findAllSpotsByToposId(id);
+	}
+
 	@Override
 	public Spot findSpotById(Long id) {
 		return spotDao.findSpotById(id);

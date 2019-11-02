@@ -36,7 +36,7 @@
 		
 		<h1 th:text="${'Modifier le spot ' + spot.nom}"></h1>
 		
-		<form action="#" th:action="@{/panel/spotsutilisateur/addspot}" th:object="${spot}" method="post">
+		<form th:action="@{/panel/spotsutilisateur/addspot}" th:object="${spot}" method="post">
 			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${cuserid}" />
 			<input type="hidden" th:field="*{id}" />
   			<div class="form-group">
