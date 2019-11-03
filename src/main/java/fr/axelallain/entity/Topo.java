@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -44,7 +45,11 @@ public class Topo {
 	@JoinColumn(name = "utilisateur_id")
 	private Utilisateur utilisateur;
 	
-	@ManyToMany(mappedBy = "topos", fetch = FetchType.EAGER)
+	@ManyToMany
+	@JoinTable(
+			name = "topo_spot",
+			joinColumns = { @JoinColumn(name = "topo_id") },
+			inverseJoinColumns = { @JoinColumn(name = "spot_id") } )
     private Collection<Spot> spots;
 	
 	public Utilisateur getUtilisateur() {

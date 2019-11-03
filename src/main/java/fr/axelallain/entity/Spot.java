@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,11 +58,7 @@ public class Spot {
 	@OneToMany(mappedBy="spot")
 	private Collection<Voie> voies;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "spot_topo",
-			joinColumns = { @JoinColumn(name = "spot_id") },
-			inverseJoinColumns = { @JoinColumn(name = "topo_id") } )
+	@ManyToMany(mappedBy = "spots", fetch = FetchType.EAGER)
 	private Collection<Topo> topos;
 	
 	public Spot() {
