@@ -15,18 +15,18 @@ public class RechercheController {
 	@Autowired
 	private SpotService spotService;
 	
+	@GetMapping("/rechercheavancee")
+	public String rechercheAvancee() {
+		
+		return "rechercheavancee";
+	}
+	
 	@GetMapping("/recherche")
 	public String recherche(Model model, @RequestParam(defaultValue="") String name) {
 		model.addAttribute("spots", spotService.findByNameLike("%"+name+"%"));
 		model.addAttribute("recherche", name);
 		
 		return "resultatrecherche";
-	}
-	
-	@GetMapping("/rechercheavancee")
-	public String rechercheAvancee() {
-		
-		return "rechercheavancee";
 	}
 	
 	@PostMapping("/rechercheavancee")

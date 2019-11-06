@@ -55,6 +55,11 @@
   			</div>
   			
   			<div class="form-group">
+  				<label for="photoUrl">URL de l'image</label>
+  				<input type="text" class="form-control" id="photoUrl" th:field="*{photoUrl}">
+  			</div>
+  			
+  			<div class="form-group">
   				<label for="spots">Spots du topo</label>
                 <select multiple="multiple" size="5" id="spots" th:field="*{spots}" class="form-control selectpicker" title="Aucun spot sélectionné">
 					<option th:each="spot : ${spots}" th:value="${spot.id}" th:text="${spot.nom}"></option>

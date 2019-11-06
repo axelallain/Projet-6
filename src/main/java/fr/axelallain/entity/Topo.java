@@ -3,6 +3,7 @@ package fr.axelallain.entity;
 import java.sql.Timestamp;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -51,6 +53,9 @@ public class Topo {
 			joinColumns = { @JoinColumn(name = "topo_id") },
 			inverseJoinColumns = { @JoinColumn(name = "spot_id") } )
     private Collection<Spot> spots;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Reservation reservation;
 	
 	public Utilisateur getUtilisateur() {
 		return this.utilisateur;
@@ -126,6 +131,14 @@ public class Topo {
 
 	public void setSpots(Collection<Spot> spots) {
 		this.spots = spots;
+	}
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
 	}
 	
 }

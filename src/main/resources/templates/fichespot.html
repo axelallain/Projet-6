@@ -75,7 +75,7 @@
                                 
                             </div>
                             <div class="col-lg-7" id="cluster_info">
-                                	<img th:src="@{/img/spot.jpg}" alt="Spot image" width="100%">
+                                	<img th:src="@{${spot.imageUrl}}" alt="Spot image" width="100%">
             	
 					                <h4>Description de l'évènement</h4>
 					                <p class="small" th:text="${spot.description}"></p>

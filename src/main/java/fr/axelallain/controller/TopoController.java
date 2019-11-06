@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import fr.axelallain.UserPrincipal;
 import fr.axelallain.dto.TopoDto;
+import fr.axelallain.entity.Reservation;
 import fr.axelallain.entity.Topo;
 import fr.axelallain.service.SpotService;
 import fr.axelallain.service.TopoService;
@@ -43,7 +44,7 @@ public class TopoController {
 	@PostMapping("/panel/toposutilisateur/addtopo")
 	public String addTopoSubmit(Topo topo, Model model) {
 		
-		topoService.addTopo(topo);
+		topoService.modifierTopo(topo);
 		
 		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
@@ -84,6 +85,11 @@ public class TopoController {
 		model.addAttribute("topo", topoService.findTopoById(topoid));
 		model.addAttribute("spots", spotService.findAllSpotsByToposId(topoid));
 		model.addAttribute("countspots", spotService.countAllSpotsByToposId(topoid));
+		model.addAttribute("reservation", new Reservation());
+		
+		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long cuserid = cuser.getId();
+		model.addAttribute("cuserid", cuserid);
 		
 		return "fichetopo";
 	}

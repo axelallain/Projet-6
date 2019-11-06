@@ -38,6 +38,8 @@
 		
 		<a th:href="@{'/panel/toposutilisateur/{cuserid}'(cuserid=${cuserid})}" class="btn btn-success">Mes topos</a>
 		<a th:href="@{'/panel/spotsutilisateur/{cuserid}'(cuserid=${cuserid})}" class="btn btn-success">Mes spots</a>
+		<a th:href="@{'/panel/demandesrecues/{cuserid}'(cuserid=${cuserid})}" class="btn btn-success">Demandes de réservation reçues</a>
+		<a th:href="@{'/panel/demandesenvoyees/{cuserid}'(cuserid=${cuserid})}" class="btn btn-success">Demandes de réservation envoyées</a>
 		<a th:if="${cuserstaff}" th:href="@{/panel/stafftopos}" class="btn btn-danger">Staff topos</a>
 		<a th:if="${cuserstaff}" th:href="@{/panel/staffspots}" class="btn btn-danger">Staff spots</a>
 		<a th:if="${cuserstaff}" th:href="@{/panel/staffcommentaires}" class="btn btn-danger">Staff commentaires</a>

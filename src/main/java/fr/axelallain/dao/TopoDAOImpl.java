@@ -46,5 +46,10 @@ public class TopoDAOImpl implements TopoDAO {
 		Query query = em.createQuery("SELECT e FROM Topo e WHERE e.utilisateur.id=:id").setParameter("id", id);
 		return (List<Topo>) query.getResultList();
 	}
+
+	@Override
+	public void modifierTopo(Topo topo) {
+		em.merge(topo);
+	}
 	
 }

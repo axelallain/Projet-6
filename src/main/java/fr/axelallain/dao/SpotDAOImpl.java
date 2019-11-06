@@ -58,6 +58,8 @@ public class SpotDAOImpl implements SpotDAO {
 
 	@Override
 	public void deleteSpot(Long id) {
+		em.createQuery("delete from Longueur l where l.voie.spot.id=:id").setParameter("id", id).executeUpdate();
+		em.createQuery("delete from Voie v where v.spot.id=:id").setParameter("id", id).executeUpdate();
 		em.createQuery("delete from Spot t where t.id=:id").setParameter("id", id).executeUpdate();
 	}
 	

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -57,6 +59,9 @@ public class Utilisateur implements Serializable {
 	
 	@OneToMany(mappedBy="utilisateur")
 	private Collection<Spot> spots;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Reservation reservation;
 	
 	public Utilisateur() {
 		
@@ -148,6 +153,14 @@ public class Utilisateur implements Serializable {
 
 	public void setStaff(Boolean staff) {
 		this.staff = staff;
+	}
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
 	}
 	
 }

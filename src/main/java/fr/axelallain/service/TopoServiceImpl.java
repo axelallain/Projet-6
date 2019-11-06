@@ -41,5 +41,10 @@ public class TopoServiceImpl implements TopoService {
 	public List<Topo> findAllToposByUtilisateurId(Long id) {
 		return topoDao.findAllToposByUtilisateurId(id);
 	}
+
+	@Override
+	public void modifierTopo(Topo topo) {
+		topoDao.modifierTopo(topo);
+	}
 	
 }

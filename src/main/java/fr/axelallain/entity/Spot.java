@@ -3,6 +3,7 @@ package fr.axelallain.entity;
 import java.util.Collection;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -55,7 +56,7 @@ public class Spot {
 	@JoinColumn(name = "utilisateur_id")
 	private Utilisateur utilisateur;
 	
-	@OneToMany(mappedBy="spot")
+	@OneToMany(mappedBy="spot", cascade = CascadeType.ALL)
 	private Collection<Voie> voies;
 	
 	@ManyToMany(mappedBy = "spots", fetch = FetchType.EAGER)

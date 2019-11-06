@@ -15,5 +15,7 @@ public interface TopoDAO {
 	public Topo findTopoById(Long id);
 	
 	public List<Topo> findAllToposByUtilisateurId(Long id);
+	
+	void modifierTopo(Topo topo);
 
 }

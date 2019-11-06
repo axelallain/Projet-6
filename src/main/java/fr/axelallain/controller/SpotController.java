@@ -55,7 +55,7 @@ public class SpotController {
 		return "redirect:/panel/spotsutilisateur/" + cuser.getId();
 	}
 	
-	@DeleteMapping("/panel/spotsutilisateur/delete/{id}")
+	@GetMapping("/panel/spotsutilisateur/delete/{id}")
 	public String deleteSpot(@PathVariable Long id) {
 		spotService.deleteSpot(id);
 		

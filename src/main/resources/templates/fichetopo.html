@@ -35,13 +35,47 @@
 	<div id="content">
 		<div class="row">
 			<h3 class="nombrespots">Ce topo contient <span th:text="${countspots}"></span> sites d'escalade</h3>
-			<a href="#" class="btn btn-success ml-auto">Demander une réservation</a>
+			<a class="btn btn-success ml-auto" data-toggle="modal" data-target="#exampleModal" th:attr="data-target='#exampleModal'+${topo.id }" role="button">Demander une réservation</a>
+		</div>
+		
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" th:id="exampleModal+${topo.id }">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Demander une réservation</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form th:action="@{'/reserver/{topoid}'(topoid=${topo.id})}" th:object="${reservation}" method="post">
+						<input type="hidden" id="topo.id" name="topo.id" th:value="${topo.id}">
+						<input type="hidden" id="locataire.id" name="locataire.id" th:value="${cuserid}">
+						
+						<div class="modal-body">
+							<div class="form-group">
+			    				<label for="dateDebutDemandee">Date de début demandée</label>
+			    				<input type="date" class="form-control" id="dateDebutDemandee" th:field="*{dateDebutDemandee}">
+			  				</div>
+			  				
+			  				<div class="form-group">
+			  					<label for="dateFinDemandee">Date de fin demandée</label>
+			  					<input type="date" class="form-control" id="dateFinDemandee" th:field="*{dateFinDemandee}">
+			  				</div>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+							<input type="submit" class="btn btn-primary" value="Envoyer la demande">
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	
 		<div class="row">
 	        <div class="col-sm-6 col-lg-4 py-2" th:each="spot : ${spots}">
 	            <div class="card h-100">
-	                <img class="card-img-top img-fluid" th:src="@{/img/spot.jpg}" alt="Image du topo">
+	                <img class="card-img-top img-fluid" th:src="@{${spot.imageUrl}}" alt="Image du topo">
 	                <div class="card-body">
 	                    <h4 class="card-title" th:text="${spot.nom}"></h4>
 	                    <p class="card-text" th:text="${spot.description}"></p>
