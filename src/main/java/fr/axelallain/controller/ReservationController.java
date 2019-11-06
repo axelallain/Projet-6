@@ -33,8 +33,16 @@ public class ReservationController {
 	@GetMapping("/panel/demandesenvoyees/{cuserid}")
 	public String demandesEnvoyees(@PathVariable Long cuserid, Model model) {
 		model.addAttribute("reservations", reservationService.findAllReservationsByLocataireId(cuserid));
+		model.addAttribute("cuserid", cuserid);
 		
 		return "demandesenvoyees";
+	}
+	
+	@GetMapping("/panel/demandesenvoyees/{cuserid}/delete/{id}")
+	public String deleteDemandeEnvoyee(@PathVariable Long cuserid, @PathVariable Long id) {
+		reservationService.deleteReservation(id);
+		
+		return "redirect:/panel/demandesenvoyees/" + cuserid;
 	}
 
 }

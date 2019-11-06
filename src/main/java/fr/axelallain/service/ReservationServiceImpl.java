@@ -32,4 +32,9 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationDao.findAllReservationsByLocataireId(id);
 	}
 
+	@Override
+	public void deleteReservation(Long id) {
+		reservationDao.deleteReservation(id);
+	}
+
 }

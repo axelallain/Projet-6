@@ -35,4 +35,9 @@ public class ReservationDAOImpl implements ReservationDAO {
 		return (List<Reservation>) query.getResultList();
 	}
 
+	@Override
+	public void deleteReservation(Long id) {
+		em.createQuery("DELETE FROM Reservation r WHERE r.id=:id").setParameter("id", id).executeUpdate();
+	}
+
 }

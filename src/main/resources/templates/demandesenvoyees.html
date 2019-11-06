@@ -58,7 +58,7 @@
       				<td th:text="${reservation.statut}"></td>
       				<td>
       					
-						  <a class="btn btn-danger btn-sm" href="#" role="button">Annuler</a>
+						  <a class="btn btn-danger btn-sm" th:href="@{'/panel/demandesenvoyees/{cuserid}/delete/{id}'(cuserid=${cuserid},id=${reservation.id})}" role="button">Annuler</a>
 						
       				</td>
     			</tr>
