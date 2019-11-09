@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import fr.axelallain.entity.Reservation;
+import fr.axelallain.entity.Topo;
 import fr.axelallain.service.ReservationService;
+import fr.axelallain.service.TopoService;
 
 @Controller
 public class ReservationController {
@@ -26,6 +28,8 @@ public class ReservationController {
 	@GetMapping("/panel/demandesrecues/{cuserid}")
 	public String demandesRecues(@PathVariable Long cuserid, Model model) {
 		model.addAttribute("reservations", reservationService.findAllReservationsByUtilisateurId(cuserid));
+		model.addAttribute("cuserid", cuserid);
+		model.addAttribute("reservation", new Reservation());
 		
 		return "demandesrecues";
 	}
@@ -43,6 +47,21 @@ public class ReservationController {
 		reservationService.deleteReservation(id);
 		
 		return "redirect:/panel/demandesenvoyees/" + cuserid;
+	}
+	
+	@PostMapping("/panel/accepterdemanderecue/{cuserid}/update/{id}")
+	public String accepterDemandeRecue(@PathVariable Long cuserid, @PathVariable Long id, Reservation reservation) {
+		reservation.getTopo().setDisponible(false);
+		reservationService.updateReservation(reservation);
+		
+		return "redirect:/panel/demandesrecues/" + cuserid;
+	}
+	
+	@PostMapping("/panel/refuserdemanderecue/{cuserid}/update/{id}")
+	public String refuserDemandeRecue(@PathVariable Long cuserid, @PathVariable Long id, Reservation reservation) {
+		reservationService.updateReservation(reservation);
+		
+		return "redirect:/panel/demandesrecues/" + cuserid;
 	}
 
 }

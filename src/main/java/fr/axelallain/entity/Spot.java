@@ -56,10 +56,10 @@ public class Spot {
 	@JoinColumn(name = "utilisateur_id")
 	private Utilisateur utilisateur;
 	
-	@OneToMany(mappedBy="spot", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="spot", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Collection<Voie> voies;
 	
-	@ManyToMany(mappedBy = "spots", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "spots", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Collection<Topo> topos;
 	
 	public Spot() {

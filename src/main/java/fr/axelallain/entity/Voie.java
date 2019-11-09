@@ -32,7 +32,7 @@ public class Voie {
 	@ManyToOne
 	private Spot spot;
 	
-	@OneToMany(mappedBy = "voie", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "voie", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Collection<Longueur> longueurs;
 
 	public Long getId() {

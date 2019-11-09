@@ -40,7 +40,7 @@
   			<thead class="thead-dark">
     			<tr>
       				<th scope="col">#</th>
-      				<th scope="col">Nom du locataire</th>
+      				<th scope="col">Email du locataire</th>
      				<th scope="col">Nom du topo</th>
       				<th scope="col">Date de début demandée</th>
       				<th scope="col">Date de fin demandée</th>
@@ -51,15 +51,34 @@
   			<tbody>
     			<tr th:each="reservation : ${reservations}">
       				<th scope="row" th:text="${reservation.id}"></th>
-      				<td th:text="${reservation.locataire.username}"></td>
+      				<td th:text="${reservation.locataire.email}"></td>
       				<td th:text="${reservation.topo.nom}"></td>
       				<td th:text="${reservation.dateDebutDemandee}"></td>
       				<td th:text="${reservation.dateFinDemandee}"></td>
       				<td th:text="${reservation.statut}"></td>
       				<td>
       					
-						  <a class="btn btn-success btn-sm" href="#" role="button">Accepter</a>
-						  <a class="btn btn-danger btn-sm" href="#" role="button">Refuser</a>
+      					<form th:action="@{'/panel/accepterdemanderecue/{cuserid}/update/{id}'(cuserid=${cuserid},id=${reservation.id})}" th:object="${reservation}" method="post">
+      						<input type="hidden" id="id" name="id" th:value="${reservation.id}" />
+      						<input type="hidden" id="topo.id" name="topo.id" th:value="${reservation.topo.id}">
+      						<input type="hidden" id="dateDebutDemandee" name="dateDebutDemandee" th:value="${reservation.dateDebutDemandee}">
+      						<input type="hidden" id="dateFinDemandee" name="dateFinDemandee" th:value="${reservation.dateFinDemandee}">
+      						<input type="hidden" id="locataire.id" name="locataire.id" th:value="${reservation.locataire.id}">
+      						<input type="hidden" id="statut" name="statut" value="Acceptée">
+      						
+							<input type="submit" class="btn btn-success btn-sm" value="Accepter">
+						</form>
+						
+						<form th:action="@{'/panel/refuserdemanderecue/{cuserid}/update/{id}'(cuserid=${cuserid},id=${reservation.id})}" th:object="${reservation}" method="post">
+							<input type="hidden" id="id" name="id" th:value="${reservation.id}" />
+							<input type="hidden" id="topo.id" name="topo.id" th:value="${reservation.topo.id}">
+							<input type="hidden" id="dateDebutDemandee" name="dateDebutDemandee" th:value="${reservation.dateDebutDemandee}">
+							<input type="hidden" id="dateFinDemandee" name="dateFinDemandee" th:value="${reservation.dateFinDemandee}">
+							<input type="hidden" id="locataire.id" name="locataire.id" th:value="${reservation.locataire.id}">
+							<input type="hidden" id="statut" name="statut" value="Refusée">
+							
+							<input type="submit" class="btn btn-danger btn-sm" value="Refuser">
+						</form>
 						
       				</td>
     			</tr>

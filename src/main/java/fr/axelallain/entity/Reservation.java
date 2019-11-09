@@ -35,7 +35,7 @@ public class Reservation {
 	private Utilisateur locataire;
 	
 	@Column(name = "statut")
-	private String statut;
+	private String statut = "En attente";
 
 	public Long getId() {
 		return id;

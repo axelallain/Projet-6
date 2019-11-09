@@ -40,4 +40,9 @@ public class ReservationDAOImpl implements ReservationDAO {
 		em.createQuery("DELETE FROM Reservation r WHERE r.id=:id").setParameter("id", id).executeUpdate();
 	}
 
+	@Override
+	public void updateReservation(Reservation reservation) {
+		em.merge(reservation);
+	}
+
 }

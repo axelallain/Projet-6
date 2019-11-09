@@ -40,7 +40,7 @@
   			<thead class="thead-dark">
     			<tr>
       				<th scope="col">#</th>
-      				<th scope="col">Nom du locataire</th>
+      				<th scope="col">Nom du propriétaire</th>
      				<th scope="col">Nom du topo</th>
       				<th scope="col">Date de début demandée</th>
       				<th scope="col">Date de fin demandée</th>
@@ -51,7 +51,7 @@
   			<tbody>
     			<tr th:each="reservation : ${reservations}">
       				<th scope="row" th:text="${reservation.id}"></th>
-      				<td th:text="${reservation.locataire.username}"></td>
+      				<td th:text="${reservation.topo.utilisateur.username}"></td>
       				<td th:text="${reservation.topo.nom}"></td>
       				<td th:text="${reservation.dateDebutDemandee}"></td>
       				<td th:text="${reservation.dateFinDemandee}"></td>
