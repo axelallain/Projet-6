@@ -58,9 +58,8 @@
       				<td th:text="${reservation.statut}"></td>
       				<td>
       					
-      					<form th:action="@{'/panel/accepterdemanderecue/{cuserid}/update/{id}'(cuserid=${cuserid},id=${reservation.id})}" th:object="${reservation}" method="post">
+      					<form th:action="@{'/panel/accepterdemanderecue/{cuserid}/update/{id}/{topoid}'(cuserid=${cuserid},id=${reservation.id},topoid=${reservation.topo.id})}" th:object="${reservation}" method="post">
       						<input type="hidden" id="id" name="id" th:value="${reservation.id}" />
-      						<input type="hidden" id="topo.id" name="topo.id" th:value="${reservation.topo.id}">
       						<input type="hidden" id="dateDebutDemandee" name="dateDebutDemandee" th:value="${reservation.dateDebutDemandee}">
       						<input type="hidden" id="dateFinDemandee" name="dateFinDemandee" th:value="${reservation.dateFinDemandee}">
       						<input type="hidden" id="locataire.id" name="locataire.id" th:value="${reservation.locataire.id}">

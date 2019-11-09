@@ -18,6 +18,9 @@ public class ReservationController {
 	@Autowired
 	private ReservationService reservationService;
 	
+	@Autowired
+	private TopoService topoService;
+	
 	@PostMapping("/reserver/{topoid}")
 	public String reserver(@PathVariable Long topoid, Reservation reservation) {
 		reservationService.addReservation(reservation);
@@ -49,9 +52,13 @@ public class ReservationController {
 		return "redirect:/panel/demandesenvoyees/" + cuserid;
 	}
 	
-	@PostMapping("/panel/accepterdemanderecue/{cuserid}/update/{id}")
-	public String accepterDemandeRecue(@PathVariable Long cuserid, @PathVariable Long id, Reservation reservation) {
-		reservation.getTopo().setDisponible(false);
+	@PostMapping("/panel/accepterdemanderecue/{cuserid}/update/{id}/{topoid}")
+	public String accepterDemandeRecue(@PathVariable Long cuserid, @PathVariable Long id, @PathVariable Long topoid, Reservation reservation) {
+		
+		Topo topo = topoService.findTopoById(topoid);
+		topo.setDisponible(false);
+		reservation.setTopo(topo);
+		
 		reservationService.updateReservation(reservation);
 		
 		return "redirect:/panel/demandesrecues/" + cuserid;
