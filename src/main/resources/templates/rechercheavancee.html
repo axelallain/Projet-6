@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
 	<title>Recherche avancée</title>
 	<link th:href="@{/css/rechercheavancee.css}" rel="stylesheet" type="text/css">
@@ -21,73 +21,53 @@
   			</div>
 		</nav>
 	</div>
-	
-	<div class="sidebar">
-		<a href="/" class="btn btn-dark">Accueil</a>
-		<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
-		<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
-		<div sec:authorize="isAuthenticated()">
-			<a th:href="@{/panel}" class="btn btn-dark">Panel</a>
-			<a href="/logout" class="btn btn-dark">Déconnexion</a>
-		</div>
-	</div>
-	
-	<div id="content">	
-		<div class="container">
-			<div class="row">
-			    <div class="col-12"><h2>Recherche avancée</h2></div>
-			    <div class="col-12">
-			    <form th:action="@{/recherche}">
-		    	    <div id="custom-search-input">
-		                <div class="input-group">
-		                    <input class="search-query form-control" type="text" name="name" placeholder="Recherche" />
-		                    <span class="input-group-btn">
-		                        <button type="submit">
-		                            <i class="fa fa-search" aria-hidden="true"></i>
-		                        </button>
-		                    </span>
-		                </div>
-		            </div>
-		        </form>
-		        </div>
-			</div>
-			
-			<div class="custom-control custom-radio custom-control-inline">
-			  <input type="radio" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample">
-			  <label class="custom-control-label" for="defaultInline1">Nom</label>
-			</div>
-			
-			<div class="custom-control custom-radio custom-control-inline">
-			  <input type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample">
-			  <label class="custom-control-label" for="defaultInline2">Lieu</label>
-			</div>
-			
-			<div class="custom-control custom-radio custom-control-inline">
-			  <input type="radio" class="custom-control-input" id="defaultInline3" name="inlineDefaultRadiosExample">
-			  <label class="custom-control-label" for="defaultInline3">Officiel</label>
-			</div>
-			
-			<div class="custom-control custom-radio custom-control-inline">
-			  <input type="radio" class="custom-control-input" id="defaultInline4" name="inlineDefaultRadiosExample">
-			  <label class="custom-control-label" for="defaultInline4">Cotation</label>
-			</div>
-			
-			<div class="custom-control custom-radio custom-control-inline">
-			  <input type="radio" class="custom-control-input" id="defaultInline5" name="inlineDefaultRadiosExample">
-			  <label class="custom-control-label" for="defaultInline5">Description</label>
-			</div>
-		</div>
-    </div>
 
-	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">
-    	<div class="container text-center">
-      		<small>Copyright &copy; Les amis de l'escalade</small>
-    	</div>
-  	</footer>
+	<div id="container">
+	
+		<div class="sidebar">
+			<a href="/" class="btn btn-dark">Accueil</a>
+			<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
+			<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
+			<div sec:authorize="isAuthenticated()">
+				<a th:href="@{/panel}" class="btn btn-dark">Panel</a>
+				<a href="/logout" class="btn btn-dark">Déconnexion</a>
+			</div>
+		</div>
+		
+		<h1>Recherche avancée</h1>
+		
+		<form th:action="@{/recherche}" method="GET">
+		
+			<div class="form-group">
+                <select name="object" id="object" class="form-control selectpicker">
+					<option value="spot">Spot</option>
+					<option value="topo">Topo</option>
+				</select>
+  			</div>
+		
+  			<div class="form-group">
+    			<input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
+  			</div>
+  			
+  			<div class="form-group">
+    			<input type="text" class="form-control" id="lieu" name="lieu" placeholder="Lieu">
+  			</div>
+  			
+  			<!-- CRITERE COTATION A METTRE ICI -->
+  			
+  			<div class="form-group">
+  				<label for="officiel">Officiel</label>
+  				<input type="checkbox" class="form-control-inline" id="officiel" name="officiel">
+  			</div>
+  			
+  			<input type="submit">
+  			<input type="reset" value="Réinitialiser">
+  			
+		</form>
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="https://kit.fontawesome.com/d7b009b0e8.js" crossorigin="anonymous"></script>
 </body>
 </html>

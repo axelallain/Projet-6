@@ -64,6 +64,13 @@ public class SpotController {
 		return "redirect:/panel/spotsutilisateur/" + cuser.getId();
 	}
 	
+	@GetMapping("/panel/staffspots/delete/{id}")
+	public String deleteStaffSpot(@PathVariable Long id) {
+		spotService.deleteSpot(id);
+		
+		return "redirect:/panel/staffspots";
+	}
+	
 	@GetMapping("/panel/spotsutilisateur/modifier/{id}")
 	public ModelAndView modifierSpotForm(@PathVariable Long id, Model model) {
 		

@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		
-		<h1 th:text="${'(STAFF) Modifier le commentaire ' + commentaire.nom}"></h1>
+		<h1>(STAFF) Modifier le commentaire</h1>
 		
 		<form action="#" th:action="@{/panel/staffcommentaire/addcommentaire}" th:object="${commentaire}" method="post">
 			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${commentaire.utilisateur.id}" />
@@ -51,8 +51,6 @@
   			<input type="reset" value="Réinitialiser">
 		</form>
 	</div>
-	
-	<h2 th:text="${cuserid}"></h2>
 
 	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">
     	<div class="container text-center">

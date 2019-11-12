@@ -56,7 +56,7 @@ public class Spot {
 	@JoinColumn(name = "utilisateur_id")
 	private Utilisateur utilisateur;
 	
-	@OneToMany(mappedBy="spot", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="spot", cascade = CascadeType.ALL)
 	private Collection<Voie> voies;
 	
 	@ManyToMany(mappedBy = "spots", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -168,6 +168,18 @@ public class Spot {
 
 	public void setTopos(Collection<Topo> topos) {
 		this.topos = topos;
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
 	}
 	
 }

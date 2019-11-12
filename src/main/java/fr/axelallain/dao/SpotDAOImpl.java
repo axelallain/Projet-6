@@ -71,12 +71,61 @@ public class SpotDAOImpl implements SpotDAO {
 		Query query = em.createQuery("SELECT e FROM Spot e");
 		return (List<Spot>) query.getResultList();
 	}
+	
+	// RECHERCHE PAR CRITERE //
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Spot> findByOfficiel() {
+		Query query = em.createQuery("SELECT s FROM Spot s WHERE s.officiel = true", Spot.class);
+		return (List<Spot>) query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Spot> findByNomLike(String nom) {
+		Query query = em.createQuery("SELECT e FROM Spot e WHERE lower(e.nom) LIKE :nom", Spot.class);
+		query.setParameter("nom", '%'+nom.toLowerCase()+'%');
+		return (List<Spot>) query.getResultList();
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Spot> findByNameLike(String name) {
-		Query query = em.createQuery("select e from Spot e where e.nom LIKE CONCAT('%',:name,'%')", Spot.class);
-		query.setParameter("name", name);
+	public List<Spot> findByLieuLike(String lieu) {
+		Query query = em.createQuery("SELECT s FROM Spot s WHERE lower(s.lieu) LIKE :lieu", Spot.class);
+		query.setParameter("lieu", '%'+lieu.toLowerCase()+'%');
+		return (List<Spot>) query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Spot> findByOfficielAndNomLike(String nom) {
+		Query query = em.createQuery("SELECT s FROM Spot s WHERE s.officiel = true AND lower(s.nom) LIKE :nom", Spot.class);
+		query.setParameter("nom", '%'+nom.toLowerCase()+'%');
+		return (List<Spot>) query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Spot> findByOfficielAndLieuLike(String lieu) {
+		Query query = em.createQuery("SELECT s FROM Spot s WHERE s.officiel = true AND lower(s.lieu) LIKE :lieu", Spot.class);
+		query.setParameter("lieu", '%'+lieu.toLowerCase()+'%');
+		return (List<Spot>) query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Spot> findByOfficielAndNomLikeAndLieuLike(String nom, String lieu) {
+		Query query = em.createQuery("SELECT s FROM Spot s WHERE s.officiel = true AND lower(s.nom) LIKE :nom AND lower(s.lieu) LIKE :lieu", Spot.class);
+		query.setParameter("nom", '%'+nom+'%').setParameter("lieu", '%'+lieu+'%');
+		return (List<Spot>) query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Spot> findByNomLikeAndLieuLike(String nom, String lieu) {
+		Query query = em.createQuery("SELECT s FROM Spot s WHERE lower(s.nom) LIKE :nom AND lower(s.lieu) LIKE :lieu", Spot.class);
+		query.setParameter("nom", '%'+nom+'%').setParameter("lieu", '%'+lieu+'%');
 		return (List<Spot>) query.getResultList();
 	}
 	

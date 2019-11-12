@@ -47,4 +47,21 @@ public class TopoServiceImpl implements TopoService {
 		topoDao.modifierTopo(topo);
 	}
 	
+	// RECHERCHE PAR CRITERE //
+	
+	@Override
+	public List<Topo> findByNomLike(String nom) {
+		return topoDao.findByNomLike(nom);
+	}
+
+	@Override
+	public List<Topo> findByLieuLike(String lieu) {
+		return topoDao.findByLieuLike(lieu);
+	}
+
+	@Override
+	public List<Topo> findByNomLikeAndLieuLike(String nom, String lieu) {
+		return topoDao.findByNomLikeAndLieuLike(nom, lieu);
+	}
+	
 }

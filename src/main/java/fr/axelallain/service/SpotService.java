@@ -20,8 +20,22 @@ public interface SpotService {
 	
 	public List<Spot> findAllSpots();
 	
-	List<Spot> findByNameLike(String name);
-	
 	List<Spot> findAllSpotsByToposId(Long id);
+	
+	// RECHERCHE PAR CRITERE //
+	
+	List<Spot> findByOfficiel();
+	
+	List<Spot> findByNomLike(String nom);
+	
+	List<Spot> findByLieuLike(String lieu);
+	
+	List<Spot> findByOfficielAndNomLike(String nom);
+	
+	List<Spot> findByOfficielAndLieuLike(String lieu);
+	
+	List<Spot> findByOfficielAndNomLikeAndLieuLike(String nom, String lieu);
+	
+	List<Spot> findByNomLikeAndLieuLike(String nom, String lieu);
 
 }

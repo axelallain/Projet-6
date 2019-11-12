@@ -70,11 +70,29 @@
       				<td th:text="${spot.utilisateur.username}"></td>
       				<td>
       					
-      					<form action="#" th:action="@{'/panel/spotsutilisateur/delete/{id}'(id=${spot.id})}" th:method="delete" >
-						  <input type="hidden" name="_method" value="delete" />
-						  <a class="btn btn-success btn-sm" th:href="@{'/panel/staffspots/modifier/{id}'(id=${spot.id})}" role="button">Modifier</a>
-						  <button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
-						</form>
+						<a class="btn btn-success btn-sm" th:href="@{'/panel/staffspots/modifier/{id}'(id=${spot.id})}" role="button">Modifier</a>
+						
+						<a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal" th:attr="data-target='#exampleModal'+${spot.id }" role="button">Supprimer</a>
+						  
+						  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" th:id="exampleModal+${spot.id }">
+						  	<div class="modal-dialog" role="document">
+						    	<div class="modal-content">
+						      		<div class="modal-header">
+						        		<h5 class="modal-title" id="exampleModalLabel">Supprimer le spot</h5>
+						        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          			<span aria-hidden="true">&times;</span>
+						        		</button>
+						      		</div>
+						      		<div class="modal-body">
+						        		Les voies liées à ce spot seront également supprimées.
+						      		</div>
+						      		<div class="modal-footer">
+						        		<button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+						        		<a class="btn btn-primary" th:href="@{'/panel/staffspots/delete/{id}'(id=${spot.id})}">Confirmer</a>
+						      		</div>
+						    	</div>
+						  	</div>
+						  </div>
 						
       				</td>
     			</tr>

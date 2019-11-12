@@ -52,4 +52,30 @@ public class TopoDAOImpl implements TopoDAO {
 		em.merge(topo);
 	}
 	
+	// RECHERCHE PAR CRITERE //
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Topo> findByNomLike(String nom) {
+		Query query = em.createQuery("SELECT t FROM Topo t WHERE lower(t.nom) LIKE :nom");
+		query.setParameter("nom", '%'+nom.toLowerCase()+'%');
+		return (List<Topo>) query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Topo> findByLieuLike(String lieu) {
+		Query query = em.createQuery("SELECT t FROM Topo t WHERE lower(t.lieu) LIKE :lieu");
+		query.setParameter("nom", '%'+lieu.toLowerCase()+'%');
+		return (List<Topo>) query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Topo> findByNomLikeAndLieuLike(String nom, String lieu) {
+		Query query = em.createQuery("SELECT t FROM Topo t WHERE lower(t.nom) LIKE :nom AND lower(t.lieu) LIKE :lieu");
+		query.setParameter("nom", '%'+nom.toLowerCase()+'%').setParameter("lieu", '%'+lieu.toLowerCase()+'%');
+		return (List<Topo>) query.getResultList();
+	}
+	
 }

@@ -120,6 +120,13 @@ public class TopoController {
 	    return modelAndView;
 	}
 	
+	@PostMapping("/panel/stafftopos/update")
+	public String modifierStaffTopoSubmit(Topo topo) {
+		topoService.modifierTopo(topo);
+		
+		return "redirect:/panel/stafftopos";
+	}
+	
 	@PostMapping("/panel/stafftopos/addtopo")
 	public String addStaffTopoSubmit(Topo topo, Model model) {
 		topoService.addTopo(topo);
