@@ -1,27 +1,108 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="img/favicon.png" />
-    <title>Se connecter</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Se connecter</title>
+  <!-- MDB icon -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/login.css">
 </head>
-
 <body>
-    <h1>Se connecter</h1>
-    
-	<span th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null and session[SPRING_SECURITY_LAST_EXCEPTION].message != null}" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}">Invalid credentials</span>
-	
-    <form action="login" method="POST">
-        <label for="username">Nom d'utilisateur</label>
-        <input type="text" name="username">
 
-        <label for="password">Mot de passe</label>
-        <input type="password" name="password">
-        
-        <input type="submit" name="submit" value="Se connecter">
-		
-    </form>
+  <!-- Start your project here-->
+
+  <!--Main Navigation-->
+  <header>
+    
+  </header>
+
+  <!--Main layout-->
+  <main>
+    <div class="container mt-5" id="container">
+      <div class="form-container sign-up-container mt-2">
+        <form th:action="@{/signup}" th:object="${utilisateur}" method="POST">
+          <h1>S'inscrire</h1>
+          <div class="md-form my-4">
+            <input type="text" data-error="" data-success="" class="signup-inputs" placeholder="Nom d'utilisateur" th:field="*{username}" maxlength="12" required/>
+            <input type="password" data-error="" data-success="" class="signup-inputs" placeholder="Mot de passe" th:field="*{password}" required/>
+            <input type="email" data-error="" data-success="" class="signup-inputs" placeholder="Adresse email" th:field="*{email}" required/>
+          </div>
+          <input type="submit" class="btn btn-primary btn-rounded">
+        </form>
+      </div>
+      
+      <div class="form-container sign-in-container">
+        <form th:action="@{/login}" method="POST">
+          <h1>Se connecter</h1>
+          <div class="md-form mt-4 mb-5">
+            <input type="text" class="form-control" data-error="" data-success="" name="username" placeholder="Nom d'utilisateur" maxlength="12" required/>
+            <input type="password" class="form-control" name="password" placeholder="Mot de passe" required/>
+          </div>
+          <input type="submit" class="btn btn-primary btn-rounded">
+          <div th:if="${param.error}" class="alert alert-error">   
+            Identifiants incorrects.
+          </div>
+        </form>
+      </div>
+      
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <a class="navbar-brand" href="/"><img src="img/logo.png" width="90" alt="Logo des amis de l'escalade"></a>
+            <p>Vous avez déjà un compte ? <br>Connectez-vous !</p>
+            <button class="but" id="signIn">Se connecter</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <a class="navbar-brand" href="/"><img src="img/logo.png" width="90" alt="Logo des amis de l'escalade"></a>
+            <p>Pas encore de compte ? <br>Vous pouvez encore nous rejoindre !</p>
+            <button class="but" id="signUp">S'inscrire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!--Main layout-->
+
+  <!--Footer-->
+  <footer>
+
+  </footer>
+  <!--Footer-->
+  <!-- End your project here-->
+
+  <script>
+      const signUpButton = document.getElementById('signUp');
+      const signInButton = document.getElementById('signIn');
+      const container = document.getElementById('container');
+  
+      signUpButton.addEventListener('click', () => {
+        container.classList.add('right-panel-active');
+      });
+  
+      signInButton.addEventListener('click', () => {
+        container.classList.remove('right-panel-active');
+      });
+    </script>
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Your custom scripts (optional) -->
+  <script type="text/javascript"></script>
+
 </body>
 </html>

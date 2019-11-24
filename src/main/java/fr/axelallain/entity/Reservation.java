@@ -1,5 +1,6 @@
 package fr.axelallain.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -30,6 +31,9 @@ public class Reservation {
 	@Column(name = "dateFinDemandee")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateFinDemandee;
+	
+	@Column(name = "dateParution", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false, nullable = false)
+	private Timestamp dateParution;
 	
 	@OneToOne
 	private Utilisateur locataire;

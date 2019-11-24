@@ -1,7 +1,7 @@
 package fr.axelallain.entity;
 
+import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,11 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "spot")
@@ -25,32 +26,34 @@ public class Spot {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Length(max = 50)
 	@Column(name = "nom", nullable = false)
 	private String nom;
 	
-	@Column(name = "description", nullable = false)
-	private String description;
-	
+	@Length(max = 50)
 	@Column(name = "lieu", nullable = false)
 	private String lieu;
 	
-	@Column(name = "officiel")
-	private Boolean officiel = false;
+	@Length(max = 250)
+	@Column(name = "description", nullable = false)
+	private String description;
+	
+	@Length(max = 2)
+	@Column(name = "cotationmin")
+	private String cotationmin;
+	
+	@Length(max = 2)
+	@Column(name = "cotationmax")
+	private String cotationmax;
 	
 	@Column(name = "imageUrl")
 	private String imageUrl;
 	
-	@Column(name = "cotationmin")
-	private String cotationmin;
+	@Column(name = "officiel")
+	private Boolean officiel = false;
 	
-	@Column(name = "cotationmax")
-	private String cotationmax;
-	
-	@Column(name = "nbvoies")
-	private Long nbvoies;
-	
-	@Column(name = "nblongueurs")
-	private Long nblongueurs;
+	@Column(name = "dateParution", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false, nullable = false)
+	private Timestamp dateParution;
 	
 	@ManyToOne
 	@JoinColumn(name = "utilisateur_id")
@@ -138,22 +141,6 @@ public class Spot {
 		this.cotationmax = cotationmax;
 	}
 
-	public Long getNbvoies() {
-		return nbvoies;
-	}
-
-	public void setNbvoies(Long nbvoies) {
-		this.nbvoies = nbvoies;
-	}
-
-	public Long getNblongueurs() {
-		return nblongueurs;
-	}
-
-	public void setNblongueurs(Long nblongueurs) {
-		this.nblongueurs = nblongueurs;
-	}
-
 	public Collection<Voie> getVoies() {
 		return voies;
 	}
@@ -168,6 +155,14 @@ public class Spot {
 
 	public void setTopos(Collection<Topo> topos) {
 		this.topos = topos;
+	}
+
+	public Timestamp getDateParution() {
+		return dateParution;
+	}
+
+	public void setDateParution(Timestamp dateParution) {
+		this.dateParution = dateParution;
 	}
 
 	@Override

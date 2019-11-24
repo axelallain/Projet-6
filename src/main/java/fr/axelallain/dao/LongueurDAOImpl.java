@@ -8,7 +8,6 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import fr.axelallain.entity.Commentaire;
 import fr.axelallain.entity.Longueur;
 
 @Repository
@@ -29,6 +28,13 @@ public class LongueurDAOImpl implements LongueurDAO {
 		return (List<Longueur>) query.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Longueur> findByVoieId(Long id) {
+		Query query = em.createQuery("SELECT l FROM Longueur l WHERE l.voie.id=:id").setParameter("id", id);
+		return (List<Longueur>) query.getResultList();
+	}
+
 	@Override
 	public void deleteLongueur(Long id) {
 		em.createQuery("DELETE from Longueur e WHERE e.id=:id").setParameter("id", id).executeUpdate();
@@ -41,7 +47,7 @@ public class LongueurDAOImpl implements LongueurDAO {
 	}
 
 	@Override
-	public void modifierLongueur(Longueur longueur) {
+	public void editLongueur(Longueur longueur) {
 		em.merge(longueur);
 	}
 

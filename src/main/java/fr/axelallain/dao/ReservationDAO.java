@@ -15,5 +15,7 @@ public interface ReservationDAO {
 	void deleteReservation(Long id);
 	
 	void updateReservation(Reservation reservation);
+	
+	Reservation findById(Long id);
 
 }

@@ -1,66 +1,100 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8" />
-	<link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
-	<title>Spots</title>
-	<link th:href="@{/css/fichetopo.css}" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Tous les spots</title>
+<!-- MDB icon -->
+<link rel="icon" type="image/png" href="img/favicon.png">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- Material Design Bootstrap -->
+<link rel="stylesheet" href="css/mdb.min.css">
+<!-- Your custom styles (optional) -->
+<link rel="stylesheet" href="css/search-spots.css">
+<!-- Fragments Thymeleaf -->
+<link rel="stylesheet" href="css/navbar.css">
 </head>
 <body>
 
-	<div id="header">
-		<nav class="navbar navbar-light bg-light">
-			<div class="navbarcontent">
-  				<a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" alt="Logo des amis de l'escalade"></a>
-  				<form th:action="@{/recherche}" class="form-inline text-center">
-    				<input class="form-control mr-sm-1" type="text" name="name" placeholder="Recherche" aria-label="Search">
-    				<input type="submit" value="Rechercher" class="btn btn-primary"/>
-  				</form>
-  			</div>
-		</nav>
-	</div>
-	
-	<div class="sidebar">
-		<a href="/" class="btn btn-dark">Accueil</a>
-		<a th:href="@{/topos}" class="btn btn-dark">Topos</a>
-		<a th:href="@{/spots}" class="btn btn-dark">Spots</a>
-		<div sec:authorize="isAuthenticated()">
-			<a th:href="@{/panel}" class="btn btn-dark">Panel</a>
-			<a href="/logout" class="btn btn-dark">Déconnexion</a>
+	<!-- Start your project here-->
+
+	<!--Main Navigation-->
+	<header>
+		<!--Navbar-->
+		<div th:replace="fragments/navbar :: navbar"></div>
+		<!--/.Navbar-->
+	</header>
+
+	<!--Main layout-->
+	<div class="container">
+		<h1 class="h4-responsive" th:text="${spots.size()} + ' spots trouvés au total'"></h1>
+		<div class="card-deck">
+			<!-- Card Regular -->
+			<div class="col-lg-4 col-md-6" th:each="spot : ${spots}">
+				<div class="card card-cascade">
+					<a th:if="${spot.officiel}" class="badge badge-success">Officiel</a>
+					<!-- Card image -->
+					<div class="view view-cascade overlay">
+						<img class="card-img-top" th:src="@{${spot.imageUrl}}"
+							alt="Card image cap"> <a>
+							<div class="mask rgba-white-slight"></div>
+						</a>
+					</div>
+
+					<!-- Card content -->
+					<div class="card-body card-body-cascade text-center">
+
+						<!-- Title -->
+						<h4 class="card-title truncate">
+							<strong th:text="${spot.nom}"></strong>
+						</h4>
+						<!-- Subtitle -->
+						<h6 class="font-weight-bold blue-text py-2 truncate"
+							th:text="${spot.lieu}"></h6>
+						<!-- Text -->
+						<p class="card-text truncate" th:text="${spot.description}"></p>
+
+						<!-- Author and Date -->
+						<p class="card-text font-weight-bold"
+							th:text="${spot.utilisateur.username} + ' le ' + ${#dates.format(spot.dateParution, 'dd MMM yyyy')}"></p>
+
+					</div>
+
+					<!-- Card footer -->
+					<div class="card-footer text-muted text-center">
+						<a class="btn btn-primary btn-rounded btn-sm"
+							th:href="@{'/details-spot/{spotid}'(spotid=${spot.id})}">Détails</a>
+					</div>
+
+				</div>
+				<!-- Card Regular -->
+			</div>
 		</div>
 	</div>
-	
-	<h1>Tous les spots</h1>
-	
-	<div id="content">	
-		<div class="row">
-	        <div class="col-sm-6 col-lg-4 py-2" th:each="spot : ${spots}">
-	            <div class="card h-100">
-	            	<div class="ribbon-wrapper">
-		                <div th:if="${spot.officiel}" class="ribbon blue">Officiel</div>
-		            </div>
-	                <img class="card-img-top img-fluid" th:src="@{${spot.imageUrl}}" alt="Image du topo">
-	                <div class="card-body">
-	                    <h4 class="card-title" th:text="${spot.nom}"></h4>
-	                    <p class="card-text" th:text="${spot.description}"></p>
-	                    <p class="card-text"><small class="text-muted" th:text="'Ajouté par ' + ${spot.utilisateur.username}"></small></p>
-	                    <a th:href="@{'/fichespot/{spotid}'(spotid=${spot.id})}" class="btn btn-success btn-sm">Voir plus</a>
-	                </div>
-	            </div>
-	        </div>    
-	    </div>
-    </div>
+	<!--Main layout-->
 
-	<footer id="sticky-footer" class="py-3 bg-dark text-white-50">
-    	<div class="container text-center">
-      		<small>Copyright &copy; Les amis de l'escalade</small>
-    	</div>
-  	</footer>
+	<!--Footer-->
+	<footer> </footer>
+	<!--Footer-->
+	<!-- End your project here-->
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<!-- jQuery -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="js/mdb.min.js"></script>
+	<!-- Your custom scripts (optional) -->
+	<script type="text/javascript"></script>
+
 </body>
 </html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Demandes de réservation reçues</title>
+<!-- MDB icon -->
+<link rel="icon" type="image/png" th:href="@{/img/favicon.png}">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<!-- Material Design Bootstrap -->
+<link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+<!-- Your custom styles (optional) -->
+<link rel="stylesheet" th:href="@{/css/reservation-received.css}">
+<!-- Fragments Thymeleaf -->
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+<body>
+
+	<!-- Start your project here-->
+
+	<!--Main Navigation-->
+	<header>
+		<!--Navbar-->
+		<div th:replace="fragments/navbar :: navbar"></div>
+		<!--/.Navbar-->
+	</header>
+
+	<!--Main layout-->
+	<div class="container">
+		<div class="top-menu">
+			<h1 class="h4-responsive" th:text="${reservations.size()} + ' demandes de réservation reçues'"></h1>
+		</div>
+		<table id="dtBasicExample" class="table table-striped table-bordered table-sm table-responsive-sm" cellspacing="0" width="100%">
+		  <thead>
+		    <tr>
+		      <th class="th-sm"></th>
+		      <th class="th-sm text-center">#</th>
+		      <th class="th-sm">Locataire</th>
+		      <th class="th-sm">Topo</th>
+		      <th class="th-sm">Début</th>
+		      <th class="th-sm">Fin</th>
+		      <th class="th-sm">Statut</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="reservation : ${reservations}">
+		      <td class="text-center">
+		      <div class="input-group justify-content-center">
+		      	<form th:action="@{'/dashboard/reservation-received/refuse/{id}'(id=${reservation.id})}" th:object="${reservation}" method="POST">
+					<input type="hidden" id="id" name="id" th:value="${reservation.id}" />
+					<input type="hidden" id="topo.id" name="topo.id" th:value="${reservation.topo.id}">
+					<input type="hidden" id="dateDebutDemandee" name="dateDebutDemandee" th:value="${reservation.dateDebutDemandee}">
+					<input type="hidden" id="dateFinDemandee" name="dateFinDemandee" th:value="${reservation.dateFinDemandee}">
+					<input type="hidden" id="locataire.id" name="locataire.id" th:value="${reservation.locataire.id}">
+					<input type="hidden" id="statut" name="statut" value="Refusée">
+				
+					<button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
+			    </form>
+			    
+			    <form th:action="@{'/dashboard/reservation-received/accept/{id}'(id=${reservation.id})}" th:object="${reservation}" method="POST">
+					<input type="hidden" id="id" name="id" th:value="${reservation.id}" />
+      				<input type="hidden" id="dateDebutDemandee" name="dateDebutDemandee" th:value="${reservation.dateDebutDemandee}">
+      				<input type="hidden" id="dateFinDemandee" name="dateFinDemandee" th:value="${reservation.dateFinDemandee}">
+      				<input type="hidden" id="locataire.id" name="locataire.id" th:value="${reservation.locataire.id}">
+      				<input type="hidden" id="statut" name="statut" value="Acceptée">
+				
+					<button type="submit" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
+			    </form>
+			  </div>
+		      </td>
+		      <td scope="row" th:text="${reservation.id}" class="text-center"></td>
+		      <td th:text="${reservation.locataire.email}" class="truncate"></td>
+		      <td th:text="${reservation.topo.nom}" class="truncate"></td>
+		      <td th:text="${#dates.format(reservation.dateDebutDemandee, 'dd MMM yyyy')}" class="truncate"></td>
+		      <td th:text="${#dates.format(reservation.dateFinDemandee, 'dd MMM yyyy')}"></td>
+		      <td th:text="${reservation.statut}"></td>
+		    </tr>   
+		  </tbody>
+		</table>
+	</div>
+	<!--Main layout-->
+
+	<!--Footer-->
+	<footer> </footer>
+	<!--Footer-->
+	<!-- End your project here-->
+
+	<!-- jQuery -->
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/mdb.min.js}"></script>
+	<!-- Your custom scripts (optional) -->
+	<script type="text/javascript"></script>
+
+</body>
+</html>

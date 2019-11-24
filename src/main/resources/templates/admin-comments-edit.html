@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="'Modifier le commentaire : ' + ${commentaire.id}"></title>
+<!-- MDB icon -->
+<link rel="icon" type="image/png" th:href="@{/img/favicon.png}">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<!-- Material Design Bootstrap -->
+<link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+<!-- Your custom styles (optional) -->
+<link rel="stylesheet" th:href="@{/css/admin-comments-edit.css}">
+<!-- Fragments Thymeleaf -->
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+<body>
+
+	<!-- Start your project here-->
+
+	<!--Main Navigation-->
+	<header>
+		<!--Navbar-->
+		<div th:replace="fragments/navbar :: navbar"></div>
+		<!--/.Navbar-->
+	</header>
+
+	<!--Main layout-->
+	<div class="main">
+		
+		<!-- Default form contact -->
+		<form th:action="@{'/dashboard-admin/admin-comments/edit/{id}'(id=${commentaire.id})}" th:object="${commentaire}" method="POST" class="text-center p-5">
+			<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${commentaire.utilisateur.id}" />
+			<input type="hidden" id="spot.id" name="spot.id" th:value="${commentaire.spot.id}" />
+			<input type="hidden" id="dateParution" name="dateParution" th:value="${commentaire.dateParution}" />
+			<input type="hidden" th:field="*{id}" />
+		
+		    <p class="h4 mb-5" th:text="'Modifier le commentaire : ' + ${commentaire.id}"></p>
+		
+		    <div class="row md-form">
+		    	<div class="col-12">
+		    		<textarea id="message" name="message" class="form-control md-textarea" rows="6" placeholder="Message" th:text="${commentaire.message}" maxlength="250"></textarea>
+		    	</div>
+		    </div>
+		
+		    <!-- Submit -->
+		    <input type="submit" class="btn btn-primary" value="Valider">
+		
+		</form>
+		<!-- Default form contact -->
+	
+	</div>
+	<!--Main layout-->
+
+	<!--Footer-->
+	<footer> </footer>
+	<!--Footer-->
+	<!-- End your project here-->
+
+	<!-- jQuery -->
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/mdb.min.js}"></script>
+	<!-- Your custom scripts (optional) -->
+	<script type="text/javascript"></script>
+
+</body>
+</html>

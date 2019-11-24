@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="${spot.nom}"></title>
+<!-- MDB icon -->
+<link rel="icon" type="image/png" th:href="@{/img/favicon.png}">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<!-- Material Design Bootstrap -->
+<link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+<!-- Your custom styles (optional) -->
+<link rel="stylesheet" th:href="@{/css/details-spot.css}">
+<!-- Fragments Thymeleaf -->
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+<body>
+
+	<!-- Start your project here-->
+
+	<!--Main Navigation-->
+	<header>
+		<!--Navbar-->
+		<div th:replace="fragments/navbar :: navbar"></div>
+		<!--/.Navbar-->
+	</header>
+
+	<!--Main layout-->
+	<div class="container">
+		<div class="top-menu">
+			<h1 class="h3-responsive font-weight-bold" th:text="${spot.nom}"></h1>
+			<h1 class="h4-responsive blue-text" th:text="${spot.lieu}"></h1>
+			<h1 class="h4-responsive" th:text="${spot.cotationmin} + ' - ' + ${spot.cotationmax}"></h1>				
+		</div>
+		
+		<div class="card-deck">
+			
+				<!-- Spot image -->
+				<img th:src="@{${spot.imageUrl}}" class="spotimage" alt="Spot image" width="49%" height="49%">
+
+					<!-- Content -->
+					<div class="card" style="background-color: #F8F9F9;">
+					<a th:if="${spot.officiel}" class="badge badge-success">Officiel</a>
+					<div class="text-black d-flex justify-content-center py-5">
+						<div>						
+							<p class="card-title pr-2 py-3 h5-responsive text-center" th:text="${#dates.format(spot.dateParution, 'dd MMM yyyy')} + ' - Ajouté par ' + ${spot.utilisateur.username}"></p>
+							<p class="ml-0 mr-2" th:text="${spot.description}"></p>
+							<p class="pr-2 py-3" th:text="'Cotations : De ' + ${spot.cotationmin} + ' à ' + ${spot.cotationmax}"></p>
+							<p class="pr-2 py-0" th:text="${spot.voies.size() + ' voies'}"></p>
+						</div>
+					</div>
+				</div>
+				<!-- Card -->			
+		</div>
+		
+		<!-- Reply section (logged in username) -->
+		<section class="my-5">
+
+			<div class="card-header border-0">
+				<div class="font-weight-bold">Laisser un commentaire</div>
+				<div sec:authorize="isAuthenticated()">
+					<div class="font-weight-bold cusername" th:text="'(connecté en tant que '+ ${cusername} + ')'"></div>
+				</div>
+			</div>
+
+			<div sec:authorize="isAuthenticated()">
+				<form th:action="@{'/spot/{spotid}/commentaire'(spotid=${spot.id})}" th:object="${commentaire}" method="post">
+					<input type="hidden" id="utilisateur.id" name="utilisateur.id" th:value="${cuserid}" />
+                    <input type="hidden" id="spot.id" name="spot.id" th:value="${spot.id}" />
+                                            		
+					<div class="d-md-flex flex-md-fill mt-4 px-1">
+						<textarea class="form-control pl-3 pt-3" id="exampleFormControlTextarea1" rows="6" placeholder="Votre commentaire..." th:field="*{message}" maxlength="250"></textarea>
+					</div>
+					
+					<div class="text-center mt-4">
+						<input type="submit" class="btn btn-primary btn-md" value="Valider">
+					</div>
+				</form>
+			</div>
+			<div sec:authorize="!isAuthenticated()">
+				<div class="d-md-flex flex-md-fill mt-4 px-1">
+					<textarea class="form-control pl-3 pt-3" id="exampleFormControlTextarea1" rows="6" placeholder="Connectez-vous pour ajouter un commentaire..." disabled></textarea>
+				</div>
+				
+				<div class="text-center mt-4">
+					<button class="btn btn-primary btn-md" disabled>Valider</button>
+				</div>
+			</div>
+
+		</section>
+		<!-- Reply section (logged in username) -->
+		
+		<!--Section: Comments-->
+		<section class="my-5">
+
+			<!-- Card header -->
+			<div class="card-header border-0 font-weight-bold nbcomments" th:text="${commentaires.size() + ' commentaires'}"></div>
+
+			<div class="media d-block d-md-flex mt-4" th:each="commentaire : ${commentaires}">
+				<div class="media-body text-center text-md-left ml-md-3 ml-0 commentsblock">
+					<h5 class="mt-0 blue-text" th:text="${commentaire.utilisateur.username} + ' - ' + ${#dates.format(commentaire.dateParution, 'dd MMM yyyy à HH:mm')}"></h5>
+					<div th:text="${commentaire.message}"></div>
+				</div>
+			</div>
+			
+		</section>
+
+	</div>
+	<!--Main layout-->
+
+	<!--Footer-->
+	<footer> </footer>
+	<!--Footer-->
+	<!-- End your project here-->
+
+	<!-- jQuery -->
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/mdb.min.js}"></script>
+	<!-- Your custom scripts (optional) -->
+	<script type="text/javascript"></script>
+
+</body>
+</html>

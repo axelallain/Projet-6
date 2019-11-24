@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Résultat de la recherche</title>
+<!-- MDB icon -->
+<link rel="icon" type="image/png" href="img/favicon.png">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- Material Design Bootstrap -->
+<link rel="stylesheet" href="css/mdb.min.css">
+<!-- Your custom styles (optional) -->
+<link rel="stylesheet" href="css/search-topos.css">
+<!-- Fragments Thymeleaf -->
+<link rel="stylesheet" href="css/navbar.css">
+</head>
+<body>
+
+	<!-- Start your project here-->
+
+	<!--Main Navigation-->
+	<header>
+		<!--Navbar-->
+		<div th:replace="fragments/navbar :: navbar"></div>
+		<!--/.Navbar-->
+	</header>
+
+	<!--Main layout-->
+	<div class="container">
+		<h1 class="h4-responsive" th:text="${topos.size()} + ' topos trouvés pour votre recherche'"></h1>
+		<div class="card-deck">
+			<!-- Card Regular -->
+			<div class="col-lg-4 col-md-6" th:each="topo : ${topos}">
+				<div class="card card-cascade">
+
+					<!-- Card image -->
+					<div class="view view-cascade overlay">
+						<img class="card-img-top" th:src="@{${topo.imageUrl}}"
+							alt="Card image cap"> <a>
+							<div class="mask rgba-white-slight"></div>
+						</a>
+					</div>
+
+					<!-- Card content -->
+					<div class="card-body card-body-cascade text-center">
+
+						<!-- Title -->
+						<h4 class="card-title truncate">
+							<strong th:text="${topo.nom}"></strong>
+						</h4>
+						<!-- Subtitle -->
+						<h6 class="font-weight-bold blue-text py-2 truncate"
+							th:text="${topo.lieu}"></h6>
+						<!-- Text -->
+						<p class="card-text truncate" th:text="${topo.description}"></p>
+
+						<!-- Author and Date -->
+						<p class="card-text font-weight-bold"
+							th:text="${topo.utilisateur.username} + ' le ' + ${#dates.format(topo.dateParution, 'dd MMM yyyy')}"></p>
+
+					</div>
+
+					<!-- Card footer -->
+					<div class="card-footer text-muted text-center">
+						<a class="btn btn-primary btn-rounded btn-sm"
+							th:href="@{'/details-topo/{topoid}'(topoid=${topo.id})}">Détails</a>
+					</div>
+
+				</div>
+				<!-- Card Regular -->
+			</div>
+		</div>
+	</div>
+	<!--Main layout-->
+
+	<!--Footer-->
+	<footer> </footer>
+	<!--Footer-->
+	<!-- End your project here-->
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="js/mdb.min.js"></script>
+	<!-- Your custom scripts (optional) -->
+	<script type="text/javascript"></script>
+
+</body>
+</html>

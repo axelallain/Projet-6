@@ -1,6 +1,5 @@
 package fr.axelallain.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +22,7 @@ public class Longueur {
 	@Column(name = "cotation")
 	private String cotation;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Voie voie;
 
 	public Long getId() {

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="'Modifier la longueur : ' + ${longueur.nom}"></title>
+<!-- MDB icon -->
+<link rel="icon" type="image/png" th:href="@{/img/favicon.png}">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<!-- Material Design Bootstrap -->
+<link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+<!-- Your custom styles (optional) -->
+<link rel="stylesheet" th:href="@{/css/edit-longueur.css}">
+<!-- Fragments Thymeleaf -->
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+<body>
+
+	<!-- Start your project here-->
+
+	<!--Main Navigation-->
+	<header>
+		<!--Navbar-->
+		<div th:replace="fragments/navbar :: navbar"></div>
+		<!--/.Navbar-->
+	</header>
+
+	<!--Main layout-->
+	<div class="main">
+		
+		<!-- Default form contact -->
+		<form th:action="@{'/dashboard/my-spots/more-spot/{spotid}/more-voie/{voieid}/edit-longueur/{longueurid}'(spotid=${spot.id},voieid=${voie.id},longueurid=${longueur.id})}" th:object="${longueur}" method="POST" class="text-center p-5">
+			<input type="hidden" id="voie.id" name="voie.id" th:value="${voie.id}" />
+			<input type="hidden" th:field="*{id}" />
+		
+		    <p class="h4 mb-5" th:text="'Modifier la longueur : ' + ${longueur.nom}"></p>
+		
+		    <div class="row md-form">
+		    	<div class="col-12">
+		    		<input type="text" id="nom" name="nom" class="form-control mb-4" placeholder="Nom" th:value="${longueur.nom}" maxlength="50" required>
+		    	</div>
+		    </div>
+		    
+		    <div class="row md-form">
+		    	<div class="col-12">
+		    		<input type="text" id="cotation" name="cotation" class="form-control mb-4" placeholder="Cotation" th:value="${longueur.cotation}" maxlength="2">
+		    	</div>
+		    </div>
+		
+		    <!-- Submit -->
+		    <input type="submit" class="btn btn-primary" value="Valider">
+		
+		</form>
+		<!-- Default form contact -->
+	
+	</div>
+	<!--Main layout-->
+
+	<!--Footer-->
+	<footer> </footer>
+	<!--Footer-->
+	<!-- End your project here-->
+
+	<!-- jQuery -->
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/mdb.min.js}"></script>
+	<!-- Your custom scripts (optional) -->
+	<script type="text/javascript"></script>
+
+</body>
+</html>

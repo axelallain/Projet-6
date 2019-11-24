@@ -14,6 +14,6 @@ public interface VoieService {
 	
 	Voie findById(Long id);
 	
-	void modifierVoie(Voie voie);
+	void editVoie(Voie voie);
 
 }

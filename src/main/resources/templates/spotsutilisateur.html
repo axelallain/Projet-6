@@ -52,7 +52,6 @@
       				<th scope="col">Officiel</th>
       				<th scope="col">Cotation min</th>
       				<th scope="col">Cotation max</th>
-      				<th scope="col">Nombre de voies</th>
       				<th scope="col"></th>
     			</tr>
   			</thead>
@@ -65,7 +64,6 @@
       				<td th:text="${spot.officiel}"></td>
       				<td th:text="${spot.cotationmin}"></td>
       				<td th:text="${spot.cotationmax}"></td>
-      				<td th:text="${spot.nbvoies}"></td>
       				<td>
       					
 						  <a class="btn btn-primary btn-sm" th:href="@{'/panel/spotsutilisateur/details/{id}'(id=${spot.id})}" role="button">Détails</a>

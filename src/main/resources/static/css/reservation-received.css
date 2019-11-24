@@ -1,0 +1,68 @@
+html {
+	margin-top: 4%;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+bottom: .5em;
+}
+
+.truncate {
+	max-width: 170px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.top-menu {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 3%;
+	margin-bottom: 3%;
+}
+
+.btn {
+	margin: 0;
+}
+
+form {
+	margin-left: 4%;
+	margin-right: 4%;
+}
+
+.btn.btn-sm {
+	padding: .4rem 1rem;
+}
+
+.fa-check::before {
+	color: white;
+}
+
+.fa-times::before {
+	color: white;
+}
+
+@media (max-width: 576px) {
+	.h4-responsive {
+		display: none;
+	}
+	
+	.top-menu {
+		justify-content: center;
+		margin-top: 23%;
+		margin-bottom: 9.5%;
+	}
+	
+	.btn.btn-sm {
+		padding: .4rem .7rem;
+	}
+}

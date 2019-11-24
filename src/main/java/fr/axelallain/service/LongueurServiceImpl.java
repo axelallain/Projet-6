@@ -38,8 +38,13 @@ public class LongueurServiceImpl implements LongueurService {
 	}
 
 	@Override
-	public void modifierLongueur(Longueur longueur) {
-		longueurDao.modifierLongueur(longueur);
+	public void editLongueur(Longueur longueur) {
+		longueurDao.editLongueur(longueur);
+	}
+
+	@Override
+	public List<Longueur> findByVoieId(Long id) {
+		return longueurDao.findByVoieId(id);
 	}
 
 }

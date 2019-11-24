@@ -1,0 +1,33 @@
+.navbar-brand {
+    width: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
+    margin-right: 0 !important;
+}
+
+.fas, .far {
+    color: black !important;
+}
+
+.greeniconcolor {
+	color: green !important;
+}
+
+/* MEDIA QUERIES */
+
+
+/* iPhone 5-SE */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px)
+and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 40/71) and (orientation:portrait)
+{
+   .navbar-brand {
+   	width: 85% !important;
+   }
+}
+
+@media(max-width: 1023px) {
+    .navbar-brand {
+        width: 88.4%;
+    }
+}

@@ -38,8 +38,8 @@ public class VoieServiceImpl implements VoieService {
 	}
 
 	@Override
-	public void modifierVoie(Voie voie) {
-		voieDao.modifierVoie(voie);
+	public void editVoie(Voie voie) {
+		voieDao.editVoie(voie);
 	}
 
 }

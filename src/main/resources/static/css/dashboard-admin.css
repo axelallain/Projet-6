@@ -1,0 +1,12 @@
+html, body {
+	height: 100%;
+}
+
+.btn-primary {
+	margin-top: 10%;
+	margin-bottom: 10%;
+}
+
+@media (max-width: 576px) {
+	
+}

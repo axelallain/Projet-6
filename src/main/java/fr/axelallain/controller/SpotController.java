@@ -1,10 +1,11 @@
 package fr.axelallain.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import fr.axelallain.UserPrincipal;
 import fr.axelallain.entity.Commentaire;
+import fr.axelallain.entity.Longueur;
 import fr.axelallain.entity.Spot;
-import fr.axelallain.entity.Topo;
+import fr.axelallain.entity.Voie;
 import fr.axelallain.service.CommentaireService;
 import fr.axelallain.service.LongueurService;
 import fr.axelallain.service.SpotService;
@@ -34,8 +36,21 @@ public class SpotController {
 	@Autowired
 	private LongueurService longueurService;
 	
-	@GetMapping("/panel/spotsutilisateur/addspot")
+	public boolean isAuthenticated(){
+
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    return authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
+
+	}
+	
+	@GetMapping("/dashboard/my-spots/add-spot")
 	public String addSpotForm(Model model) {
+		
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
+		
 		model.addAttribute("spot", new Spot());
 		
 		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -43,36 +58,30 @@ public class SpotController {
         
         model.addAttribute("cuserid", cuserid);
 	    
-		return "addspot";
+		return "add-spot";
 	}
 	
-	@PostMapping("/panel/spotsutilisateur/addspot")
+	@PostMapping("/dashboard/my-spots/add-spot")
 	public String addSpotSubmit(Spot spot, Model model) {
 		spotService.addSpot(spot);
 		
-		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		return "redirect:/panel/spotsutilisateur/" + cuser.getId();
+		return "redirect:/dashboard/my-spots";
 	}
 	
-	@GetMapping("/panel/spotsutilisateur/delete/{id}")
+	@GetMapping("/dashboard/my-spots/delete/{id}")
 	public String deleteSpot(@PathVariable Long id) {
 		spotService.deleteSpot(id);
 		
-		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		return "redirect:/panel/spotsutilisateur/" + cuser.getId();
+		return "redirect:/dashboard/my-spots";
 	}
 	
-	@GetMapping("/panel/staffspots/delete/{id}")
-	public String deleteStaffSpot(@PathVariable Long id) {
-		spotService.deleteSpot(id);
+	@GetMapping("/dashboard/my-spots/edit/{id}")
+	public ModelAndView editSpotForm(@PathVariable Long id, Model model) {
 		
-		return "redirect:/panel/staffspots";
-	}
-	
-	@GetMapping("/panel/spotsutilisateur/modifier/{id}")
-	public ModelAndView modifierSpotForm(@PathVariable Long id, Model model) {
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
 		
 		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long cuserid = cuser.getId();
@@ -83,79 +92,204 @@ public class SpotController {
 
 	    ModelAndView modelAndView = new ModelAndView();
 
-	    modelAndView.setViewName("modifierspot");
+	    modelAndView.setViewName("edit-spot");
 	    modelAndView.addObject("spot", spot);
 
 	    return modelAndView;
 	}
 	
-	@GetMapping("/fichespot/{spotid}")
-	public String ficheTopo(@PathVariable Long spotid, Model model) {
+	@GetMapping("/details-spot/{spotid}")
+	public String detailsSpot(@PathVariable Long spotid, Model model) {
+		
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
+		
 		model.addAttribute("spotid", spotid);
 		model.addAttribute("spot", spotService.findSpotById(spotid));
-		model.addAttribute("commentaire", new Commentaire());
-		
-		UserPrincipal cuser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Long cuserid = cuser.getId();
-		model.addAttribute("cuserid", cuserid);
-		
-		Boolean cuserstaff = cuser.getStaff();
-		model.addAttribute("cuserstaff", cuserstaff);
-		
+		model.addAttribute("commentaire", new Commentaire());	
 		model.addAttribute("commentaires", commentaireService.findAllCommentairesBySpotId(spotid));
 		
-		return "fichespot";
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cusername", user.getUsername());
+			model.addAttribute("cuserid", user.getId());
+		}
+		
+		return "details-spot";
+	}
+	
+	// more-spot.html //
+	
+	@GetMapping("/dashboard/my-spots/more-spot/{id}")
+	public String moreSpot(@PathVariable Long id, Model model, Authentication authentication) {
+		
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
+		
+		model.addAttribute("spot", spotService.findSpotById(id));
+		model.addAttribute("voies", voieService.findBySpotId(id));
+        
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserid", user.getId());
+		}
+		
+		return "more-spot";
+	}
+	
+	@GetMapping("/dashboard/my-spots/more-spot/{spotid}/delete/{voieid}")
+	public String deleteVoieFromThisSpot(@PathVariable Long spotid, @PathVariable Long voieid) {
+		voieService.deleteVoie(voieid);
+		
+		return "redirect:/dashboard/my-spots/more-spot/" + spotid;
+	}
+	
+	@GetMapping("/dashboard/my-spots/more-spot/{spotid}/add-voie")
+	public String addVoieForm(@PathVariable Long spotid, Voie voie, Model model) {
+		
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
+		
+		model.addAttribute("voie", voie);
+		model.addAttribute("spot", spotService.findSpotById(spotid));
+		
+		return "add-voie";
+	}
+	
+	@PostMapping("/dashboard/my-spots/more-spot/{spotid}/add-voie")
+	public String addVoieSubmit(@PathVariable Long spotid, Voie voie) {
+		voieService.addVoie(voie);
+		
+		return "redirect:/dashboard/my-spots/more-spot/" + spotid;
+	}
+	
+	@GetMapping("/dashboard/my-spots/more-spot/{spotid}/edit-voie/{voieid}")
+	public ModelAndView editVoieForm(@PathVariable Long spotid, @PathVariable Long voieid, Model model) {
+		
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
+		
+		Voie voie = voieService.findById(voieid);
+		model.addAttribute("spot", spotService.findSpotById(spotid));
+
+	    ModelAndView modelAndView = new ModelAndView();
+
+	    modelAndView.setViewName("edit-voie");
+	    modelAndView.addObject("voie", voie);
+
+	    return modelAndView;
+	}
+	
+	@PostMapping("/dashboard/my-spots/more-spot/{spotid}/edit-voie/{voieid}")
+	public String editVoieSubmit(@PathVariable Long spotid, @PathVariable Long voieid, Voie voie) {
+		voieService.editVoie(voie);
+
+	    return "redirect:/dashboard/my-spots/more-spot/" + spotid;
+	}
+	
+	@GetMapping("/dashboard/my-spots/more-spot/{spotid}/more-voie/{voieid}")
+	public String moreVoie(@PathVariable Long spotid, @PathVariable Long voieid, Model model, Authentication authentication) {
+		
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
+		
+		model.addAttribute("voie", voieService.findById(voieid));
+		model.addAttribute("longueurs", longueurService.findByVoieId(voieid));
+		model.addAttribute("spot", spotService.findSpotById(spotid));
+        
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserid", user.getId());
+		}
+		
+		return "more-voie";
+	}
+	
+	@GetMapping("/dashboard/my-spots/more-spot/{spotid}/more-voie/{voieid}/add-longueur")
+	public String addLongueurForm(@PathVariable Long spotid, @PathVariable Long voieid, Longueur longueur, Model model) {
+		
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
+		
+		model.addAttribute("longueur", longueur);
+		model.addAttribute("voie", voieService.findById(voieid));
+		model.addAttribute("spot", spotService.findSpotById(spotid));
+		
+		return "add-longueur";
+	}
+	
+	@PostMapping("/dashboard/my-spots/more-spot/{spotid}/more-voie/{voieid}/add-longueur")
+	public String addLongueurSubmit(@PathVariable Long spotid, @PathVariable Long voieid, Longueur longueur) {
+		longueurService.addLongueur(longueur);
+		
+		return "redirect:/dashboard/my-spots/more-spot/" + spotid + "/more-voie/" + voieid;
+	}
+	
+	@GetMapping("/dashboard/my-spots/more-spot/{spotid}/more-voie/{voieid}/delete/{longueurid}")
+	public String deleteLongueurFromThisVoie(@PathVariable Long spotid, @PathVariable Long voieid, @PathVariable Long longueurid) {
+		longueurService.deleteLongueur(longueurid);
+		
+		return "redirect:/dashboard/my-spots/more-spot/" + spotid + "/more-voie/" + voieid;
+	}
+	
+	@GetMapping("/dashboard/my-spots/more-spot/{spotid}/more-voie/{voieid}/edit-longueur/{longueurid}")
+	public ModelAndView editLongueurForm(@PathVariable Long spotid, @PathVariable Long voieid, @PathVariable Long longueurid, Model model) {
+		
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
+		
+		Longueur longueur = longueurService.findById(longueurid);
+		model.addAttribute("spot", spotService.findSpotById(spotid));
+		model.addAttribute("voie", voieService.findById(voieid));
+
+	    ModelAndView modelAndView = new ModelAndView();
+
+	    modelAndView.setViewName("edit-longueur");
+	    modelAndView.addObject("longueur", longueur);
+
+	    return modelAndView;
+	}
+	
+	@PostMapping("/dashboard/my-spots/more-spot/{spotid}/more-voie/{voieid}/edit-longueur/{longueurid}")
+	public String editLongueurSubmit(@PathVariable Long spotid, @PathVariable Long voieid, @PathVariable Long longueurid, Longueur longueur) {
+		longueurService.editLongueur(longueur);
+
+		return "redirect:/dashboard/my-spots/more-spot/" + spotid + "/more-voie/" + voieid;
 	}
 	
 	@GetMapping("/spots")
 	public String allSpots(Model model) {
+		
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
+		
 		model.addAttribute("spots", spotService.findAllSpots());
 		
 		return "spots";
 	}
 	
-	@GetMapping("/panel/staffspots")
-	public String staffSpots(Model model) {
-		model.addAttribute("spots", spotService.findAllSpots());
-		
-		return "staffspots";
-	}
-	
-	@GetMapping("/panel/staffspots/modifier/{id}")
-	public ModelAndView modifierStaffSpotForm(@PathVariable Long id, Model model) {
-		Spot spot = spotService.findSpotById(id);
-
-	    ModelAndView modelAndView = new ModelAndView();
-
-	    modelAndView.setViewName("modifierstaffspot");
-	    modelAndView.addObject("spot", spot);
-	    
-	    return modelAndView;
-	}
-	
-	@PostMapping("/panel/staffspots/addspot")
-	public String addStaffSpotSubmit(Spot spot, Model model) {
-		spotService.addSpot(spot);
-		
-		return "redirect:/panel/staffspots/";
-	}
-	
-	@PostMapping("/fichespot/{id}/officiel")
+	@PostMapping("/details-spot/{id}/officiel")
 	public String spotOfficiel(@PathVariable Long id, Model model, Spot spot) {
 		spotService.addSpot(spot);		
 		
-		return "redirect:/fichespot/" + id;
+		return "redirect:/details-spot/" + id;
 		
-	}
-	
-	@GetMapping("/panel/spotsutilisateur/details/{id}")
-	public String spotDetails(@PathVariable Long id, Model model) {
-		model.addAttribute("spot", spotService.findSpotById(id));
-		model.addAttribute("voies", voieService.findBySpotId(id));
-		model.addAttribute("longueurs", longueurService.findByVoieSpotId(id));
-		model.addAttribute("voie", voieService.findById(id));
-		
-		return "spotdetails";
 	}
 
 }

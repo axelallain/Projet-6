@@ -6,7 +6,6 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 @Table(name = "topo")
 public class Topo {
@@ -25,23 +26,26 @@ public class Topo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Length(max = 50)
 	@Column(name = "nom", nullable = false)
 	private String nom;
 	
-	@Column(name = "description", nullable = false)
-	private String description;
-	
+	@Length(max = 50)
 	@Column(name = "lieu", nullable = false)
 	private String lieu;
 	
-	@Column(name = "dateParution", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false, nullable = false)
-	private Timestamp dateParution;
+	@Length(max = 250)
+	@Column(name = "description", nullable = false)
+	private String description;
 	
-	@Column(name = "photoUrl")
-	private String photoUrl;
+	@Column(name = "imageUrl")
+	private String imageUrl;
 	
 	@Column(name = "disponible")
 	private Boolean disponible = true;
+	
+	@Column(name = "dateParution", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false, nullable = false)
+	private Timestamp dateParution;
 	
 	@ManyToOne
 	@JoinColumn(name = "utilisateur_id")
@@ -117,12 +121,12 @@ public class Topo {
 		this.disponible = disponible;
 	}
 
-	public String getPhotoUrl() {
-		return photoUrl;
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
-	public void setPhotoUrl(String photoUrl) {
-		this.photoUrl = photoUrl;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public Collection<Spot> getSpots() {

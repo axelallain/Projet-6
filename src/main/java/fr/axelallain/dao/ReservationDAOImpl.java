@@ -24,14 +24,14 @@ public class ReservationDAOImpl implements ReservationDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Reservation> findAllReservationsByUtilisateurId(Long id) {
-		Query query = em.createQuery("SELECT r FROM Reservation r WHERE r.topo.utilisateur.id=:id").setParameter("id", id);
+		Query query = em.createQuery("SELECT r FROM Reservation r WHERE r.topo.utilisateur.id=:id ORDER BY dateParution DESC").setParameter("id", id);
 		return (List<Reservation>) query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Reservation> findAllReservationsByLocataireId(Long id) {
-		Query query = em.createQuery("SELECT r FROM Reservation r WHERE r.locataire.id=:id").setParameter("id", id);
+		Query query = em.createQuery("SELECT r FROM Reservation r WHERE r.locataire.id=:id ORDER BY r.id ASC").setParameter("id", id);
 		return (List<Reservation>) query.getResultList();
 	}
 
@@ -43,6 +43,12 @@ public class ReservationDAOImpl implements ReservationDAO {
 	@Override
 	public void updateReservation(Reservation reservation) {
 		em.merge(reservation);
+	}
+	
+	@Override
+	public Reservation findById(Long id) {
+		Reservation reservation = em.find(Reservation.class, id);
+		return reservation;
 	}
 
 }

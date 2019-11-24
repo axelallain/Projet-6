@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="${voie.nom}"></title>
+<!-- MDB icon -->
+<link rel="icon" type="image/png" th:href="@{/img/favicon.png}">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<!-- Material Design Bootstrap -->
+<link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+<!-- Your custom styles (optional) -->
+<link rel="stylesheet" th:href="@{/css/more-voie.css}">
+<!-- Fragments Thymeleaf -->
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+<body>
+
+	<!-- Start your project here-->
+
+	<!--Main Navigation-->
+	<header>
+		<!--Navbar-->
+		<div th:replace="fragments/navbar :: navbar"></div>
+		<!--/.Navbar-->
+	</header>
+
+	<!--Main layout-->
+	<div class="container">
+		<div class="top-menu">
+			<h1 class="h4-responsive" th:text="'Cette voie est composée de ' + ${longueurs.size()} + ' longueurs'"></h1>
+			<a th:href="@{'/dashboard/my-spots/more-spot/{spotid}/more-voie/{voieid}/add-longueur'(spotid=${spot.id},voieid=${voie.id})}" class="btn btn-primary btn-sm">Ajouter une longueur à cette voie</a>
+		</div>
+		<table id="dtBasicExample" class="table table-striped table-bordered table-sm table-responsive-sm" cellspacing="0" width="100%">
+		  <thead>
+		    <tr>
+		      <th class="th-sm"></th>
+		      <th class="th-sm text-center">#</th>
+		      <th class="th-sm">Nom</th>
+		      <th class="th-sm">Cotation</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="longueur : ${longueurs}">
+		      <td class="text-center">
+		      	<a th:href="@{'/dashboard/my-spots/more-spot/{spotid}/more-voie/{voieid}/delete/{longueurid}'(spotid=${spot.id},voieid=${voie.id},longueurid=${longueur.id})}" class="fas fa-times"></a>
+		      	<a th:href="@{'/dashboard/my-spots/more-spot/{spotid}/more-voie/{voieid}/edit-longueur/{longueurid}'(spotid=${spot.id},voieid=${voie.id},longueurid=${longueur.id})}" class="fas fa-pen"></a>			
+		      </td>
+		      <td scope="row" th:text="${longueur.id}" class="text-center"></td>
+		      <td th:text="${longueur.nom}" class="truncate"></td>
+		      <td th:text="${longueur.cotation}"></td>
+		    </tr>   
+		  </tbody>
+		</table>
+	</div>
+	<!--Main layout-->
+
+	<!--Footer-->
+	<footer> </footer>
+	<!--Footer-->
+	<!-- End your project here-->
+
+	<!-- jQuery -->
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/mdb.min.js}"></script>
+	<!-- Your custom scripts (optional) -->
+	<script type="text/javascript"></script>
+
+</body>
+</html>

@@ -24,18 +24,6 @@ public interface SpotDAO {
 	
 	// RECHERCHE PAR CRITERE //
 	
-	List<Spot> findByOfficiel();
-	
-	List<Spot> findByNomLike(String nom);
-	
-	List<Spot> findByLieuLike(String lieu);
-	
-	List<Spot> findByOfficielAndNomLike(String nom);
-	
-	List<Spot> findByOfficielAndLieuLike(String lieu);
-	
-	List<Spot> findByOfficielAndNomLikeAndLieuLike(String nom, String lieu);
-	
-	List<Spot> findByNomLikeAndLieuLike(String nom, String lieu);
+	List<Spot> searchSpots(String nom, String lieu, boolean officiel);
 	
 }

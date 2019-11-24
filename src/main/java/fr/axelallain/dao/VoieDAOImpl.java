@@ -8,7 +8,6 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import fr.axelallain.entity.Spot;
 import fr.axelallain.entity.Voie;
 
 @Repository
@@ -20,7 +19,7 @@ public class VoieDAOImpl implements VoieDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Voie> findBySpotId(Long id) {
-		Query query = em.createQuery("SELECT e FROM Voie e WHERE e.spot.id=:id").setParameter("id", id);
+		Query query = em.createQuery("SELECT v FROM Voie v WHERE v.spot.id=:id ORDER BY v.id ASC").setParameter("id", id);
 		return (List<Voie>) query.getResultList();
 	}
 
@@ -42,7 +41,7 @@ public class VoieDAOImpl implements VoieDAO {
 	}
 
 	@Override
-	public void modifierVoie(Voie voie) {
+	public void editVoie(Voie voie) {
 		em.merge(voie);
 	}
 

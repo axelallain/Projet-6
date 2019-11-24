@@ -1,12 +1,15 @@
 package fr.axelallain.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fr.axelallain.UserPrincipal;
 import fr.axelallain.service.SpotService;
 import fr.axelallain.service.TopoService;
 
@@ -19,76 +22,46 @@ public class RechercheController {
 	@Autowired
 	private TopoService topoService;
 	
-	@GetMapping("/rechercheavancee")
-	public String rechercheAvancee() {
-		
-		return "rechercheavancee";
+	public boolean isAuthenticated(){
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    return authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
 	}
 	
-	@PostMapping("/rechercheavancee")
-	public String rechercheAvanceeSubmit() {
+	@GetMapping("/search-form")
+	public String searchForm(Model model) {
 		
-		return "resultatrecherche";
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
+		
+		return "search-form";
 	}
 	
-	// RECHERCHE PAR CRITERE //
+	@GetMapping("/search-spots")
+	public String searchSpots(@RequestParam(defaultValue="") String nom, @RequestParam(defaultValue="") String lieu, @RequestParam(required=false) boolean officiel, Model model) {
+		
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
+		}
+		
+		model.addAttribute("spots", spotService.searchSpots(nom, lieu, officiel));
+		
+		return "search-spots";
+	}
 	
-	@GetMapping("/recherche")
-	public String searchSpot(@RequestParam String object, @RequestParam(defaultValue="") String nom, @RequestParam(defaultValue="") String lieu, @RequestParam(required = false) boolean officiel, Model model) {
+	@GetMapping("/search-topos")
+	public String searchTopos(@RequestParam(defaultValue="") String nom, @RequestParam(defaultValue="") String lieu, Model model) {
 		
-		// SPOT //
-		
-		if(object.equals("spot") && nom.isEmpty() && lieu.isEmpty() && officiel == false) {
-			model.addAttribute("spots", spotService.findAllSpots());
+		if(isAuthenticated()) {
+			UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("cuserstaff", user.getStaff());
 		}
 		
-		if(object.equals("spot") && nom.isEmpty() && lieu.isEmpty() && officiel == true) {
-			model.addAttribute("spots", spotService.findByOfficiel());
-		}
+		model.addAttribute("topos", topoService.searchTopos(nom, lieu));
 		
-		if(object.equals("spot") && !nom.isEmpty() && lieu.isEmpty() && officiel == false) {
-			model.addAttribute("spots", spotService.findByNomLike("%"+nom+"%"));
-		}
-		
-		if(object.equals("spot") && nom.isEmpty() && !lieu.isEmpty() && officiel == false) {
-			model.addAttribute("spots", spotService.findByLieuLike("%"+lieu+"%"));
-		}
-		
-		if(object.equals("spot") && !nom.isEmpty() && lieu.isEmpty() && officiel == true) {
-			model.addAttribute("spots", spotService.findByOfficielAndNomLike("%"+nom+"%"));
-		}
-		
-		if(object.equals("spot") && nom.isEmpty() && !lieu.isEmpty() && officiel == true) {
-			model.addAttribute("spots", spotService.findByOfficielAndLieuLike("%"+lieu+"%"));
-		}
-		
-		if(object.equals("spot") && !nom.isEmpty() && !lieu.isEmpty() && officiel == true) {
-			model.addAttribute("spots", spotService.findByOfficielAndNomLikeAndLieuLike("%"+nom+"%", "%"+lieu+"%"));
-		}
-		
-		if(object.equals("spot") && !nom.isEmpty() && !lieu.isEmpty() && officiel == false) {
-			model.addAttribute("spots", spotService.findByNomLikeAndLieuLike("%"+nom+"%", "%"+lieu+"%"));
-		}
-		
-		// TOPO //
-		
-		if(object.equals("topo") && nom.isEmpty() && lieu.isEmpty()) {
-			model.addAttribute("spots", topoService.findAllTopos());
-		}
-		
-		if(object.equals("topo") && !nom.isEmpty() && lieu.isEmpty()) {
-			model.addAttribute("spots", topoService.findByNomLike("%"+nom+"%"));
-		}
-		
-		if(object.equals("topo") && nom.isEmpty() && !lieu.isEmpty()) {
-			model.addAttribute("spots", topoService.findByLieuLike("%"+lieu+"%"));
-		}
-		
-		if(object.equals("topo") && !nom.isEmpty() && !lieu.isEmpty()) {
-			model.addAttribute("spots", topoService.findByNomLikeAndLieuLike("%"+nom+"%", "%"+lieu+"%"));
-		}
-		
-		return "resultatrecherche";
+		return "search-topos";
 	}
 
 }

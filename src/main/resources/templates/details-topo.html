@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="${topo.nom}"></title>
+<!-- MDB icon -->
+<link rel="icon" type="image/png" th:href="@{/img/favicon.png}">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<!-- Material Design Bootstrap -->
+<link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+<!-- Your custom styles (optional) -->
+<link rel="stylesheet" th:href="@{/css/details-topo.css}">
+<!-- Fragments Thymeleaf -->
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+<body>
+
+	<!-- Start your project here-->
+
+	<!--Main Navigation-->
+	<header>
+		<!--Navbar-->
+		<div th:replace="fragments/navbar :: navbar"></div>
+		<!--/.Navbar-->
+	</header>
+
+	<!-- Booking Modal -->
+	<div class="modal fade" id="modalBookingForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header text-center">
+					<h4 class="modal-title w-100 font-weight-bold">Demander une réservation</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form th:action="@{'/reserver/{topoid}'(topoid=${topo.id})}" th:object="${reservation}" method="post">
+					<input type="hidden" id="topo.id" name="topo.id" th:value="${topo.id}">			
+					<input type="hidden" id="locataire.id" name="locataire.id" th:value="${cuserid}">
+					
+					<div class="modal-body mx-3">
+						<div class="md-form mb-5">
+							<input type="date" placeholder="Date de début" id="dateDebut" class="form-control datepicker" th:field="*{dateDebutDemandee}">
+						</div>
+
+						<div class="md-form mb-5">
+							<input type="date" placeholder="Date de fin" id="dateFin" class="form-control datepicker" th:field="*{dateFinDemandee}">
+						</div>
+					</div>
+					<div class="modal-footer d-flex justify-content-center">
+						<input type="submit" class="btn btn-primary" value="Valider">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--Main layout-->
+	<div class="container">
+		<div class="top-menu">
+			<h1 class="h4-responsive" th:text="${spots.size()} + ' spots sont liés à ce topo'"></h1>
+			<div sec:authorize="isAuthenticated()">
+				<a class="btn btn-primary btn-sm reservation" data-toggle="modal" data-target="#modalBookingForm">Demander une réservation</a>
+			</div>
+			<div sec:authorize="!isAuthenticated()">
+				<a class="btn btn-primary btn-sm reservation" th:href="@{/login}">Demander une réservation</a>
+			</div>
+		</div>
+		<div class="card-deck">
+			<!-- Card Regular -->
+			<div class="col-lg-4 col-md-6" th:each="spot : ${spots}">
+				<div class="card card-cascade">
+					<a th:if="${spot.officiel}" class="badge badge-success">Officiel</a>
+					<!-- Card image -->
+					<div class="view view-cascade overlay">
+						<img class="card-img-top" th:src="@{${spot.imageUrl}}"
+							alt="Card image cap"> <a>
+							<div class="mask rgba-white-slight"></div>
+						</a>
+					</div>
+
+					<!-- Card content -->
+					<div class="card-body card-body-cascade text-center">
+
+						<!-- Title -->
+						<h4 class="card-title truncate">
+							<strong th:text="${spot.nom}"></strong>
+						</h4>
+						<!-- Subtitle -->
+						<h6 class="font-weight-bold blue-text py-2 truncate"
+							th:text="${spot.lieu}"></h6>
+						<!-- Text -->
+						<p class="card-text truncate" th:text="${spot.description}"></p>
+
+						<!-- Author and Date -->
+						<p class="card-text font-weight-bold"
+							th:text="${spot.utilisateur.username} + ' le ' + ${#dates.format(spot.dateParution, 'dd MMM yyyy')}"></p>
+
+					</div>
+
+					<!-- Card footer -->
+					<div class="card-footer text-muted text-center">
+						<a class="btn btn-primary btn-rounded btn-sm"
+							th:href="@{'/details-spot/{spotid}'(spotid=${spot.id})}">Détails</a>
+					</div>
+
+				</div>
+				<!-- Card Regular -->
+			</div>
+		</div>
+	</div>
+	<!--Main layout-->
+
+	<!--Footer-->
+	<footer> </footer>
+	<!--Footer-->
+	<!-- End your project here-->
+
+	<!-- jQuery -->
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/mdb.min.js}"></script>
+	<!-- Your custom scripts (optional) -->
+	<script type="text/javascript"></script>
+
+</body>
+</html>

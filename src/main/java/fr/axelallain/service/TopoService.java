@@ -16,13 +16,9 @@ public interface TopoService {
 	
 	public List<Topo> findAllToposByUtilisateurId(Long id);
 	
-	void modifierTopo(Topo topo);
+	void editTopo(Topo topo);
 	
 	// RECHERCHE PAR CRITERE //
 	
-	List<Topo> findByNomLike(String nom);
-	
-	List<Topo> findByLieuLike(String lieu);
-	
-	List<Topo> findByNomLikeAndLieuLike(String nom, String lieu);
+	List<Topo> searchTopos(String nom, String lieu);
 }

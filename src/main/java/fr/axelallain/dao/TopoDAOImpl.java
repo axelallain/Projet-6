@@ -19,7 +19,7 @@ public class TopoDAOImpl implements TopoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Topo> findAllTopos() {
-		Query query = em.createQuery("SELECT e FROM Topo e");
+		Query query = em.createQuery("SELECT e FROM Topo e ORDER BY dateParution DESC");
 		return (List<Topo>) query.getResultList();
 	}
 	
@@ -43,38 +43,42 @@ public class TopoDAOImpl implements TopoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Topo> findAllToposByUtilisateurId(Long id) {
-		Query query = em.createQuery("SELECT e FROM Topo e WHERE e.utilisateur.id=:id").setParameter("id", id);
+		Query query = em.createQuery("SELECT e FROM Topo e WHERE e.utilisateur.id=:id ORDER BY id ASC").setParameter("id", id);
 		return (List<Topo>) query.getResultList();
 	}
 
 	@Override
-	public void modifierTopo(Topo topo) {
+	public void editTopo(Topo topo) {
 		em.merge(topo);
 	}
 	
 	// RECHERCHE PAR CRITERE //
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Topo> findByNomLike(String nom) {
-		Query query = em.createQuery("SELECT t FROM Topo t WHERE lower(t.nom) LIKE :nom");
-		query.setParameter("nom", '%'+nom.toLowerCase()+'%');
-		return (List<Topo>) query.getResultList();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Topo> findByLieuLike(String lieu) {
-		Query query = em.createQuery("SELECT t FROM Topo t WHERE lower(t.lieu) LIKE :lieu");
-		query.setParameter("nom", '%'+lieu.toLowerCase()+'%');
-		return (List<Topo>) query.getResultList();
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Topo> findByNomLikeAndLieuLike(String nom, String lieu) {
-		Query query = em.createQuery("SELECT t FROM Topo t WHERE lower(t.nom) LIKE :nom AND lower(t.lieu) LIKE :lieu");
-		query.setParameter("nom", '%'+nom.toLowerCase()+'%').setParameter("lieu", '%'+lieu.toLowerCase()+'%');
+	public List<Topo> searchTopos(String nom, String lieu) {
+		String queryString = "SELECT t FROM Topo t WHERE 1=1";
+		
+		if(!nom.isEmpty()) {
+			queryString = queryString + " AND lower(t.nom) LIKE :nom";
+		}
+		
+		if(!lieu.isEmpty()) {
+			queryString = queryString + " AND lower(t.lieu) LIKE :lieu";
+		}
+		
+		queryString = queryString + " ORDER BY dateParution DESC";
+		
+		Query query = em.createQuery(queryString, Topo.class);
+		
+		if(!nom.isEmpty()) {
+			query.setParameter("nom", '%'+nom+'%');
+		}
+		
+		if(!lieu.isEmpty()) {
+			query.setParameter("lieu", '%'+lieu+'%');
+		}
+		
 		return (List<Topo>) query.getResultList();
 	}
 	

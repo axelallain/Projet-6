@@ -14,6 +14,6 @@ public interface VoieDAO {
 	
 	Voie findById(Long id);
 	
-	void modifierVoie(Voie voie);
+	void editVoie(Voie voie);
 
 }

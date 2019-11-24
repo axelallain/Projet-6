@@ -58,40 +58,10 @@ public class SpotServiceImpl implements SpotService {
 	}
 	
 	// RECHERCHE PAR CRITERE //
-	
-	@Override
-	public List<Spot> findByOfficiel() {
-		return spotDao.findByOfficiel();
-	}
-	
-	@Override
-	public List<Spot> findByNomLike(String nom) {
-		return spotDao.findByNomLike(nom);
-	}
 
 	@Override
-	public List<Spot> findByLieuLike(String lieu) {
-		return spotDao.findByLieuLike(lieu);
-	}
-
-	@Override
-	public List<Spot> findByOfficielAndNomLike(String nom) {
-		return spotDao.findByOfficielAndNomLike(nom);
-	}
-
-	@Override
-	public List<Spot> findByOfficielAndLieuLike(String lieu) {
-		return spotDao.findByOfficielAndLieuLike(lieu);
-	}
-
-	@Override
-	public List<Spot> findByOfficielAndNomLikeAndLieuLike(String nom, String lieu) {
-		return spotDao.findByOfficielAndNomLikeAndLieuLike(nom, lieu);
-	}
-
-	@Override
-	public List<Spot> findByNomLikeAndLieuLike(String nom, String lieu) {
-		return spotDao.findByNomLikeAndLieuLike(nom, lieu);
+	public List<Spot> searchSpots(String nom, String lieu, boolean officiel) {
+		return spotDao.searchSpots(nom, lieu, officiel);
 	}
 	
 }

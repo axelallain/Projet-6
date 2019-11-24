@@ -9,7 +9,6 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import fr.axelallain.entity.Spot;
-import fr.axelallain.entity.Topo;
 
 @Repository
 public class SpotDAOImpl implements SpotDAO {
@@ -33,7 +32,7 @@ public class SpotDAOImpl implements SpotDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Spot> findAllSpotsByToposId(Long id) {
-		Query query = em.createQuery("SELECT s FROM Spot s JOIN s.topos t WHERE t.id=:id").setParameter("id", id);
+		Query query = em.createQuery("SELECT s FROM Spot s JOIN s.topos t WHERE t.id=:id ORDER BY s.id ASC").setParameter("id", id);
 		return (List<Spot>) query.getResultList();
 	}
 
@@ -47,7 +46,7 @@ public class SpotDAOImpl implements SpotDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Spot> findAllSpotsByUtilisateurId(Long id) {
-		Query query = em.createQuery("SELECT e FROM Spot e WHERE e.utilisateur.id=:id").setParameter("id", id);
+		Query query = em.createQuery("SELECT s FROM Spot s WHERE s.utilisateur.id=:id ORDER BY s.id ASC").setParameter("id", id);
 		return (List<Spot>) query.getResultList();
 	}
 
@@ -68,64 +67,41 @@ public class SpotDAOImpl implements SpotDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Spot> findAllSpots() {
-		Query query = em.createQuery("SELECT e FROM Spot e");
+		Query query = em.createQuery("SELECT e FROM Spot e ORDER BY dateParution DESC");
 		return (List<Spot>) query.getResultList();
 	}
 	
 	// RECHERCHE PAR CRITERE //
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Spot> findByOfficiel() {
-		Query query = em.createQuery("SELECT s FROM Spot s WHERE s.officiel = true", Spot.class);
-		return (List<Spot>) query.getResultList();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Spot> findByNomLike(String nom) {
-		Query query = em.createQuery("SELECT e FROM Spot e WHERE lower(e.nom) LIKE :nom", Spot.class);
-		query.setParameter("nom", '%'+nom.toLowerCase()+'%');
-		return (List<Spot>) query.getResultList();
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Spot> findByLieuLike(String lieu) {
-		Query query = em.createQuery("SELECT s FROM Spot s WHERE lower(s.lieu) LIKE :lieu", Spot.class);
-		query.setParameter("lieu", '%'+lieu.toLowerCase()+'%');
-		return (List<Spot>) query.getResultList();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Spot> findByOfficielAndNomLike(String nom) {
-		Query query = em.createQuery("SELECT s FROM Spot s WHERE s.officiel = true AND lower(s.nom) LIKE :nom", Spot.class);
-		query.setParameter("nom", '%'+nom.toLowerCase()+'%');
-		return (List<Spot>) query.getResultList();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Spot> findByOfficielAndLieuLike(String lieu) {
-		Query query = em.createQuery("SELECT s FROM Spot s WHERE s.officiel = true AND lower(s.lieu) LIKE :lieu", Spot.class);
-		query.setParameter("lieu", '%'+lieu.toLowerCase()+'%');
-		return (List<Spot>) query.getResultList();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Spot> findByOfficielAndNomLikeAndLieuLike(String nom, String lieu) {
-		Query query = em.createQuery("SELECT s FROM Spot s WHERE s.officiel = true AND lower(s.nom) LIKE :nom AND lower(s.lieu) LIKE :lieu", Spot.class);
-		query.setParameter("nom", '%'+nom+'%').setParameter("lieu", '%'+lieu+'%');
-		return (List<Spot>) query.getResultList();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Spot> findByNomLikeAndLieuLike(String nom, String lieu) {
-		Query query = em.createQuery("SELECT s FROM Spot s WHERE lower(s.nom) LIKE :nom AND lower(s.lieu) LIKE :lieu", Spot.class);
-		query.setParameter("nom", '%'+nom+'%').setParameter("lieu", '%'+lieu+'%');
+	public List<Spot> searchSpots(String nom, String lieu, boolean officiel) {
+		String queryString = "SELECT s FROM Spot s WHERE 1=1";
+		
+		if(!nom.isEmpty()) {
+			queryString = queryString + " AND lower(s.nom) LIKE :nom";
+		}
+		
+		if(!lieu.isEmpty()) {
+			queryString = queryString + " AND lower(s.lieu) LIKE :lieu";
+		}
+		
+		if(officiel == true) {
+			queryString = queryString + " AND s.officiel = true";
+		}
+		
+		queryString = queryString + " ORDER BY dateParution DESC";
+		
+		Query query = em.createQuery(queryString, Spot.class);
+		
+		if(!nom.isEmpty()) {
+			query.setParameter("nom", '%'+nom+'%');
+		}
+		
+		if(!lieu.isEmpty()) {
+			query.setParameter("lieu", '%'+lieu+'%');
+		}
+		
 		return (List<Spot>) query.getResultList();
 	}
 	

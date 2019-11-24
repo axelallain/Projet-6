@@ -14,6 +14,8 @@ public interface LongueurDAO {
 	
 	Longueur findById(Long id);
 	
-	void modifierLongueur(Longueur longueur);
+	void editLongueur(Longueur longueur);
+	
+	List<Longueur> findByVoieId(Long id);
 
 }

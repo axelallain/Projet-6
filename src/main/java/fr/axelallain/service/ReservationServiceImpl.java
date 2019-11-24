@@ -42,4 +42,9 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationDao.updateReservation(reservation);
 	}
 
+	@Override
+	public Reservation findById(Long id) {
+		return reservationDao.findById(id);
+	}
+
 }

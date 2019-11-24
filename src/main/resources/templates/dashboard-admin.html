@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Espace administrateur</title>
+  <!-- MDB icon -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/dashboard-admin.css">
+  <!-- Fragments Thymeleaf -->
+  <link rel="stylesheet" href="css/navbar.css">
+</head>
+<body>
+
+  <!-- Start your project here-->
+
+  <!--Main Navigation-->
+  <header>
+    <!--Navbar-->
+    <div th:replace="fragments/navbar :: navbar">
+    </div>
+    <!--/.Navbar-->
+  </header>
+
+  <!--Main layout-->
+  
+    <div class="container h-100">
+      <div class="row h-100 justify-content-center align-items-center">
+        <form class="col-12-lg">
+          <div class="btn-group-vertical">
+      	    <a th:href="@{/dashboard-admin/admin-spots}" class="btn btn-primary">Gérer les spots</a>
+            <a th:href="@{/dashboard-admin/admin-comments}" class="btn btn-primary">Gérer les commentaires</a>
+          </div>
+        </form>   
+      </div>
+    </div>
+
+  <!--Main layout-->
+
+  <!--Footer-->
+  <footer>
+
+  </footer>
+  <!--Footer-->
+  <!-- End your project here-->
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Your custom scripts (optional) -->
+  <script type="text/javascript"></script>
+
+</body>
+</html>

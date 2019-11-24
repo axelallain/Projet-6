@@ -1,0 +1,46 @@
+html {
+	margin-top: 4%;
+}
+
+.main {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 42%;
+}
+
+/* bootstrap-select */
+.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover {
+	color: black !important;
+}
+
+.bootstrap-select>.dropdown-toggle {
+	background-color: #FDFDFD !important;
+}
+
+/* iPhone 5-SE */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px)
+and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 40/71) and (orientation:portrait)
+{
+   .h4 {
+   		display: none;
+   }
+}
+
+@media (max-width: 576px) {
+	.main {
+		width: 100%;
+	}
+	
+	.dropdown-menu show {
+		max-width: 0;
+		width: 100%;
+	}
+}
+
+@media (min-width: 767px) {
+	.p-5 {
+		padding: 0 !important;
+	}
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Recherche</title>
+  <!-- MDB icon -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/search-form.css">
+</head>
+<body>
+
+  <!-- Start your project here-->
+
+  <!--Main Navigation-->
+  <header>
+    
+  </header>
+
+  <!--Main layout-->
+  <main>
+    <div class="container mt-5" id="container">
+      <div class="form-container search-topos-container mt-2">
+        <form th:action="@{/search-topos}" method="GET">
+          <h1>Recherche de topos</h1>
+          <div class="md-form my-4">
+            <input type="text" data-error="" data-success="" class="search-inputs" id="nom" name="nom" placeholder="Nom"/>
+            <input type="text" data-error="" data-success="" class="search-inputs" id="lieu" name="lieu" placeholder="Lieu"/>
+          </div>
+          <input type="submit" class="btn btn-primary btn-rounded">
+        </form>
+      </div>
+      
+      <div class="form-container search-spots-container">
+        <form th:action="@{/search-spots}" method="GET">
+          <h1>Recherche de spots</h1>
+          <div class="md-form my-4">
+            <input type="text" data-error="" data-success="" class="search-inputs" id="nom" name="nom" placeholder="Nom"/>
+            <input type="text" data-error="" data-success="" class="search-inputs" id="nom" name="lieu" placeholder="Lieu"/>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="officiel" name="officiel">
+              <label class="custom-control-label" for="officiel">Officiel</label>
+            </div>
+          </div>
+          <input type="submit" class="btn btn-primary btn-rounded">
+        </form>
+      </div>
+      
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <button class="but" id="searchSpots">Recherche de spots</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <button class="but" id="searchTopos">Recherche de topos</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!--Main layout-->
+
+  <!--Footer-->
+  <footer>
+
+  </footer>
+  <!--Footer-->
+  <!-- End your project here-->
+
+  <script>
+      const signUpButton = document.getElementById('searchTopos');
+      const signInButton = document.getElementById('searchSpots');
+      const container = document.getElementById('container');
+  
+      signUpButton.addEventListener('click', () => {
+        container.classList.add('right-panel-active');
+      });
+  
+      signInButton.addEventListener('click', () => {
+        container.classList.remove('right-panel-active');
+      });
+    </script>
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Your custom scripts (optional) -->
+  <script type="text/javascript"></script>
+
+</body>
+</html>
