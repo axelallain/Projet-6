@@ -9,9 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>fr.axelallain</groupId>
-	<artifactId>Projet-6</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Projet-6</name>
+	<artifactId>amisescalade</artifactId>
+	<packaging>war</packaging>
+	<version>1.0.0</version>
+	<name>amisescalade</name>
 	<description>Les amis de l'escalade</description>
 
 	<properties>
@@ -57,6 +58,12 @@
         	<groupId>org.thymeleaf.extras</groupId>
         	<artifactId>thymeleaf-extras-springsecurity5</artifactId>
     	</dependency>
+    	<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-war-plugin -->
+		<dependency>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-war-plugin</artifactId>
+		    <version>3.2.3</version>
+		</dependency>
 
 	</dependencies>
 
