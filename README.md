@@ -8,7 +8,7 @@
   <h3 align="center">Projet 6</h3>
 
   <p align="center">
-    Climbing website with Spring
+    Climbing webapp with Spring
     <br />
     <br />
   </p>
