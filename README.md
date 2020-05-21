@@ -48,7 +48,7 @@ Dans cet exemple nous allons utiliser le bureau. Ouvrez un terminal et tapez les
 cd Desktop
 ```
 ```sh
-git clone https://github.com/axelallain/Projet-6.git
+git clone https://github.com/axelallain/climbing.git
 ```
 
 <!-- CONFIGURATION -->
